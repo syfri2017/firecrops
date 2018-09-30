@@ -2,6 +2,8 @@ package com.syfri.digitalplan.controller.ewbh;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +27,9 @@ public class EwbhController  extends BaseController<EwbhVO>{
 	}
 
 	/**
-	 * @Description:上传文件
-	 * @Param: [request, response, yafjxzVO]
-	 * @Return: void
-	 * @Author: lixiaoayng
-	 * @Modified By:
-	 * @Date: 2018/4/20 15:49
+	 * @Description: 新增标绘
+	 * @Author: liurui
+	 * @Date: 2018/9/29 15:49
 	 */
 	@RequestMapping(value = "/save")
 	@ResponseBody
@@ -42,6 +41,42 @@ public class EwbhController  extends BaseController<EwbhVO>{
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
+
+	/**
+	 * @Description: 查询标绘VO
+	 * @Author: liurui
+	 * @Date: 2018/9/30 12:49
+	 */
+	@RequestMapping(value = "/findByUuid")
+	@ResponseBody
+	public ResultVO findByUuid(HttpServletResponse response, EwbhVO ewbhVO) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(this.getBaseService().doFindById(ewbhVO.getUuid()));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+		}
+		return resultVO;
+	}
+
+	/**
+	 * @Description: 更新标绘
+	 * @Author: liurui
+	 * @Date: 2018/9/30 12:49
+	 */
+	@RequestMapping(value = "/edit")
+	@ResponseBody
+	public ResultVO edit(HttpServletResponse response, EwbhVO ewbhVO) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(this.getBaseService().doUpdateByVO(ewbhVO));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
 		}
 		return resultVO;
 	}

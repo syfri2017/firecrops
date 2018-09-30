@@ -119,7 +119,7 @@
         SELECT
         <include refid="SQL_CONTENT"/>
         FROM YAGL_EWBH_FJ t
-        WHERE t.DELETE_FLAG = 'N' AND t.UUID = #{value}
+        WHERE t.DELETE_FLAG = 'N' AND t.UUID = #{uuid}
     </select>
 
     <!--6.按照VO插入-->
@@ -163,7 +163,7 @@
         UPDATE YAGL_EWBH_FJ
         <set>
             <!--<if test="uuid != null">uuid=#{uuid},</if>-->
-            <!--<if test="zddwid != null">zddwid=#{zddwid},</if>-->
+            <if test="zddwid != null">zddwid=#{zddwid},</if>
             <if test="xzlj != null">xzlj=#{xzlj},</if>
             <if test="wjm != null">wjm=#{wjm},</if>
             <if test="kzm != null">kzm=#{kzm},</if>
