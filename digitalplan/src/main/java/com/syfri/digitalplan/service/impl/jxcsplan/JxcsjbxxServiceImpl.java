@@ -15,7 +15,9 @@ import com.syfri.digitalplan.service.jxcsplan.JxcsjbxxService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
@@ -132,8 +134,25 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
                 jxcsxfssDAO.doInsertByVO(vo_new);
             }
         }
+        return vo;
+    }
 
-
+    @Override
+    public JxcsjbxxVO doApproveUpdate(JxcsjbxxVO vo) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String shsj = sdf.format(date);
+        vo.setShsj(shsj);
+        String shzt = vo.getShzt();
+        //如果选择“未通过”，预案状态变更为已驳回
+        if (shzt.equals("02")) {
+            vo.setSjzt("04");
+        }
+        //如果选择“已通过”，预案状态变更为已审核
+        else if (shzt.equals("03")) {
+            vo.setSjzt("05");
+        }
+        jxcsjbxxDAO.doUpdateByVO(vo);
         return vo;
     }
 }
