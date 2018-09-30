@@ -104,14 +104,13 @@
         SELECT
         <include refid="SQL_CONTENT"/>,
         z.dwmc zddwmc
-        FROM YAGL_EWBH_FJ t
-        <!--重点单位-->
-        Left Join YAGL_DX_ZDDW z on z.UUID = t.zddwid And z.DELETE_FLAG = 'N'
+        FROM YAGL_EWBH_FJ t,YAGL_DX_ZDDW z
+        WHERE t.DELETE_FLAG = 'N' and z.UUID = t.zddwid And z.DELETE_FLAG = 'N'
         <if test="zddwmc != null and zddwmc != '' ">
             AND z.DWMC LIKE concat(concat('%',#{zddwmc}),'%')
         </if>
-        WHERE t.DELETE_FLAG = 'N'
         <include refid="SQL_CONDITION"/>
+        ORDER BY NVL(xgsj,cjsj) DESC
     </select>
 
     <!--5.根据ID查询记录-->
