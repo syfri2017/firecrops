@@ -4,6 +4,7 @@ import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import com.syfri.digitalplan.service.ewbh.EwbhService;
 import com.syfri.baseapi.controller.BaseController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("ewbh")
@@ -80,5 +82,19 @@ public class EwbhController  extends BaseController<EwbhVO>{
 		}
 		return resultVO;
 	}
+
+    @ApiOperation(value="删除标绘",notes="列表信息")
+    @ApiImplicitParam(name="vo",value="标绘")
+    @PostMapping("/doDeleteEquipment")
+    public @ResponseBody ResultVO doDeleteEquipment(@RequestBody List<EwbhVO> ewbhVOList) {
+        ResultVO resultVO = ResultVO.build();
+        try{
+            resultVO.setResult(ewbhService.doDeleteEwbhVOList(ewbhVOList));
+        }catch(Exception e){
+            logger.error("{}",e.getMessage());
+            resultVO.setCode(EConstants.CODE.FAILURE);
+        }
+        return resultVO;
+    }
 
 }
