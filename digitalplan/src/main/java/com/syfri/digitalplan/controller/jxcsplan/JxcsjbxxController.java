@@ -1,5 +1,7 @@
 package com.syfri.digitalplan.controller.jxcsplan;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
 import io.swagger.annotations.ApiImplicitParam;
@@ -68,6 +70,22 @@ public class JxcsjbxxController  extends BaseController<JxcsjbxxVO>{
 			resultVO.setCode(EConstants.CODE.FAILURE);
 		}
 		return 	resultVO;
+	}
+
+	@ApiOperation(value="查询审核列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value = "九小场所")
+	@PostMapping("listForApprove")
+	public @ResponseBody ResultVO listForApprove(@RequestBody JxcsjbxxVO vo ) {
+		ResultVO resultVO = ResultVO.build();
+		try {
+			PageHelper.startPage(vo.getPageNum(),vo.getPageSize());
+			List<JxcsjbxxVO> list = jxcsjbxxService.doSearchApproveListByVO(vo);
+			PageInfo<JxcsjbxxVO> pageInfo = new PageInfo<>(list);
+			resultVO.setResult(pageInfo);
+		} catch (Exception e) {
+			logger.error("{}",e.getMessage());
+		}
+		return resultVO;
 	}
 
 	@ApiOperation(value="根据VO审批",notes="修改")

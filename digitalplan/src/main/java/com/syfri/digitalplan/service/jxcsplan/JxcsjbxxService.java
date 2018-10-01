@@ -13,6 +13,8 @@ public interface JxcsjbxxService extends BaseService<JxcsjbxxVO> {
     JxcsjbxxVO doInsertJxcsByVO(JxcsjbxxVO vo);
     //编辑九小场所 by yushch 20180929
     JxcsjbxxVO doUpdateJxcsByVO(JxcsjbxxVO vo);
+    //审核加载List by huangrui 20180930
+    List<JxcsjbxxVO> doSearchApproveListByVO(JxcsjbxxVO vo);
     //审核九小场所 by huangrui 20180930
     JxcsjbxxVO doApproveUpdate(JxcsjbxxVO vo);
 }
