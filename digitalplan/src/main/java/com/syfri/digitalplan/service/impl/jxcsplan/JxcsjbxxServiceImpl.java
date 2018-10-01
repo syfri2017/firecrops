@@ -1,5 +1,6 @@
 package com.syfri.digitalplan.service.impl.jxcsplan;
 
+import com.syfri.digitalplan.dao.digitalplan.DigitalplanlistDAO;
 import com.syfri.digitalplan.dao.jxcsplan.JxcsdlyzDAO;
 import com.syfri.digitalplan.dao.jxcsplan.JxcsxfssDAO;
 import com.syfri.digitalplan.model.jxcsplan.JxcsdlyzVO;
@@ -30,6 +31,8 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
     private JxcsdlyzDAO jxcsdlyzDAO;
     @Autowired
     private JxcsxfssDAO jxcsxfssDAO;
+    @Autowired
+    private DigitalplanlistDAO digitalplanlistDAO;
 
 
     @Override
@@ -158,6 +161,8 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
             vo.setSjzt("05");
         }
         jxcsjbxxDAO.doUpdateByVO(vo);
+        String shztmc = digitalplanlistDAO.doFindShztmcByShzt(shzt);
+        vo.setShztmc(shztmc);
         return vo;
     }
 }
