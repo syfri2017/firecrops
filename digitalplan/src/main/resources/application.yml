@@ -9,6 +9,12 @@ yafjxz:
   vue-server-url: http://localhost:80/
   save-path: E://test//upload//   #预案上传保存位置
   zip-path: E://test//upload//    #压缩文件存放路径
+
+jxcsfjxz:
+  file-server-url: http://localhost:80/upload/
+  vue-server-url: http://localhost:80/
+  save-path: E://test//upload//
+  zip-path: E://test//upload//
 #------------------------------------------------------------
 #spring
 spring:
