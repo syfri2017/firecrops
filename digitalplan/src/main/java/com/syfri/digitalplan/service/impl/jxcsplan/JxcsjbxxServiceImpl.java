@@ -138,6 +138,11 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
     }
 
     @Override
+    public List<JxcsjbxxVO> doSearchApproveListByVO(JxcsjbxxVO vo) {
+        return this.jxcsjbxxDAO.doSearchApproveListByVO(vo);
+    }
+
+    @Override
     public JxcsjbxxVO doApproveUpdate(JxcsjbxxVO vo) {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syfri.digitalplan.dao.jxcsfjxz.JxcsfjxzDAO">
+	<!--1.查询条件-->
+	<sql id="SQL_CONDITION">
+		<if test="uuid != null and uuid != '' ">
+		 and t.uuid = #{uuid}
+		</if>
+		<if test="dwid != null and dwid != '' ">
+		 and t.dwid = #{dwid}
+		</if>
+		<if test="fjxs != null and fjxs != '' ">
+		 and t.fjxs = #{fjxs}
+		</if>
+		<if test="fjlx != null and fjlx != '' ">
+		 and t.fjlx = #{fjlx}
+		</if>
+		<if test="fjlj != null and fjlj != '' ">
+		 and t.fjlj = #{fjlj}
+		</if>
+		<if test="wjm != null and wjm != '' ">
+		 and t.wjm = #{wjm}
+		</if>
+		<if test="kzm != null and kzm != '' ">
+		 and t.kzm = #{kzm}
+		</if>
+		<if test="cjrid != null and cjrid != '' ">
+		 and t.cjrid = #{cjrid}
+		</if>
+		<if test="cjrmc != null and cjrmc != '' ">
+		 and t.cjrmc = #{cjrmc}
+		</if>
+		<if test="cjsj != null and cjsj != '' ">
+		 and t.cjsj = #{cjsj}
+		</if>
+		<if test="xgrid != null and xgrid != '' ">
+		 and t.xgrid = #{xgrid}
+		</if>
+		<if test="xgrmc != null and xgrmc != '' ">
+		 and t.xgrmc = #{xgrmc}
+		</if>
+		<if test="xgsj != null and xgsj != '' ">
+		 and t.xgsj = #{xgsj}
+		</if>
+		<if test="bz != null and bz != '' ">
+		 and t.bz = #{bz}
+		</if>
+		<if test="deleteFlag != null and deleteFlag != '' ">
+		 and t.delete_flag = #{deleteFlag}
+		</if>
+		<if test="datasource != null and datasource != '' ">
+		 and t.datasource = #{datasource}
+		</if>
+		<if test="jdh != null and jdh != '' ">
+		 and t.jdh = #{jdh}
+		</if>
+		<if test="sjc != null and sjc != '' ">
+		 and t.sjc = #{sjc}
+		</if>
+		<if test="reserve1 != null and reserve1 != '' ">
+		 and t.reserve1 = #{reserve1}
+		</if>
+		<if test="reserve2 != null and reserve2 != '' ">
+		 and t.reserve2 = #{reserve2}
+		</if>
+		<if test="reserve3 != null and reserve3 != '' ">
+		 and t.reserve3 = #{reserve3}
+		</if>
+		<if test="reserve4 != null and reserve4 != '' ">
+		 and t.reserve4 = #{reserve4}
+		</if>
+	</sql>
+
+	<!--2.查询内容-->
+	<sql id="SQL_CONTENT">
+		t.uuid uuid,
+		t.dwid dwid,
+		t.fjxs fjxs,
+		t.fjlx fjlx,
+		t.fjlj fjlj,
+		t.wjm wjm,
+		t.kzm kzm,
+		t.cjrid cjrid,
+		t.cjrmc cjrmc,
+		TO_CHAR(t.cjsj,'yyyy-MM-dd HH24:mi:ss') cjsj,
+		t.xgrid xgrid,
+		t.xgrmc xgrmc,
+		TO_CHAR(t.xgsj,'yyyy-MM-dd HH24:mi:ss') xgsj,
+		t.bz bz,
+		t.delete_flag deleteFlag,
+		t.datasource datasource,
+		t.jdh jdh,
+		TO_CHAR(t.sjc,'yyyy-MM-dd HH24:mi:ss') sjc,
+		t.reserve1 reserve1,
+		t.reserve2 reserve2,
+		t.reserve3 reserve3,
+		TO_CHAR(t.reserve4,'yyyy-MM-dd HH24:mi:ss') reserve4
+	</sql>
+
+	<!--3.查询记录数-->
+	<select id="doSearchCount" parameterType="JxcsfjxzVO" resultType="java.lang.Integer">
+		SELECT COUNT(0) AS NUM FROM YAGL_JXCS_FJ t WHERE 1=1 AND DELETE_FLAG = 'N'
+		<include refid="SQL_CONDITION"/>
+	</select>
+
+	<!--4.按条件查询记录-->
+	<select id="doSearchListByVO" parameterType="JxcsfjxzVO"  resultType="JxcsfjxzVO"> 
+		SELECT 
+			<include refid="SQL_CONTENT"/>
+		FROM YAGL_JXCS_FJ t  WHERE t.DELETE_FLAG = 'N' 
+			<include refid="SQL_CONDITION"/>
+	</select>
+
+	<!--5.根据ID查询记录-->
+	<select id="doFindById" parameterType="JxcsfjxzVO"  resultType="JxcsfjxzVO">  
+		SELECT 
+		<include refid="SQL_CONTENT"/>
+		FROM YAGL_JXCS_FJ t 
+		WHERE t.DELETE_FLAG = 'N' AND  t.UUID = #{value}
+	</select>
+
+	<!--6.按照VO插入-->
+	<insert  id="doInsertByVO"  parameterType="JxcsfjxzVO"> 
+		<selectKey resultType="String" order="BEFORE" keyProperty="uuid">
+			SELECT SYS_GUID() AS uuid FROM DUAL
+		</selectKey>
+		INSERT INTO YAGL_JXCS_FJ(uuid,dwid,fjxs,fjlx,fjlj,wjm,kzm,cjrid,cjrmc,cjsj,xgrid,xgrmc,xgsj,bz,delete_flag,datasource,jdh,sjc,reserve1,reserve2,reserve3,reserve4)
+		VALUES(#{uuid,jdbcType=VARCHAR},#{dwid,jdbcType=VARCHAR},#{fjxs,jdbcType=VARCHAR},#{fjlx,jdbcType=VARCHAR},#{fjlj,jdbcType=VARCHAR},#{wjm,jdbcType=VARCHAR},#{kzm,jdbcType=VARCHAR},#{cjrid,jdbcType=VARCHAR},#{cjrmc,jdbcType=VARCHAR},sysdate,#{xgrid,jdbcType=VARCHAR},#{xgrmc,jdbcType=VARCHAR},#{xgsj,jdbcType=DATE},#{bz,jdbcType=VARCHAR},'N',#{datasource,jdbcType=VARCHAR},#{jdh,jdbcType=VARCHAR},#{sjc,jdbcType=DATE},#{reserve1,jdbcType=VARCHAR},#{reserve2,jdbcType=VARCHAR},#{reserve3,jdbcType=VARCHAR},#{reserve4,jdbcType=DATE})
+	 </insert>
+
+	<!--7.批量插入-->
+	<insert  id="doBatchInsertByList"  parameterType="java.util.List"> 
+		INSERT INTO YAGL_JXCS_FJ(uuid,dwid,fjxs,fjlx,fjlj,wjm,kzm,cjrid,cjrmc,cjsj,xgrid,xgrmc,xgsj,bz,delete_flag,datasource,jdh,sjc,reserve1,reserve2,reserve3,reserve4)
+		SELECT SYS_GUID() uuid, A.*
+		FROM ( 
+		<foreach collection="list" item="item" index="index" separator="UNION ALL" >
+		SELECT
+			#{item.uuid,jdbcType=VARCHAR} uuid,#{item.dwid,jdbcType=VARCHAR} dwid,#{item.fjxs,jdbcType=VARCHAR} fjxs,#{item.fjlx,jdbcType=VARCHAR} fjlx,#{item.fjlj,jdbcType=VARCHAR} fjlj,#{item.wjm,jdbcType=VARCHAR} wjm,#{item.kzm,jdbcType=VARCHAR} kzm,#{item.cjrid,jdbcType=VARCHAR} cjrid,#{item.cjrmc,jdbcType=VARCHAR} cjrmc,sysdate cjsj,#{item.xgrid,jdbcType=VARCHAR} xgrid,#{item.xgrmc,jdbcType=VARCHAR} xgrmc,#{item.xgsj,jdbcType=DATE} xgsj,#{item.bz,jdbcType=VARCHAR} bz,'N' delete_flag,#{item.datasource,jdbcType=VARCHAR} datasource,#{item.jdh,jdbcType=VARCHAR} jdh,#{item.sjc,jdbcType=DATE} sjc,#{item.reserve1,jdbcType=VARCHAR} reserve1,#{item.reserve2,jdbcType=VARCHAR} reserve2,#{item.reserve3,jdbcType=VARCHAR} reserve3,#{item.reserve4,jdbcType=DATE} reserve4
+		FROM DUAL
+		</foreach>
+		) A
+	</insert>
+
+	<!--8.按主键逻辑删除-->
+	<update id="doDeleteById"  parameterType="String"> 
+		UPDATE  YAGL_JXCS_FJ t SET t.DELETE_FLAG = 'Y'  WHERE 1=1   AND t.UUID = #{value}
+	</update>
+
+	<!--9.按复合条件逻辑更新-->
+	<update  id="doUpdateByVO"  parameterType="JxcsfjxzVO"> 
+		UPDATE YAGL_JXCS_FJ
+		<set>
+		<!--	<if test="uuid != null">uuid=#{uuid},</if>-->
+			<if test="dwid != null">dwid=#{dwid},</if>
+			<if test="fjxs != null">fjxs=#{fjxs},</if>
+			<if test="fjlx != null">fjlx=#{fjlx},</if>
+			<if test="fjlj != null">fjlj=#{fjlj},</if>
+			<if test="wjm != null">wjm=#{wjm},</if>
+			<if test="kzm != null">kzm=#{kzm},</if>
+			<if test="cjrid != null">cjrid=#{cjrid},</if>
+			<if test="cjrmc != null">cjrmc=#{cjrmc},</if>
+			<if test="cjsj != null">cjsj=TO_DATE(#{cjsj},'yyyy-MM-dd HH24:mi:ss'),</if>
+			<if test="xgrid != null">xgrid=#{xgrid},</if>
+			<if test="xgrmc != null">xgrmc=#{xgrmc},</if>
+			<if test="xgsj != null">xgsj=TO_DATE(#{xgsj},'yyyy-MM-dd HH24:mi:ss'),</if>
+			<if test="bz != null">bz=#{bz},</if>
+			<if test="deleteFlag != null">delete_flag=#{deleteFlag},</if>
+			<if test="datasource != null">datasource=#{datasource},</if>
+			<if test="jdh != null">jdh=#{jdh},</if>
+			<if test="sjc != null">sjc=TO_DATE(#{sjc},'yyyy-MM-dd HH24:mi:ss'),</if>
+			<if test="reserve1 != null">reserve1=#{reserve1},</if>
+			<if test="reserve2 != null">reserve2=#{reserve2},</if>
+			<if test="reserve3 != null">reserve3=#{reserve3},</if>
+			<if test="reserve4 != null">reserve4=TO_DATE(#{reserve4},'yyyy-MM-dd HH24:mi:ss')</if>
+		</set>
+		WHERE  UUID = #{uuid}
+	</update>
+
+	<!--10.批量修改-->
+	<update id="doBatchUpdateByList"  parameterType="java.util.List">
+		INSERT INTO YAGL_JXCS_FJ(uuid,dwid,fjxs,fjlx,fjlj,wjm,kzm,cjrid,cjrmc,cjsj,xgrid,xgrmc,xgsj,bz,delete_flag,datasource,jdh,sjc,reserve1,reserve2,reserve3,reserve4)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			#{item.uuid,jdbcType=VARCHAR} uuid,#{item.dwid,jdbcType=VARCHAR} dwid,#{item.fjxs,jdbcType=VARCHAR} fjxs,#{item.fjlx,jdbcType=VARCHAR} fjlx,#{item.fjlj,jdbcType=VARCHAR} fjlj,#{item.wjm,jdbcType=VARCHAR} wjm,#{item.kzm,jdbcType=VARCHAR} kzm,#{item.cjrid,jdbcType=VARCHAR} cjrid,#{item.cjrmc,jdbcType=VARCHAR} cjrmc,#{item.cjsj,jdbcType=DATE} cjsj,#{item.xgrid,jdbcType=VARCHAR} xgrid,#{item.xgrmc,jdbcType=VARCHAR} xgrmc,#{item.xgsj,jdbcType=DATE} xgsj,#{item.bz,jdbcType=VARCHAR} bz,'N' delete_flag,#{item.datasource,jdbcType=VARCHAR} datasource,#{item.jdh,jdbcType=VARCHAR} jdh,#{item.sjc,jdbcType=DATE} sjc,#{item.reserve1,jdbcType=VARCHAR} reserve1,#{item.reserve2,jdbcType=VARCHAR} reserve2,#{item.reserve3,jdbcType=VARCHAR} reserve3,#{item.reserve4,jdbcType=DATE} reserve4
+		</foreach>
+		ON DUPLICATE KEY UPDATE   
+			uuid = VALUES(uuid),
+			dwid = VALUES(dwid),
+			fjxs = VALUES(fjxs),
+			fjlx = VALUES(fjlx),
+			fjlj = VALUES(fjlj),
+			wjm = VALUES(wjm),
+			kzm = VALUES(kzm),
+			cjrid = VALUES(cjrid),
+			cjrmc = VALUES(cjrmc),
+			cjsj = VALUES(cjsj),
+			xgrid = VALUES(xgrid),
+			xgrmc = VALUES(xgrmc),
+			xgsj = VALUES(xgsj),
+			bz = VALUES(bz),
+			delete_flag = VALUES(delete_flag),
+			datasource = VALUES(datasource),
+			jdh = VALUES(jdh),
+			sjc = VALUES(sjc),
+			reserve1 = VALUES(reserve1),
+			reserve2 = VALUES(reserve2),
+			reserve3 = VALUES(reserve3),
+			reserve4 = VALUES(reserve4)
+	</update>
+
+	<!--11.根据对象查询记录-->
+	<select id="doFindByVO" parameterType="JxcsfjxzVO"  resultType="JxcsfjxzVO">  
+		SELECT 
+		<include refid="SQL_CONTENT"/>
+		FROM YAGL_JXCS_FJ t 
+		WHERE t.DELETE_FLAG = 'N' 
+		<include refid="SQL_CONDITION"/>
+	</select>
+
+
+	<!-- 根据单位ID查询图片文件记录  -->
+	<select id="doFindPicsByDwid" parameterType="JxcsfjxzVO"  resultType="JxcsfjxzVO">
+		SELECT
+		<include refid="SQL_CONTENT"/>
+		FROM YAGL_JXCS_FJ t
+		WHERE t.DELETE_FLAG = 'N' AND t.DWID = #{dwid}
+		AND (t.KZM='.png' OR t.KZM='.jpg' OR t.KZM='.bmp' OR t.KZM='.jpeg')
+	</select>
+
+	<!-- 根据单位ID查询视频文件  -->
+	<select id="doFindVideosByDwid" parameterType="JxcsfjxzVO"  resultType="JxcsfjxzVO">
+		SELECT
+		<include refid="SQL_CONTENT"/>
+		FROM YAGL_JXCS_FJ t
+		WHERE t.DELETE_FLAG = 'N' AND t.DWID = #{dwid}
+		AND (t.KZM='.mp4' OR t.KZM='.rmvb' OR t.KZM='.avi')
+	</select>
+</mapper>

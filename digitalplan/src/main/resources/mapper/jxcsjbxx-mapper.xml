@@ -434,4 +434,37 @@
         <include refid="SQL_CONDITION"/>
     </select>
 
+    <!--审核加载List-->
+    <select id="doSearchApproveListByVO" parameterType="JxcsjbxxVO" resultType="JxcsjbxxVO">
+        SELECT
+        <include refid="SQL_CONTENT"/>,
+        c2.code_name jxdwlxmc,
+        c4.code_name xzqhmc,
+        c6.code_name jzflmc,
+        dz.DZJC xfgxmc,
+        c8.code_name sjztmc,
+        c10.code_name shztmc
+        FROM YAGL_JXCS_JBXX t
+        <!--九小单位类型-->
+        Left Join SYS_CODELIST c1 on c1.CODETYPE = 'JXDWLX' And c1.DELETE_FLAG = 'N'
+        Left Join SYS_CODELIST_DETAIL c2 On c1.CODEID = c2.CODEID And c2.DELETE_FLAG = 'N' and t.jxdwlx = c2.CODE_VALUE
+        <!--行政区划-->
+        Left Join SYS_CODELIST c3 on c3.CODETYPE = 'XZQH' And c3.DELETE_FLAG = 'N'
+        Left Join SYS_CODELIST_DETAIL c4 On c3.CODEID = c4.CODEID And c4.DELETE_FLAG = 'N' and t.xzqh = c4.CODE_VALUE
+        <!--建筑分类-->
+        Left Join SYS_CODELIST c5 on c5.CODETYPE = 'JZFL' And c5.DELETE_FLAG = 'N'
+        Left Join SYS_CODELIST_DETAIL c6 On c5.CODEID = c6.CODEID And c6.DELETE_FLAG = 'N' and t.jzfl = c6.CODE_VALUE
+        <!--消防队站-->
+        Left Join YAGL_XFDZ dz On dz.DZID = t.xfgx And dz.DELETE_FLAG = 'N'
+        <!--数据状态    暂用预案状态代码集-->
+        Left Join SYS_CODELIST c7 on c7.CODETYPE = 'YAZT' And c7.DELETE_FLAG = 'N'
+        Left Join SYS_CODELIST_DETAIL c8 On c8.CODEID = c7.CODEID And c8.DELETE_FLAG = 'N' and t.SJZT = c8.CODE_VALUE
+        <!--审核状态  暂用预案审核状态代码集-->
+        Left Join SYS_CODELIST c9 on c9.CODETYPE = 'YASHZT' And c9.DELETE_FLAG = 'N'
+        Left Join SYS_CODELIST_DETAIL c10 On c10.CODEID = c9.CODEID And c10.DELETE_FLAG = 'N' and t.SHZT = c10.CODE_VALUE
+        WHERE t.DELETE_FLAG = 'N'
+        <include refid="SQL_CONDITION"/>
+        and t.sjzt != '01'
+        ORDER BY NVL(xgsj,cjsj) DESC
+    </select>
 </mapper>
