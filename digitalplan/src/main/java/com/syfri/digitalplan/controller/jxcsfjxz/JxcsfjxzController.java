@@ -124,7 +124,7 @@ public class JxcsfjxzController  extends BaseController<JxcsfjxzVO>{
 
 				if (suffixName.equals(".png") || suffixName.equals(".jpg")|| suffixName.equals(".bmp")|| suffixName.equals(".jpeg")) {
 					jxcsfjxz.setFjxs("1");//附件形式[1]照片，[2]视频
-				} else if (suffixName.equals(".mp4") || suffixName.equals(".rmvb") || suffixName.equals(".avi")) {
+				} else if (suffixName.equals(".mp4")) {
 					jxcsfjxz.setFjxs("2");
 				}
 				jxcsfjxz.setKzm(suffixName);
