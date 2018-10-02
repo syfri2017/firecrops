@@ -417,7 +417,7 @@
 				</tr>
 				<tr style='height:40px;'>
 					<td class="lnna">人数:</td>
-					<td class="lnnb" id="rs"></td>
+					<td class="lnb" id="xfdwrs"></td>
 				</tr>
 				<tr style='height:40px;'>
 					<td class="lnna">联系方式:</td>
@@ -425,7 +425,7 @@
 				</tr>
 				<tr style='height:40px;'>
 					<td class="lnna">车辆数:</td>
-					<td class="lnb" id="cls"></td>
+					<td class="lnb" id="xfdwcls"></td>
 				</tr>
 				<tr style='height:40px;'>
 					<td class="lnna">备注:</td>
@@ -1210,6 +1210,22 @@
         $("#xfdwlxmc").append(xfdwlxmc);
         zbdhz = (data.compZddwInfo.zbdh != "" ? data.compZddwInfo.zbdh : "无");
         $("#zbdhz").append(zbdhz);
+
+        if(data.xfllList.length!=0){
+            xfdwrs = (data.xfllList.xfdwrs != "" ? data.xfllList.xfdwrs : "无");
+            $("#xfdwrs").append(xfdwrs);
+        }else{
+            xfdwrs = "无";
+            $("#xfdwrs").append(xfdwrs);
+        }
+
+        if(data.xfllList.length!=0){
+            xfdwcls = (data.xfllList.xfdwcls != "" ? data.xfllList.xfdwcls : "无");
+            $("#xfdwcls").append(xfdwcls);
+        }else{
+            xfdwcls = "无";
+            $("#xfdwcls").append(xfdwcls);
+        }
         //毗邻情况
 
         plqkd = (data.compZddwInfo.plqkd != "" ? data.compZddwInfo.plqkd : "无");

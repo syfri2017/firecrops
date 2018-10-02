@@ -249,6 +249,8 @@ public class CompZddwShareController {
             vc.put("jzlpartsList", importantpartsService.doFindJzlListByZddwId(zddwid));
             // 重点部位（装置类）
             vc.put("zzlpartsList", importantpartsService.doFindZzlListByZddwId(zddwid));
+            //单位消防力量
+            vc.put("xfllList",importantunitsService.doFindXfllListByZddwId(zddwid));
             // 重点部位（储罐类）
             vc.put("cglpartsList", importantpartsService.doFindCglListByZddwId(zddwid));
             // 建筑分区和消防设施
