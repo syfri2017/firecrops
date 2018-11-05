@@ -7,7 +7,7 @@
 		 and t.uuid = #{uuid}
 		</if>
 		<if test="dwmc != null and dwmc != '' ">
-		 and t.dwmc LIKE concat(concat('%',#{dwmc}),'%')
+		 and t.dwmc LIKE concat(concat('%',#{dwmc}),'%') ESCAPE '\'
 		</if>
 		<if test="dwxz != null and dwxz != '' ">
 			and t.dwxz = #{dwxz}

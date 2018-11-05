@@ -7,10 +7,10 @@
 		 and t.uuid = #{uuid}
 		</if>
 		<if test="hdzt != null and hdzt != '' ">
-		 and t.hdzt = #{hdzt}
+		 and t.hdzt LIKE concat(concat('%',#{hdzt}),'%') ESCAPE '\'
 		</if>
 		<if test="zcbdw != null and zcbdw != '' ">
-		 and t.zcbdw = #{zcbdw}
+		 and t.zcbdw LIKE concat(concat('%',#{zcbdw}),'%') ESCAPE '\'
 		</if>
 		<if test="lxdh != null and lxdh != '' ">
 		 and t.lxdh = #{lxdh}
