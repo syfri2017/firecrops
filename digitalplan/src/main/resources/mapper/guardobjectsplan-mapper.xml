@@ -19,7 +19,7 @@
 		 and t.yalx LIKE concat(RTRIM(#{yalx},0),'%')
 		</if>
 		<if test="yamc != null and yamc != '' ">
-		 and t.yamc LIKE concat(concat('%',#{yamc}),'%')
+		 and t.yamc LIKE concat(concat('%',#{yamc}),'%') ESCAPE '\'
 		</if>
 		<if test="yajb != null and yajb != '' ">
 		 and t.yajb = #{yajb}
@@ -28,7 +28,7 @@
 		 and t.dxid = #{dxid}
 		</if>
 		<if test="dxmc != null and dxmc != '' ">
-		 and t.dxmc LIKE concat(concat('%',#{dxmc}),'%')
+		 and t.dxmc LIKE concat(concat('%',#{dxmc}),'%') ESCAPE '\'
 		</if>
 		<if test="bwid != null and bwid != '' ">
 		 and t.bwid = #{bwid}
