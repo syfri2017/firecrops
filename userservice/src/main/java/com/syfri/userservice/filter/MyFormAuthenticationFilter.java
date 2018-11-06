@@ -68,4 +68,20 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		}
 		return false;
 	}
+
+	/**
+	 * lxy
+	 * 解决
+	 * 1.如果是访问其他已存在的页面被拦截到登录页面，登录后就会跳转到之前的页面。
+	 * 2.如果是直接访问登录页面或者是通过退出登录到登录页面，再次登录就会跳转到“/”。
+	 * 3.不管怎么样，都没有跳转到successUrl指定的url。
+	 * http://www.cnblogs.com/ginponson/p/5205962.html%20
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
+		String successUrl = "/index";
+		WebUtils.issueRedirect(request, response, successUrl, null, true);
+	}
 }
