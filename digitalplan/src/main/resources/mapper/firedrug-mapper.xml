@@ -10,7 +10,7 @@
 		 and f.yjbm = #{yjbm}
 		</if>
 		<if test="yjmc != null and yjmc != '' ">
-		 and f.yjmc LIKE concat(concat('%',#{yjmc}),'%')
+		 and f.yjmc LIKE concat(concat('%',#{yjmc}),'%') ESCAPE '\'
 		</if>
 		<if test="ssdz != null and ssdz != '' ">
 			and f.ssdz IN (
@@ -27,7 +27,7 @@
 		 and f.xzqh = #{xzqh}
 		</if>
 		<if test="yjlx != null and yjlx != '' ">
-			and f.yjlx LIKE concat(rtrim(#{yjlx},'0'),'%')
+			and f.yjlx LIKE concat(rtrim(#{yjlx},'0'),'%') ESCAPE '\'
 		</if>
 		<if test="sccj != null and sccj != '' ">
 		 and f.sccj = #{sccj}
