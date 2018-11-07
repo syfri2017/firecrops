@@ -7,10 +7,10 @@
 			and t.uuid = #{uuid}
 		</if>
 		<if test="clbm != null and clbm != '' ">
-			and t.clbm LIKE concat(concat('%',#{clbm}),'%')
+			and t.clbm LIKE concat(concat('%',#{clbm}),'%') ESCAPE '\'
 		</if>
 		<if test="clmc != null and clmc != '' ">
-			and t.clmc LIKE concat(concat('%',#{clmc}),'%')
+			and t.clmc LIKE concat(concat('%',#{clmc}),'%') ESCAPE '\'
 		</if>
 		<if test="ssdz != null and ssdz != '' ">
 			and t.ssdz IN (
@@ -24,13 +24,13 @@
 			and t.ssdzmc = #{ssdzmc}
 		</if>
 		<if test="xzqh != null and xzqh != '' ">
-			and t.xzqh LIKE concat(RTRIM(#{xzqh},0),'%')
+			and t.xzqh LIKE concat(RTRIM(#{xzqh},0),'%') ESCAPE '\'
 		</if>
 		<if test="cllx != null and cllx != '' ">
-			and t.cllx LIKE concat(RTRIM(#{cllx},0),'%')
+			and t.cllx LIKE concat(RTRIM(#{cllx},0),'%') ESCAPE '\'
 		</if>
 		<if test="cphm != null and cphm != '' ">
-			and t.cphm LIKE concat(concat('%',#{cphm}),'%')
+			and t.cphm LIKE concat(concat('%',#{cphm}),'%') ESCAPE '\'
 		</if>
 		<if test="clzt != null and clzt != '' ">
 			and t.clzt = #{clzt}
@@ -69,7 +69,7 @@
 			and t.mhjhhb = #{mhjhhb}
 		</if>
 		<if test="gpsbh != null and gpsbh != '' ">
-			and t.gpsbh LIKE concat(concat('%',#{gpsbh}),'%')
+			and t.gpsbh LIKE concat(concat('%',#{gpsbh}),'%') ESCAPE '\'
 		</if>
 		<if test="deleteFlag != null and deleteFlag != '' ">
 			and t.delete_flag = #{deleteFlag}
