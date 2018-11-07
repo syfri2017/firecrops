@@ -7,13 +7,13 @@
 		 and t.uuid = #{uuid}
 		</if>
 		<if test="name != null and name != '' ">
-            and t.name LIKE concat(concat('%',#{name}),'%')
+            and t.name LIKE concat(concat('%',#{name}),'%') ESCAPE '\'
 		</if>
 		<if test="englishName != null and englishName != '' ">
-            and t.english_name LIKE concat(concat('%',#{englishName}),'%')
+            and t.english_name LIKE concat(concat('%',#{englishName}),'%') ESCAPE '\'
 		</if>
 		<if test="cas != null and cas != '' ">
-            and t.cas LIKE concat(concat('%',#{cas}),'%')
+            and t.cas LIKE concat(concat('%',#{cas}),'%') ESCAPE '\'
 		</if>
 		<if test="rtecs != null and rtecs != '' ">
 			and t.rtecs = #{rtecs}
@@ -22,7 +22,7 @@
 			and t.un = #{un}
 		</if>
 		<if test="dangerId != null and dangerId != '' ">
-            and t.danger_id LIKE concat(concat('%',#{dangerId}),'%')
+            and t.danger_id LIKE concat(concat('%',#{dangerId}),'%') ESCAPE '\'
 		</if>
 		<!--<if test="expression != null and expression != '' ">-->
             <!--and t.expression LIKE concat(concat('%',#{expression}),'%')-->
