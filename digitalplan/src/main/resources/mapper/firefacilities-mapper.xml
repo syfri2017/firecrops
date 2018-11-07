@@ -10,13 +10,13 @@
 		 and t.jzid = #{jbxx_jzid}
 		</if>
 		<if test="jbxx_jzmc != null and jbxx_jzmc != '' ">
-			and jz.jzmc LIKE concat(concat('%',#{jbxx_jzmc}),'%')
+			and jz.jzmc LIKE concat(concat('%',#{jbxx_jzmc}),'%')  ESCAPE '\'
 		</if>
 		<if test="jbxx_xfssmc != null and jbxx_xfssmc != '' ">
-		 and t.xfssmc LIKE concat(concat('%',#{jbxx_xfssmc}),'%')
+		 and t.xfssmc LIKE concat(concat('%',#{jbxx_xfssmc}),'%')  ESCAPE '\'
 		</if>
 		<if test="jbxx_xfsslx != null and jbxx_xfsslx != '' ">
-		 and t.xfsslx LIKE concat(rtrim(#{jbxx_xfsslx},'0'),'%')
+		 and t.xfsslx LIKE concat(rtrim(#{jbxx_xfsslx},'0'),'%')  ESCAPE '\'
 		</if>
 		<if test="jbxx_iszddw != null and jbxx_iszddw != '' ">
 		 and t.iszddw = #{jbxx_iszddw}
