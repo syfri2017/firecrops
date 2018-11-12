@@ -24,10 +24,10 @@
 			and t.ssdzmc = #{ssdzmc}
 		</if>
 		<if test="xzqh != null and xzqh != '' ">
-			and t.xzqh LIKE concat(RTRIM(#{xzqh},0),'%') ESCAPE '\'
+			and t.xzqh = #{xzqh}
 		</if>
 		<if test="cllx != null and cllx != '' ">
-			and t.cllx LIKE concat(RTRIM(#{cllx},0),'%') ESCAPE '\'
+			and t.cllx LIKE concat(RTRIM(#{cllx},0),'%')
 		</if>
 		<if test="cphm != null and cphm != '' ">
 			and t.cphm LIKE concat(concat('%',#{cphm}),'%') ESCAPE '\'

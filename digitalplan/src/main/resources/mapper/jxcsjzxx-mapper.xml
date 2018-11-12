@@ -7,10 +7,10 @@
             and t.jzid = #{jzid}
         </if>
         <if test="jzmc != null and jzmc != '' ">
-            and t.jzmc LIKE concat(concat('%',#{jzmc}),'%')
+            and t.jzmc LIKE concat(concat('%',#{jzmc}),'%') ESCAPE '\'
         </if>
         <if test="jzwz != null and jzwz != '' ">
-            and t.jzwz LIKE concat(concat('%',#{jzwz}),'%')
+            and t.jzwz LIKE concat(concat('%',#{jzwz}),'%') ESCAPE '\'
         </if>
         <if test="jzsyxz != null and jzsyxz != '' ">
             and t.jzsyxz LIKE concat(rtrim(#{jzsyxz},'0'),'%')

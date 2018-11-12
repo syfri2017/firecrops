@@ -10,10 +10,10 @@
 			and t.sybm = #{sybm}
 		</if>
 		<if test="symc != null and symc != '' ">
-			and t.symc LIKE concat(concat('%',#{symc}),'%')
+			and t.symc LIKE concat(concat('%',#{symc}),'%') ESCAPE '\'
 		</if>
 		<if test="sydz != null and sydz != '' ">
-			and t.sydz LIKE concat(concat('%',#{sydz}),'%')
+			and t.sydz LIKE concat(concat('%',#{sydz}),'%') ESCAPE '\'
 		</if>
 		<if test="sylx != null and sylx != '' ">
 			and t.sylx = #{sylx}

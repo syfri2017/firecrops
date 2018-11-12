@@ -27,7 +27,7 @@
 		 and f.xzqh = #{xzqh}
 		</if>
 		<if test="yjlx != null and yjlx != '' ">
-			and f.yjlx LIKE concat(rtrim(#{yjlx},'0'),'%') ESCAPE '\'
+			and f.yjlx LIKE concat(rtrim(#{yjlx},'0'),'%')
 		</if>
 		<if test="sccj != null and sccj != '' ">
 		 and f.sccj = #{sccj}

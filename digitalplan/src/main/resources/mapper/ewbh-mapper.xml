@@ -13,7 +13,7 @@
             and t.xzlj = #{xzlj}
         </if>
         <if test="wjm != null and wjm != '' ">
-            and t.wjm LIKE concat(concat('%',#{wjm}),'%')
+            and t.wjm LIKE concat(concat('%',#{wjm}),'%') ESCAPE '\'
         </if>
         <if test="kzm != null and kzm != '' ">
             and t.kzm = #{kzm}
@@ -108,7 +108,7 @@
         left join YAGL_DX_ZDDW z on z.DELETE_FLAG = 'N' and z.UUID = t.zddwid
         WHERE t.DELETE_FLAG = 'N'
         <if test="zddwmc != null and zddwmc != '' ">
-            AND z.DWMC LIKE concat(concat('%',#{zddwmc}),'%')
+            AND z.DWMC LIKE concat(concat('%',#{zddwmc}),'%') ESCAPE '\'
         </if>
         <include refid="SQL_CONDITION"/>
         ORDER BY NVL(xgsj,cjsj) DESC

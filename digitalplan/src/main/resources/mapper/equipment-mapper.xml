@@ -7,10 +7,10 @@
 			and t.uuid = #{uuid}
 		</if>
 		<if test="zbbm != null and zbbm != '' ">
-			and t.zbbm LIKE concat(concat('%',#{zbbm}),'%')
+			and t.zbbm LIKE concat(concat('%',#{zbbm}),'%') ESCAPE '\'
 		</if>
 		<if test="zbmc != null and zbmc != '' ">
-			and t.zbmc LIKE concat(concat('%',#{zbmc}),'%')
+			and t.zbmc LIKE concat(concat('%',#{zbmc}),'%') ESCAPE '\'
 		</if>
 		<if test="ssdz != null and ssdz != '' ">
 			and t.ssdz IN (

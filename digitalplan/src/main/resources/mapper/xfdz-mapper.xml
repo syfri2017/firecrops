@@ -24,13 +24,13 @@
 			and t.dzbm = #{dzbm}
 		</if>
 		<if test="dzmc != null and dzmc != '' ">
-			and t.dzmc LIKE concat(concat('%',#{dzmc}),'%')
+			and t.dzmc LIKE concat(concat('%',#{dzmc}),'%') ESCAPE '\'
 		</if>
 		<if test="dzjc != null and dzjc != '' ">
 			and t.dzjc = #{dzjc}
 		</if>
 		<if test="dzdz != null and dzdz != '' ">
-			and t.dzdz LIKE concat(concat('%',#{dzdz}),'%')
+			and t.dzdz LIKE concat(concat('%',#{dzdz}),'%') ESCAPE '\'
 		</if>
 		<if test="lon != null and lon != '' ">
 			and t.lon = #{lon}

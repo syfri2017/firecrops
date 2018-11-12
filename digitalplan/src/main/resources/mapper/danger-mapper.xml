@@ -206,7 +206,7 @@
 		ON f.CODEID = p.CODEID
 		AND r.TYPE = p.CODE_VALUE
 		<if test="expression != null and expression != '' ">
-			where r.exp LIKE concat(concat('%',#{expression}),'%')
+			where r.exp LIKE concat(concat('%',#{expression}),'%') ESCAPE '\'
 		</if>
 		ORDER BY NVL(r.xgsj,r.cjsj) DESC
 </select>
