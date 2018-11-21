@@ -16,4 +16,7 @@ public interface AccountDAO extends BaseDAO<AccountVO>{
 
 	/*--修改用户时删除用户中间表数据.--*/
 	int doDeleteAccountRoles(String userid);
+
+	/*--通过统一社会信用代码查询单位ID by li.xue 2019/11/21.--*/
+	String doFindDwidByUnscid(String unscid);
 }

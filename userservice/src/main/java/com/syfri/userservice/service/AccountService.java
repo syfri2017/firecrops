@@ -22,4 +22,7 @@ public interface AccountService  extends BaseService<AccountVO>{
 
 	/*--删除：删除账户同时删除其角色(中间表).--*/
 	int doDeleteAccountRoles(String pkid);
+
+	/*--通过统一社会信用代码查询单位ID by li.xue 2019/11/21.--*/
+	String doFindDwidByUnscid(String unscid);
 }

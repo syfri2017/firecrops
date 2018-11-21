@@ -102,4 +102,10 @@ public class AccountServiceImpl extends BaseServiceImpl<AccountVO> implements Ac
 		return accountDAO.doDeleteAccountRoles(userid);
 	}
 
+
+	/*--通过统一社会信用代码查询单位ID by li.xue 2019/11/21.--*/
+	public String doFindDwidByUnscid(String unscid){
+		return accountDAO.doFindDwidByUnscid(unscid);
+	}
+
 }

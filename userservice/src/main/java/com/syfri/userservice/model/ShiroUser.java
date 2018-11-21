@@ -34,6 +34,9 @@ public class ShiroUser implements Serializable{
 	/*统一社会信用代码*/
 	private String unscid;
 
+	/*单位ID*/
+	private String dwid;
+
 	public ShiroUser() {
 	}
 
@@ -41,6 +44,14 @@ public class ShiroUser implements Serializable{
 		this.userid = userid;
 		this.username = username;
 		this.realName = realName;
+	}
+
+	public ShiroUser(String userid, String username, String realName, String unscid, String dwid) {
+		this.userid = userid;
+		this.username = username;
+		this.realName = realName;
+		this.unscid = unscid;
+		this.dwid = dwid;
 	}
 
 	public OrganizationVO getOrganizationVO() {
@@ -105,5 +116,13 @@ public class ShiroUser implements Serializable{
 
 	public void setUnscid(String unscid) {
 		this.unscid = unscid;
+	}
+
+	public String getDwid() {
+		return dwid;
+	}
+
+	public void setDwid(String dwid) {
+		this.dwid = dwid;
 	}
 }

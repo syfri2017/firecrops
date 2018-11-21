@@ -200,4 +200,8 @@
 		<!--UPDATE SYS_ACCOUNT_ROLE t SET t.DELETE_FLAG = 'Y' WHERE USERID = #{value}-->
 	</delete>
 
+	<select id="doFindDwidByUnscid" parameterType="String" resultType="String">
+		SELECT t.DWID FROM YAGL_JXCS_DLYZ t WHERE t.DELETE_FLAG = 'N' AND t.UNSCID = #{value}
+	</select>
+
 </mapper>

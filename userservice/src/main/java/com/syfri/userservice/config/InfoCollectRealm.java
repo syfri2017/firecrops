@@ -1,6 +1,5 @@
 package com.syfri.userservice.config;
 
-import com.syfri.userservice.dao.InfoCollectDAO;
 import com.syfri.userservice.model.*;
 import com.syfri.userservice.service.*;
 import org.apache.shiro.SecurityUtils;
@@ -26,9 +25,6 @@ public class InfoCollectRealm extends AuthorizingRealm{
 	private static final Logger logger = LoggerFactory.getLogger(InfoCollectRealm.class);
 
 	@Resource
-	private InfoCollectService infoCollectService;
-
-	@Resource
 	private AccountService accountService;
 
 	@Resource
@@ -49,18 +45,16 @@ public class InfoCollectRealm extends AuthorizingRealm{
 		logger.info("【MyInfocollectRealm】身份验证");
 
 		//1.把AuthenticationToken转换为InfoCollectToken
-
 		InfoCollectToken infoCollectToken = (InfoCollectToken) token;
 
-		//2.从InfoCollectToken中获取unscid
+		//2.从InfoCollectToken中获取unscid,dwid
 		String unscid = infoCollectToken.getUnscid();
-		InfocollectVO infocollectVO = infoCollectService.doFindByVO(new InfocollectVO(unscid));
+		String dwid = accountService.doFindDwidByUnscid(unscid);
 
 		AccountVO accountVO = new AccountVO();
 		accountVO.setUsername("jxcs");
 		AccountVO account = accountService.doFindByVO(accountVO);
-		ShiroUser shiroUser = new ShiroUser(account.getUserid(), account.getUsername(), account.getRealname());
-		shiroUser.setUnscid(unscid);
+		ShiroUser shiroUser = new ShiroUser(account.getUserid(), account.getUsername(), account.getRealname(), unscid, dwid);
 
 		List<String> roles = new ArrayList();
 		List<String> permissions = new ArrayList();
