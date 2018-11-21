@@ -51,6 +51,13 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
     //新增九小场所 add by yushch 20180920
     public JxcsjbxxVO doInsertJxcsByVO(JxcsjbxxVO vo) {
         jxcsjbxxDAO.doInsertByVO(vo);
+        //向中间表插入统一社会信用代码
+        JxcsdlyzVO jxcsdlyzVO1 = new JxcsdlyzVO();
+        jxcsdlyzVO1.setDwid(vo.getUuid());
+        jxcsdlyzVO1.setUnscid(vo.getUnscid());
+        jxcsdlyzDAO.doInsertByVO(jxcsdlyzVO1);
+
+        //向建筑表里插数据
         if(vo.getJzxxList().size() != 0){
             List<JxcsjzxxVO> jxcsjzxx = vo.getJzxxList();
             List<JxcsdlyzVO> jxcsdlyz =new ArrayList<JxcsdlyzVO>();
@@ -62,6 +69,7 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
             }
             jxcsdlyzDAO.doBatchInsertByList(jxcsdlyz);
         }
+        //向消防设施表插入数据
         if(vo.getXfssList().size() != 0){
             List<JxcsxfssVO> jxcsxfss = vo.getXfssList();
             for(int i=0;i<jxcsxfss.size();i++){
@@ -80,6 +88,11 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
     public JxcsjbxxVO doUpdateJxcsByVO(JxcsjbxxVO vo){
         jxcsjbxxDAO.doUpdateByVO(vo);
         String dwid = vo.getUuid();
+        //修改dlyz中间中的统一社会信用代码 by yushch 20181121
+        JxcsdlyzVO jxcsdlyzVO1 = new JxcsdlyzVO();
+        jxcsdlyzVO1.setDwid(vo.getUuid());
+        jxcsdlyzVO1.setUnscid(vo.getUnscid());
+        jxcsdlyzDAO.doUpdateUnscidByVO(jxcsdlyzVO1);
         //根据单位id物理删除中间表中信息
         jxcsdlyzDAO.doDeleteByDwid(dwid);
         //重新创建建筑中间表信息
@@ -164,5 +177,14 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
         String shztmc = digitalplanlistDAO.doFindShztmcByShzt(shzt);
         vo.setShztmc(shztmc);
         return vo;
+    }
+
+    //查询九小场所基本信息 同时查询中间表统一社会信用代码 by yushch 20181121
+    public JxcsjbxxVO doFindJbxxById(String id){
+        JxcsjbxxVO vo = jxcsjbxxDAO.doFindById(id);
+        String unscid = jxcsdlyzDAO.doFindUnscidByDwid(id);
+        vo.setUnscid(unscid);
+        return vo;
+
     }
 }

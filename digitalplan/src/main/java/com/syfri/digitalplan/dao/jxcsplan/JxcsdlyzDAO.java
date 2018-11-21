@@ -7,4 +7,8 @@ public interface JxcsdlyzDAO extends BaseDAO<JxcsdlyzVO>{
     //根据单位id逻辑删除中间表中信息
     int doDeleteByDwid(String dwid);
 
+    //根据单位id查统一社会信用代码 by yushch
+    String doFindUnscidByDwid(String dwid);
+    //根据单位id修改统一社会信用代码
+    int doUpdateUnscidByVO(JxcsdlyzVO vo);
 }

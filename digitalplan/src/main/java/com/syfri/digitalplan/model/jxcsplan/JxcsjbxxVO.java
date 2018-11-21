@@ -64,6 +64,8 @@ public class JxcsjbxxVO extends ValueObject implements Serializable{
 	private List<JxcsjzxxVO> jzxxList;//九小建筑信息列表
 	private List<JxcsxfssVO> xfssList;//九小消防设施列表
 
+	private String unscid;//统一社会信用代码
+
 	public String getUuid(){
 		return uuid;
 	}
@@ -378,5 +380,12 @@ public class JxcsjbxxVO extends ValueObject implements Serializable{
 	}
 	public void setXfssList(List<JxcsxfssVO> xfssList) {
 		this.xfssList = xfssList;
+	}
+
+	public String getUnscid() {
+		return unscid;
+	}
+	public void setUnscid(String unscid) {
+		this.unscid = unscid;
 	}
 }

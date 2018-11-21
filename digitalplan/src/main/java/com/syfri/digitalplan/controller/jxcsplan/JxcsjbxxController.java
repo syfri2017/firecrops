@@ -101,4 +101,17 @@ public class JxcsjbxxController  extends BaseController<JxcsjbxxVO>{
 		}
 		return resultVO;
 	}
+	//add by yushch 查询基本数据同时查询统一社会信用代码
+	@ApiOperation(value = "根据ID查询", notes = "查询一条记录")
+	@ApiImplicitParam(name = "id", value = "业务ID", dataType = "String", paramType = "path")
+	@GetMapping("{id}")
+	public @ResponseBody ResultVO find(@PathVariable String id){
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(jxcsjbxxService.doFindJbxxById(id));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+		}
+		return resultVO;
+	}
 }

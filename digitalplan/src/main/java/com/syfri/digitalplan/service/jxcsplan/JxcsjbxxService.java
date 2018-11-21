@@ -17,4 +17,7 @@ public interface JxcsjbxxService extends BaseService<JxcsjbxxVO> {
     List<JxcsjbxxVO> doSearchApproveListByVO(JxcsjbxxVO vo);
     //审核九小场所 by huangrui 20180930
     JxcsjbxxVO doApproveUpdate(JxcsjbxxVO vo);
+
+    //查询九小场所基本信息 同时查询中间表统一社会信用代码 by yushch 20181121
+    JxcsjbxxVO doFindJbxxById(String id);
 }

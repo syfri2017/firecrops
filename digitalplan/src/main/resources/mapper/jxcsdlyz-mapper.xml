@@ -157,4 +157,19 @@
 		WHERE t.DWID = #{value}
 	</update>
 
+	<!--根据单位id查统一社会信用代码-->
+	<select id="doFindUnscidByDwid" parameterType="String"  resultType="String">
+		SELECT t.unscid FROM YAGL_JXCS_DLYZ t
+		WHERE t.DELETE_FLAG = 'N'
+		AND t.DWID = #{value}
+	</select>
+	<!--根据单位id修改统一社会信用代码-->
+	<update id="doUpdateUnscidByVO"  parameterType="JxcsdlyzVO">
+		UPDATE YAGL_JXCS_DLYZ
+		<set>
+			<if test="unscid != null">unscid=#{unscid}</if>
+		</set>
+		WHERE  dwid = #{dwid}
+	</update>
+
 </mapper>
