@@ -36,6 +36,9 @@ public class InfoCollectRealm extends AuthorizingRealm{
 	@Resource
 	private PermissionService permissionService;
 
+    @Resource
+    private OrganizationService organizationService;
+
 	/**
 	 * 认证信息（身份验证）
 	 * Authentication 是用来验证用户身份
@@ -51,10 +54,14 @@ public class InfoCollectRealm extends AuthorizingRealm{
 		String unscid = infoCollectToken.getUnscid();
 		String dwid = accountService.doFindDwidByUnscid(unscid);
 
+		//3.ShiroUser
 		AccountVO accountVO = new AccountVO();
 		accountVO.setUsername("jxcs");
 		AccountVO account = accountService.doFindByVO(accountVO);
 		ShiroUser shiroUser = new ShiroUser(account.getUserid(), account.getUsername(), account.getRealname(), unscid, dwid);
+
+		//4.根据用户ID获取其组织机构
+        shiroUser.setOrganizationVO(organizationService.doFindOrganizationByUserid(account.getUserid()));
 
 		List<String> roles = new ArrayList();
 		List<String> permissions = new ArrayList();
