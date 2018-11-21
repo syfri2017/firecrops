@@ -9,9 +9,6 @@
 		<if test="jbxx_jzid != null and jbxx_jzid != '' ">
 		 and t.jzid = #{jbxx_jzid}
 		</if>
-		<if test="jbxx_jzmc != null and jbxx_jzmc != '' ">
-			and jz.jzmc LIKE concat(concat('%',#{jbxx_jzmc}),'%')  ESCAPE '\'
-		</if>
 		<if test="jbxx_xfssmc != null and jbxx_xfssmc != '' ">
 		 and t.xfssmc LIKE concat(concat('%',#{jbxx_xfssmc}),'%')  ESCAPE '\'
 		</if>
@@ -121,6 +118,9 @@
 		<!--建筑-->
 		Left Join Yagl_Dwjzxx jz On jz.jzid = t.jzid And jz.DELETE_FLAG = 'N'
 		WHERE t.DELETE_FLAG = 'N'
+		<if test="jbxx_jzmc != null and jbxx_jzmc != '' ">
+			and jz.jzmc LIKE concat(concat('%',#{jbxx_jzmc}),'%')  ESCAPE '\'
+		</if>
 			<include refid="SQL_CONDITION"/>
 		ORDER BY NVL(xgsj,cjsj) DESC
 	</select>
