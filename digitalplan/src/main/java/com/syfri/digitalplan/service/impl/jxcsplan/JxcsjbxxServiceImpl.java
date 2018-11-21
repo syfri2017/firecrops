@@ -92,7 +92,10 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
         JxcsdlyzVO jxcsdlyzVO1 = new JxcsdlyzVO();
         jxcsdlyzVO1.setDwid(vo.getUuid());
         jxcsdlyzVO1.setUnscid(vo.getUnscid());
-        jxcsdlyzDAO.doUpdateUnscidByVO(jxcsdlyzVO1);
+        int count = jxcsdlyzDAO.doUpdateUnscidByVO(jxcsdlyzVO1);
+        if(count == 0){
+            jxcsdlyzDAO.doInsertByVO(jxcsdlyzVO1);
+        }
         //根据单位id物理删除中间表中信息
         jxcsdlyzDAO.doDeleteByDwid(dwid);
         //重新创建建筑中间表信息
