@@ -10,7 +10,7 @@
 		 and t.userid = #{userid}
 		</if>
 		<if test="realname != null and realname != '' ">
-		 and t.realname LIKE concat(concat('%',#{realname}),'%')
+		 and t.realname LIKE concat(concat('%',#{realname}),'%') ESCAPE '\'
 		</if>
 		<if test="birth != null and birth != '' ">
 		 and t.birth = #{birth}
@@ -261,7 +261,7 @@
 		WHERE t.DELETE_FLAG = 'N' AND a.DELETE_FLAG = 'N'
 		<include refid="SQL_CONDITION"/>
 		<if test="username != null and username != '' ">
-			and a.username LIKE concat(concat('%',#{username}),'%')
+			and a.username LIKE concat(concat('%',#{username}),'%') ESCAPE '\'
 		</if>
 		ORDER BY NVL(t.alter_time,t.create_time) DESC
 	</select>
