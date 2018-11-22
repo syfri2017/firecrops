@@ -220,7 +220,7 @@
 		SELECT
 		<include refid="SQL_CONTENT"/>
 		FROM YAGL_YA_ZDDW_FJ t
-		WHERE t.DELETE_FLAG = 'N' AND  t.YAID = #{yaid} AND t.KZM=#{kzm}
+		WHERE t.DELETE_FLAG = 'N' AND  t.YAID = #{yaid} AND t.KZM='.zip'
 	</select>
 
 	<!-- 根据预案ID查询图片文件记录  -->
