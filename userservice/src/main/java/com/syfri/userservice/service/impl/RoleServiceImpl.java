@@ -78,11 +78,17 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleVO> implements RoleServ
 
 	/*--删除：删除角色同时删除其资源.--*/
 	@Override
-	public void doDeleteRole(String roleid){
-		//输出角色表SYS_ROLE
-		roleDAO.doDeleteById(roleid);
-		//删除角色资源中间表SYS_ROLE_RESOURCE
-		roleDAO.doDeleteRoleResourcesBatch(roleid);
+	public int doDeleteRoleResources(List<RoleVO> list){
+		int num = 0;
+		for(RoleVO vo : list){
+			String roleid = vo.getRoleid();
+			//删除角色表int
+			roleDAO.doDeleteById(roleid);
+			//删除角色资源中间表SYS_ROLE_RESOURCE
+			roleDAO.doDeleteRoleResourcesBatch(roleid);
+			num++;
+		}
+		return num;
 	}
 
 	/*批量向角色权限中间表插入数据.*/

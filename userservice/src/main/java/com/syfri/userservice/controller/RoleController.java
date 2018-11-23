@@ -20,6 +20,8 @@ import com.syfri.userservice.model.RoleVO;
 import com.syfri.userservice.service.RoleService;
 import com.syfri.baseapi.controller.BaseController;
 
+import java.util.List;
+
 @Api(value = "角色管理",tags = "角色管理API",description = "角色管理")
 @Controller
 @RequestMapping("role")
@@ -112,15 +114,10 @@ public class RoleController  extends BaseController<RoleVO>{
 	@ApiImplicitParam(name="id",value="角色主键")
 	@RequiresPermissions("system/role:delete")
 	@PostMapping("/deleteByIds")
-	public @ResponseBody ResultVO deleteByIds(@RequestBody String id){
-		JSONObject jsonObject = JSON.parseObject(id);
-		JSONArray ids = jsonObject.getJSONArray("ids");
+	public @ResponseBody ResultVO deleteByIds(@RequestBody List<RoleVO> list){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			for(int i=0;i<ids.size();i++){
-				String roleid = (String)ids.get(i);
-				roleService.doDeleteRole(roleid);
-			}
+			resultVO.setResult(roleService.doDeleteRoleResources(list));
 			resultVO.setMsg("删除成功");
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());

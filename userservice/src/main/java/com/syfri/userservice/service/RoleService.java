@@ -19,7 +19,7 @@ public interface RoleService  extends BaseService<RoleVO>{
 	RoleVO doUpdateRoleResources(RoleVO roleVO);
 
 	/*--删除：删除角色同时删除其资源.--*/
-	void doDeleteRole(String roleid);
+	int doDeleteRoleResources(List<RoleVO> list);
 
 	/*--向角色资源中间表中批量增加数据.--*/
 	int insertRoleResourcesBatch(String roleid, List<ResourceVO> resources);

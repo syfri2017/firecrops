@@ -288,12 +288,12 @@ public class TestController extends BaseController<UserVO>{
 	}
 
 	//18
-	@RequestMapping("deleteRole")
-	@ResponseBody
-	@RequiresPermissions("role:delete")
-	public void deleteRole(){
-		roleService.doDeleteRole("A1AEACA6D7DD4131A8D7F9ADF1A5DAB0");
-	}
+//	@RequestMapping("deleteRole")
+//	@ResponseBody
+//	@RequiresPermissions("role:delete")
+//	public void deleteRole(){
+//		roleService.doDeleteRole("A1AEACA6D7DD4131A8D7F9ADF1A5DAB0");
+//	}
 
 	//19
 	@RequestMapping("getPermission")
