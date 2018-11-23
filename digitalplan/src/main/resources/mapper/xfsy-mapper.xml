@@ -910,7 +910,7 @@
 		Left Join SYS_CODELIST_DETAIL c2 On c2.CODEID = c1.CODEID And c2.DELETE_FLAG = 'N' and t3.trsylx = c2.CODE_VALUE
 		WHERE t3.DELETE_FLAG = 'N'
 		<if test="trsy_trsymc != null and trsy_trsymc != '' ">
-			and t3.trsymc like concat(concat('%',#{trsy_trsymc}),'%')
+			and t3.trsymc like concat(concat('%',#{trsy_trsymc}),'%') ESCAPE '\'
 		</if>
 		ORDER BY NVL(t3.xgsj,t3.cjsj) DESC
 	</select>
