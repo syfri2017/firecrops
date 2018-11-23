@@ -72,21 +72,23 @@ public class ImportantunitsServiceImpl extends BaseServiceImpl<ImportantunitsVO>
             if (!StringUtils.isEmpty(vo.getJzid())) {
                 BuildingVO temp = new BuildingVO();
                 temp.setJzid(vo.getJzid());
-                switch (vo.getJzlx()) {
-                    case "10":
-                    case "20":
-                        list.add(buildingDAO.doFindFqAndJzDetailByVo(temp));
-                        break;
-                    case "30":
-                        list.add(buildingDAO.doFindFqAndZzDetailByVo(temp));
-                        break;
-                    case "40":
-                        BuildingVO cgl = buildingDAO.doFindFqAndCgDetailByVo(temp);
-                        ChuguanVO cg = new ChuguanVO();
-                        cg.setPkid(cgl.getCgl_uuid());
-                        cgl.setChuguanList(buildingDAO.doFindChuGuanList(cg));
-                        list.add(cgl);
-                        break;
+                if (vo.getJzlx() != null && vo.getJzlx() != "") {
+                    switch (vo.getJzlx()) {
+                        case "10":
+                        case "20":
+                            list.add(buildingDAO.doFindFqAndJzDetailByVo(temp));
+                            break;
+                        case "30":
+                            list.add(buildingDAO.doFindFqAndZzDetailByVo(temp));
+                            break;
+                        case "40":
+                            BuildingVO cgl = buildingDAO.doFindFqAndCgDetailByVo(temp);
+                            ChuguanVO cg = new ChuguanVO();
+                            cg.setPkid(cgl.getCgl_uuid());
+                            cgl.setChuguanList(buildingDAO.doFindChuGuanList(cg));
+                            list.add(cgl);
+                            break;
+                    }
                 }
             }
         }
@@ -339,7 +341,7 @@ public class ImportantunitsServiceImpl extends BaseServiceImpl<ImportantunitsVO>
     /**
      * 通过重点单位Gis坐标 查询周围1公里车辆信息
      */
-    public List<FireengineVO> doFindXfclListByZddwGis(ImportantunitsVO vo){
+    public List<FireengineVO> doFindXfclListByZddwGis(ImportantunitsVO vo) {
         double longitude = Double.parseDouble(vo.getGisX());//单位经度
         double latitude = Double.parseDouble(vo.getGisY());//单位纬度
 
