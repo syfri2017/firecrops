@@ -629,6 +629,9 @@
 		<if test="xzqh != null and xzqh != '' ">
 			and t.xzqh like concat(#{xzqh},'%')
 		</if>
+		<if test="dzmc != null and dzmc != '' ">
+			and t.dzmc like concat(concat('%',#{dzmc}),'%') ESCAPE '\'
+		</if>
 		ORDER BY t.dzbm
 	</select>
 
