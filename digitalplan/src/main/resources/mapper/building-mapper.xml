@@ -323,9 +323,11 @@
 			<if test="jzl_jzjg != null">jzjg=#{jzl_jzjg},</if>
 			<if test="jzl_gnms != null">gnms=#{jzl_gnms},</if>
 			<if test="jzl_zdmj != null">zdmj=#{jzl_zdmj},</if>
+			<if test="jzl_jzmj != null">zdmj=#{jzl_jzmj},</if>
 			<if test="jzl_dsgd != null">dsgd=#{jzl_dsgd},</if>
 			<if test="jzl_dxgd != null">dxgd=#{jzl_dxgd},</if>
 			<if test="jzl_dscs != null">dscs=#{jzl_dscs},</if>
+			<if test="jzl_dxcs != null">zdmj=#{jzl_dxcs},</if>
 			<!--<if test="jzl_jdh != null">jdh=#{jzl_jdh},</if>-->
 			<if test="jzl_deleteFlag != null">delete_flag=#{jzl_deleteFlag},</if>
 			<if test="jzl_datasource != null">datasource=#{jzl_datasource},</if>
