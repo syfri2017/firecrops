@@ -20,4 +20,9 @@ public class JxcsdlyzServiceImpl extends BaseServiceImpl<JxcsdlyzVO> implements 
 	public JxcsdlyzDAO getBaseDAO() {
 		return jxcsdlyzDAO;
 	}
+
+	@Override
+	public int doFindCountByUnscid(String unscid) {
+		return jxcsdlyzDAO.doFindCountByUnscid(unscid);
+	}
 }

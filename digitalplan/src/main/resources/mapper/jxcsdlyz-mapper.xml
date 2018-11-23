@@ -172,4 +172,8 @@
 		WHERE  dwid = #{dwid}
 	</update>
 
+	<!--查询登录验证表中是否存在当前统一社会信用代码-->
+	<select id="doFindCountByUnscid" parameterType="String" resultType="java.lang.Integer">
+		SELECT COUNT(1) num FROM YAGL_JXCS_DLYZ t WHERE t.DELETE_FLAG = 'N' AND t.unscid = #{value}
+	</select>
 </mapper>
