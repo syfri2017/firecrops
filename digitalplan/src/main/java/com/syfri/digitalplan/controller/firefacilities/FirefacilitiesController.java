@@ -64,13 +64,7 @@ public class FirefacilitiesController extends BaseController<FirefacilitiesVO> {
     ResultVO doDeleteFacilities(@RequestBody List<FirefacilitiesVO> facilitiesList) {
         ResultVO resultVO = ResultVO.build();
         try {
-            int count = 0;
-            for (FirefacilitiesVO facilitiesVO : facilitiesList) {
-                facilitiesVO.setJbxx_deleteFlag("Y");
-                firefacilitiesService.doDeleteFirefacilities(facilitiesVO);
-                count = count + firefacilitiesService.doUpdateByVO(facilitiesVO);
-            }
-            resultVO.setResult(count);
+            resultVO.setResult(firefacilitiesService.doDeleteFirefacilities(facilitiesList));
         } catch (Exception e) {
             logger.error("{}", e.getMessage());
             resultVO.setCode(EConstants.CODE.FAILURE);

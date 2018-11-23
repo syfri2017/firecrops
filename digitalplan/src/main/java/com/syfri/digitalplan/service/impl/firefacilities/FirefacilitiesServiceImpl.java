@@ -849,7 +849,7 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         FirefacilitiesVO vo1 = firefacilitiesDAO.doFindById(xfssid);//原主表数据查询
         firefacilitiesDAO.doUpdateByVO(firefacilitiesVO);//新主表数据修改
         if (!vo1.getJbxx_xfsslx().equals(xfsslx)) {//消防设施类型改变
-            this.doDeleteFirefacilities(vo1);//删除原类型从表数据
+            this.doDeleteFirefacilitiesDetails(vo1);//删除原类型从表数据
             this.doInsertFirefacilities(firefacilitiesVO);//增加新类型从表数据
         } else {//消防设施类型未改变，做从表修改
             Map detailMap = firefacilitiesVO.getDetailMap();
@@ -1104,8 +1104,19 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         return firefacilitiesVO;
     }
 
+    //消防设施删除
+    public int doDeleteFirefacilities(List<FirefacilitiesVO> facilitiesList){
+        int count = 0;
+        for (FirefacilitiesVO facilitiesVO : facilitiesList) {
+            facilitiesVO.setJbxx_deleteFlag("Y");
+            this.doDeleteFirefacilitiesDetails(facilitiesVO);//删除从表信息
+            count = count + this.doUpdateByVO(facilitiesVO);//删除主表信息
+        }
+        return count;
+    }
+
     //消防设施从表删除
-    public FirefacilitiesVO doDeleteFirefacilities(FirefacilitiesVO firefacilitiesVO) {
+    public FirefacilitiesVO doDeleteFirefacilitiesDetails(FirefacilitiesVO firefacilitiesVO) {
         String xfsslx = firefacilitiesVO.getJbxx_xfsslx();
         String xfssid = firefacilitiesVO.getJbxx_xfssid();
         switch (xfsslx) {
