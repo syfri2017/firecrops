@@ -7,10 +7,10 @@
 		 and t.roleid = #{roleid}
 		</if>
 		<if test="rolename != null and rolename != '' ">
-		 and t.rolename LIKE concat(concat('%',#{rolename}),'%')
+		 and t.rolename LIKE concat(concat('%',#{rolename}),'%') ESCAPE '\'
 		</if>
 		<if test="roleinfo != null and roleinfo != '' ">
-		 and t.roleinfo = #{roleinfo}
+		 and t.roleinfo LIKE concat(concat('%',#{roleinfo}),'%') ESCAPE '\'
 		</if>
 		<if test="createId != null and createId != '' ">
 		 and t.create_id = #{createId}
@@ -22,7 +22,7 @@
 		 and t.create_time &gt;= to_date(#{createTimeBegin},'yyyy-MM-dd')
 		</if>
 		<if test="createTimeEnd != null and createTimeEnd != '' ">
-			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd')
+			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd') + 1
 		</if>
 		<if test="alterId != null and alterId != '' ">
 		 and t.alter_id = #{alterId}
