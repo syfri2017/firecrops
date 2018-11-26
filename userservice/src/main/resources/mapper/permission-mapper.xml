@@ -7,10 +7,10 @@
 		 and t.permissionid = #{permissionid}
 		</if>
 		<if test="permissionname != null and permissionname != '' ">
-		 and t.permissionname = #{permissionname}
+		 and t.permissionname LIKE concat(concat('%',#{permissionname}),'%') ESCAPE '\'
 		</if>
 		<if test="permissioninfo != null and permissioninfo != '' ">
-		 and t.permissioninfo = #{permissioninfo}
+		 and t.permissioninfo LIKE concat(concat('%',#{permissioninfo}),'%') ESCAPE '\'
 		</if>
 		<if test="createId != null and createId != '' ">
 		 and t.create_id = #{createId}
@@ -22,7 +22,7 @@
 			and t.create_time &gt;= to_date(#{createTimeBegin},'yyyy-MM-dd')
 		</if>
 		<if test="createTimeEnd != null and createTimeEnd != '' ">
-			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd')
+			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd') + 1
 		</if>
 		<if test="alterId != null and alterId != '' ">
 		 and t.alter_id = #{alterId}
@@ -184,22 +184,6 @@
 		LEFT JOIN (SELECT permissionid,permissionname FROM SYS_PERMISSION WHERE delete_flag = 'N') t3 ON t1.permissionid = t3.permissionid
 		WHERE t1.parentid != '-1'
 	</select>
-	<!--<select id="doFindPermissionByResourceList" parameterType="java.util.List" resultType="PermissionVO">-->
-		<!--SELECT DISTINCT t1.permissionid,-->
-			<!--CASE WHEN t2.resourcename IS NULL THEN substr(t1.resourcename,2,INSTR(t1.resourcename,'/',2)-2)||':'||t3.permissionname-->
-			<!--ELSE substr(t2.resourcename,2)||':'||t3.permissionname END permissionname-->
-		<!--FROM(-->
-			<!--SELECT r.resourceid,r.resourcename,r.parentid,c.permissionid FROM SYS_RESOURCE_PERMISSION c-->
-			<!--LEFT JOIN SYS_RESOURCE r ON c.resourceid = r.resourceid-->
-			<!--WHERE r.delete_flag = 'N' AND c.delete_flag = 'N'-->
-			<!--AND r.resourceid IN-->
-			<!--<foreach collection="list" item="item" index="index" open="(" close=")" separator="," >-->
-				<!--#{item.resourceid,jdbcType=VARCHAR}-->
-			<!--</foreach>-->
-		<!--) t1-->
-		<!--LEFT JOIN (SELECT resourceid,resourcename FROM SYS_RESOURCE WHERE delete_flag = 'N') t2 ON t1.parentid = t2.resourceid-->
-		<!--LEFT JOIN (SELECT permissionid,permissionname FROM SYS_PERMISSION WHERE delete_flag = 'N') t3 ON t1.permissionid = t3.permissionid-->
-	<!--</select>-->
 
 	<!--13.获取所有的权限-->
 	<select id="doFindAll" resultType="PermissionVO">
