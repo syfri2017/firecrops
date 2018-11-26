@@ -80,7 +80,7 @@ public class FirefacilitiesController extends BaseController<FirefacilitiesVO> {
     ResultVO insertByVO(@RequestBody FirefacilitiesVO firefacilitiesVO) {
         ResultVO resultVO = ResultVO.build();
         try {
-            firefacilitiesService.doInsertByVO(firefacilitiesVO);
+//            firefacilitiesService.doInsertByVO(firefacilitiesVO);
             resultVO.setResult(firefacilitiesService.doInsertFirefacilities(firefacilitiesVO));
         } catch (Exception e) {
             logger.error("{}", e.getMessage());
