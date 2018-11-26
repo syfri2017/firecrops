@@ -1,6 +1,7 @@
 package com.syfri.userservice.service.impl;
 
 import com.syfri.userservice.model.ResourceVO;
+import com.syfri.userservice.model.RoleVO;
 import com.syfri.userservice.utils.CurrentUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -57,8 +58,15 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionVO> impleme
 	}
 
 	/*--删除：权限.--*/
-	public void doDeletePermission(String permissionid){
-		permissionDAO.doDeleteById(permissionid);
+	public int doDeletePermissions(List<PermissionVO> list){
+		int num = 0;
+		for(PermissionVO vo : list){
+			String permissionid = vo.getPermissionid();
+			//删除权限表
+			permissionDAO.doDeleteById(permissionid);
+			num++;
+		}
+		return num;
 	}
 
 	/*--获取所有的权限.--*/
