@@ -13,6 +13,7 @@ public interface FirefacilitiesService extends BaseService<FirefacilitiesVO> {
     public ValueObject doFindXfssDetail(FirefacilitiesVO vo);
 
     public FirefacilitiesVO doInsertFirefacilities(FirefacilitiesVO firefacilitiesVO);
+    public FirefacilitiesVO doInsertFirefacilitiesDetail(FirefacilitiesVO firefacilitiesVO);
 
     public FirefacilitiesVO doUpdateFirefacilities(FirefacilitiesVO firefacilitiesVO);
 

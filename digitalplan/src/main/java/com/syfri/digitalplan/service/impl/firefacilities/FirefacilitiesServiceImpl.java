@@ -527,8 +527,18 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         return detailVo;
     }
 
-    //消防设施从表新增
+    //消防设施新增
     public FirefacilitiesVO doInsertFirefacilities(FirefacilitiesVO firefacilitiesVO) {
+        int count = 0;
+        count = firefacilitiesDAO.doInsertByVO(firefacilitiesVO);//主表新增
+        if (count > 0) {
+            this.doInsertFirefacilitiesDetail(firefacilitiesVO);//从表新增
+        }
+        return firefacilitiesVO;
+    }
+
+    //消防设施从表新增
+    public FirefacilitiesVO doInsertFirefacilitiesDetail(FirefacilitiesVO firefacilitiesVO) {
         String xfsslx = firefacilitiesVO.getJbxx_xfsslx();
         String xfssid = firefacilitiesVO.getJbxx_xfssid();
         String jdh = firefacilitiesVO.getJbxx_jdh();
@@ -850,7 +860,7 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         firefacilitiesDAO.doUpdateByVO(firefacilitiesVO);//新主表数据修改
         if (!vo1.getJbxx_xfsslx().equals(xfsslx)) {//消防设施类型改变
             this.doDeleteFirefacilitiesDetails(vo1);//删除原类型从表数据
-            this.doInsertFirefacilities(firefacilitiesVO);//增加新类型从表数据
+            this.doInsertFirefacilitiesDetail(firefacilitiesVO);//增加新类型从表数据
         } else {//消防设施类型未改变，做从表修改
             Map detailMap = firefacilitiesVO.getDetailMap();
             switch (xfsslx) {
@@ -1105,7 +1115,7 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
     }
 
     //消防设施删除
-    public int doDeleteFirefacilities(List<FirefacilitiesVO> facilitiesList){
+    public int doDeleteFirefacilities(List<FirefacilitiesVO> facilitiesList) {
         int count = 0;
         for (FirefacilitiesVO facilitiesVO : facilitiesList) {
             facilitiesVO.setJbxx_deleteFlag("Y");
