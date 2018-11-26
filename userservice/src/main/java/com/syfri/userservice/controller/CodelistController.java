@@ -116,8 +116,8 @@ public class CodelistController  extends BaseController<CodelistVO>{
 	@ApiOperation(value="根据主键删除代码集代码集",notes="删除")
 	@ApiImplicitParam(name="id",value="代码集主键")
 	@RequiresPermissions("system/codelist:delete")
-	@PostMapping("/deleteByIds")
-	public @ResponseBody ResultVO deleteByIds(@RequestBody List<CodelistVO> list){
+	@PostMapping("/deleteByList")
+	public @ResponseBody ResultVO deleteByList(@RequestBody List<CodelistVO> list){
 		ResultVO resultVO = ResultVO.build();
 		try{
 			resultVO.setResult(codelistService.doDeleteCodelist(list));;
@@ -245,8 +245,8 @@ public class CodelistController  extends BaseController<CodelistVO>{
 	@ApiOperation(value="根据主键删除代码集代码值",notes="删除")
 	@ApiImplicitParam(name="id",value="代码值主键")
 	@RequiresPermissions("system/codelist:delete")
-	@PostMapping("/detail/deleteByIds")
-	public @ResponseBody ResultVO deleteDetailByIds(@RequestBody List<CodelistDetailVO> list){
+	@PostMapping("/detail/deleteByList")
+	public @ResponseBody ResultVO deleteDetailByList(@RequestBody List<CodelistDetailVO> list){
 		ResultVO resultVO = ResultVO.build();
 		try{
 			resultVO.setResult(codelistService.doDeleteCodelistDetail(list));
@@ -269,11 +269,7 @@ public class CodelistController  extends BaseController<CodelistVO>{
 			CodelistDetailVO codelistDetailVO = new CodelistDetailVO();
 			codelistDetailVO.setCodeValue(codevalue);
 			codelistDetailVO.setCodeid(codeid);
-				if(codelistService.doFindCodelistDetail(codelistDetailVO).size() == 0){
-				resultVO.setResult(0);
-			}else{
-				resultVO.setResult(1);
-			}
+			resultVO.setResult(codelistService.doFindByCodelistDetailNum(codelistDetailVO));
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);
