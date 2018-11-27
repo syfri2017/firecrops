@@ -1,12 +1,14 @@
 package com.syfri.digitalplan.service.impl.digitalplan;
 
 import com.syfri.digitalplan.dao.digitalplan.DigitalplanlistDAO;
+import com.syfri.digitalplan.dao.digitalplan.DistributeDAO;
 import com.syfri.digitalplan.dao.digitalplan.DisastersetDAO;
 import com.syfri.digitalplan.dao.digitalplan.KeypointsDAO;
 import com.syfri.digitalplan.dao.digitalplan.ForcedevDAO;
 import com.syfri.digitalplan.dao.buildingzoning.BuildingDAO;
 
 import com.syfri.digitalplan.model.digitalplan.DigitalplanlistVO;
+import com.syfri.digitalplan.model.digitalplan.DistributeVO;
 import com.syfri.digitalplan.model.digitalplan.DisastersetVO;
 import com.syfri.digitalplan.model.buildingzoning.BuildingVO;
 import com.syfri.digitalplan.model.digitalplan.ForcedevVO;
@@ -37,6 +39,8 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
     private ForcedevDAO forcedevDAO;
     @Autowired
     private BuildingDAO buildingDAO;
+    @Autowired
+    private DistributeDAO distributeDAO;
 
 
     @Override
@@ -368,14 +372,14 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
                         fdVo.setXgrid(xgrid);
                         fdVo.setXgrmc(xgrmc);
                         fdVo.setDeleteFlag("Y");
-                        forcedevDAO.doDeleteByVO(fdVo);
+                        forcedevDAO.doDeleteByVO(fdVo);//力量部署删除
 
                         KeypointsVO kpVo = new KeypointsVO();
                         kpVo.setZqid(dsVo.getZqid());
                         kpVo.setXgrid(xgrid);
                         kpVo.setXgrmc(xgrmc);
                         kpVo.setDeleteFlag("Y");
-                        keypointsDAO.doDeleteByVO(kpVo);
+                        keypointsDAO.doDeleteByVO(kpVo);//要点提示删除
                     }
                 }
                 DisastersetVO dsVo = new DisastersetVO();
@@ -383,12 +387,14 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
                 dsVo.setXgrid(xgrid);
                 dsVo.setXgrmc(xgrmc);
                 dsVo.setDeleteFlag("Y");
-                disastersetDAO.doDeleteByVO(dsVo);
+                disastersetDAO.doDeleteByVO(dsVo);//灾情设定删除
 
                 dpVo.setXgrid(xgrid);
                 dpVo.setXgrmc(xgrmc);
                 dpVo.setDeleteFlag("Y");
-                num = num + digitalplanlistDAO.doUpdateByVO(dpVo);
+                num = num + digitalplanlistDAO.doUpdateByVO(dpVo);//预案删除
+
+                distributeDAO.doDeleteByYaid(dpVo.getUuid());//分发删除
             }
         }
         return num;

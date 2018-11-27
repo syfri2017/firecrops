@@ -55,6 +55,14 @@ public class EquipmentsourceServiceImpl extends BaseServiceImpl<EquipmentVO> imp
 		int count = 0;
 		if (equipmentList.size() > 0) {
 			for (EquipmentVO equipmentVO : equipmentList) {
+				//装备车辆中间表删除
+				EquipengineVO engineVO = new EquipengineVO();
+				engineVO.setZbid(equipmentVO.getUuid());
+				engineVO.setXgrid(equipmentVO.getXgrid());
+				engineVO.setXgrmc(equipmentVO.getXgrmc());
+				engineVO.setDeleteFlag("Y");
+				equipengineDAO.doUpdateByZbid(engineVO);
+				//装备删除
 				EquipmentVO vo = new EquipmentVO();
 				vo.setUuid(equipmentVO.getUuid());
 				vo.setXgrid(equipmentVO.getXgrid());
