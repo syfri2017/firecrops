@@ -198,10 +198,10 @@
 			and t.codeid = #{codeid}
 		</if>
 		<if test="codeValue != null and codeValue != '' ">
-			and t.code_value LIKE concat(concat('%',#{codeValue}),'%')
+			and t.code_value LIKE concat(concat('%',#{codeValue}),'%') ESCAPE '\'
 		</if>
 		<if test="codeName != null and codeName != '' ">
-			and t.code_name LIKE concat(concat('%',#{codeName}),'%')
+			and t.code_name LIKE concat(concat('%',#{codeName}),'%') ESCAPE '\'
 		</if>
 		<if test="codetype != null and codetype !='' ">
 			and t.codetype = #{codetype}
