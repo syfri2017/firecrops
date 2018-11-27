@@ -22,6 +22,9 @@ public interface CodelistService  extends BaseService<CodelistVO>{
 	/*--删除：代码集.--*/
 	int doDeleteCodelist(List<CodelistVO> list);
 
+	/*--查询从表数量 by li.xue 2018/11/26.--*/
+	int doFindByCodelistDetailNum(CodelistDetailVO codelistDetailVO);
+
 	/*--查询从表：根据代码集详情对象查询.--*/
 	List<CodelistDetailVO> doFindCodelistDetail(CodelistDetailVO codelistDetailVO);
 

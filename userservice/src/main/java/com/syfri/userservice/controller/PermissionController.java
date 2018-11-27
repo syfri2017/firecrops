@@ -118,16 +118,11 @@ public class PermissionController  extends BaseController<PermissionVO>{
 	@ApiOperation(value="根据主键删除权限权限及其资源信息",notes="删除")
 	@ApiImplicitParam(name="id",value="权限主键")
 	@RequiresPermissions("system/permission:delete")
-	@PostMapping("/deleteByIds")
-	public @ResponseBody ResultVO deleteByIds(@RequestBody String id){
-		JSONObject jsonObject = JSON.parseObject(id);
-		JSONArray ids = jsonObject.getJSONArray("ids");
+	@PostMapping("/deleteByList")
+	public @ResponseBody ResultVO deleteByList(@RequestBody List<PermissionVO> list){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			for(int i=0;i<ids.size();i++){
-				String permissionid = (String)ids.get(i);
-				permissionService.doDeletePermission(permissionid);
-			}
+			resultVO.setResult(permissionService.doDeletePermissions(list));
 			resultVO.setMsg("删除成功");
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());

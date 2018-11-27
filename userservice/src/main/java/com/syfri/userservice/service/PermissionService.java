@@ -21,7 +21,7 @@ public interface PermissionService  extends BaseService<PermissionVO>{
 	PermissionVO doUpdatePermission(PermissionVO permissionVO);
 
 	/*--删除：权限.--*/
-	void doDeletePermission(String permissionid);
+	int doDeletePermissions(List<PermissionVO> list);
 
 	/*--获取所有的权限.--*/
 	List<PermissionVO> doFindAll();

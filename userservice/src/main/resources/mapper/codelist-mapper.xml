@@ -170,16 +170,16 @@
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST t  WHERE t.DELETE_FLAG = 'N'
 		<if test="codetype != null and codetype != '' ">
-			and t.codetype LIKE concat(concat('%',#{codetype}),'%')
+			and t.codetype LIKE concat(concat('%',#{codetype}),'%') ESCAPE '\'
 		</if>
 		<if test="codetypeName != null and codetypeName != '' ">
-			and t.codetype_name LIKE concat(concat('%',#{codetypeName}),'%')
+			and t.codetype_name LIKE concat(concat('%',#{codetypeName}),'%') ESCAPE '\'
 		</if>
 		<if test="createTimeBegin != null and createTimeBegin != '' ">
 			and t.create_time &gt;= to_date(#{createTimeBegin},'yyyy-MM-dd')
 		</if>
 		<if test="createTimeEnd != null and createTimeEnd != '' ">
-			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd')
+			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd') + 1
 		</if>
 		ORDER BY nvl(t.alter_time,t.create_time) DESC
 	</select>
@@ -191,14 +191,17 @@
 		t.alter_id alterId,t.alter_name alterName,TO_CHAR(t.alter_time,'yyyy-MM-dd HH24:mi:ss') alterTime
 		FROM SYS_CODELIST_DETAIL t
 		WHERE delete_flag = 'N'
+		<if test="pkid != null and pkid !='' ">
+			and t.pkid = #{pkid}
+		</if>
 	   	<if test="codeid != null and codeid !='' ">
 			and t.codeid = #{codeid}
 		</if>
 		<if test="codeValue != null and codeValue != '' ">
-			and t.code_value LIKE concat(concat('%',#{codeValue}),'%')
+			and t.code_value LIKE concat(concat('%',#{codeValue}),'%') ESCAPE '\'
 		</if>
 		<if test="codeName != null and codeName != '' ">
-			and t.code_name LIKE concat(concat('%',#{codeName}),'%')
+			and t.code_name LIKE concat(concat('%',#{codeName}),'%') ESCAPE '\'
 		</if>
 		<if test="codetype != null and codetype !='' ">
 			and t.codetype = #{codetype}
@@ -208,8 +211,11 @@
 
 	<!--13.从表新增-->
 	<insert id="doInsertCodelistDetail"  parameterType="CodelistDetailVO">
+		<selectKey resultType="String" order="BEFORE" keyProperty="pkid">
+			SELECT SYS_GUID() AS pkid FROM DUAL
+		</selectKey>
 		INSERT INTO SYS_CODELIST_DETAIL(pkid,code_value,code_name,codeid,codetype,codetype_name,delete_flag,remark,create_id,create_name,create_time)
-		VALUES(sys_guid(),#{codeValue,jdbcType=VARCHAR},#{codeName,jdbcType=VARCHAR},#{codeid,jdbcType=VARCHAR},#{codetype,jdbcType=VARCHAR},#{codetypeName,jdbcType=VARCHAR},'N',#{remark,jdbcType=VARCHAR},#{createId,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},SYSDATE)
+		VALUES(#{pkid,jdbcType=VARCHAR},#{codeValue,jdbcType=VARCHAR},#{codeName,jdbcType=VARCHAR},#{codeid,jdbcType=VARCHAR},#{codetype,jdbcType=VARCHAR},#{codetypeName,jdbcType=VARCHAR},'N',#{remark,jdbcType=VARCHAR},#{createId,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},SYSDATE)
 	</insert>
 	<!--14.从表修改-->
 	<update  id="doUpdateCodelistDetail"  parameterType="CodelistdetailVO">
@@ -223,7 +229,7 @@
 			<if test="remark != null">remark=#{remark},</if>
 			<if test="alterId != null">alter_id=#{alterId},</if>
 			<if test="alterName != null">alter_name=#{alterName},</if>
-			<if test="alterTime != null">alter_time=TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss')</if>
+			alter_time=TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss')
 		</set>
 		WHERE  PKID = #{pkid}
 	</update>
@@ -238,7 +244,12 @@
 		UPDATE  SYS_CODELIST_DETAIL t SET t.DELETE_FLAG = 'Y'  WHERE 1 = 1 AND t.codeid = #{codeid}
 	</update>
 
-	<!--16.根据代码类型查询代码集-->
+	<!--16.查询从表-->
+	<select id="doFindByCodelistDetailNum" parameterType="CodelistDetailVO">
+		SELECT COUNT(1) FROM SYS_CODELIST_DETAIL t WHERE t.DELETE_FLAG = 'Y' AND t.codeid = #{codeid} AND t.pkid = #{pkid}
+	</select>
+
+	<!--17.根据代码类型查询代码集-->
 	<select id="doFindCodelistByType" resultType="CodelistDetailVO" parameterType="String">
 		SELECT code_value codeValue,code_name codeName
 		FROM SYS_CODELIST_DETAIL t  WHERE t.DELETE_FLAG = 'N'
@@ -246,7 +257,7 @@
 		ORDER BY code_value
 	</select>
 
-	<!--17.根据代码类型查询代码集，按数字大小排序-->
+	<!--18.根据代码类型查询代码集，按数字大小排序-->
 	<select id="doFindCodelistByTypeOrderByNum" resultType="CodelistDetailVO" parameterType="String">
 		SELECT code_value codeValue,code_name codeName
 		FROM SYS_CODELIST_DETAIL t  WHERE t.DELETE_FLAG = 'N'

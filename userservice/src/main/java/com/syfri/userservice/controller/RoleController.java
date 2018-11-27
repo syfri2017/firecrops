@@ -113,8 +113,8 @@ public class RoleController  extends BaseController<RoleVO>{
 	@ApiOperation(value="根据主键删除角色角色及其资源信息",notes="删除")
 	@ApiImplicitParam(name="id",value="角色主键")
 	@RequiresPermissions("system/role:delete")
-	@PostMapping("/deleteByIds")
-	public @ResponseBody ResultVO deleteByIds(@RequestBody List<RoleVO> list){
+	@PostMapping("/deleteByList")
+	public @ResponseBody ResultVO deleteByList(@RequestBody List<RoleVO> list){
 		ResultVO resultVO = ResultVO.build();
 		try{
 			resultVO.setResult(roleService.doDeleteRoleResources(list));

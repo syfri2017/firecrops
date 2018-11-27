@@ -126,8 +126,8 @@ public class UserController  extends BaseController<UserVO>{
 	@ApiOperation(value="根据主键删除用户（包括账户和角色）",notes="删除")
 	@ApiImplicitParam(name="id",value="用户主键")
 	@RequiresPermissions("system/user:delete")
-	@PostMapping("/deleteByIds")
-	public @ResponseBody ResultVO deleteByIds(@RequestBody List<UserVO> list){
+	@PostMapping("/deleteByList")
+	public @ResponseBody ResultVO deleteByList(@RequestBody List<UserVO> list){
 		ResultVO resultVO = ResultVO.build();
 		try{
 			resultVO.setResult(userService.doDeleteUserRoles(list));
