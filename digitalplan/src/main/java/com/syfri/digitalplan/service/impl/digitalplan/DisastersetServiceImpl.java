@@ -37,9 +37,9 @@ public class DisastersetServiceImpl extends BaseServiceImpl<DisastersetVO> imple
     public List<DisastersetVO> doFindByPlanId(String yaid) {
         List<DisastersetVO> resultList = disastersetDAO.doFindByPlanId(yaid);
         for (DisastersetVO vo : resultList) {
-            List<ForcedevVO> forcedevList = this.forcedevDAO.doFindByPlanId(vo.getZqid());
+            List<ForcedevVO> forcedevList = forcedevDAO.doFindByPlanId(vo.getZqid());
             vo.setForcedevList(forcedevList);
-            KeypointsVO keypointsMap = this.keypointsDAO.doFindByPlanId(vo.getZqid());
+            KeypointsVO keypointsMap = keypointsDAO.doFindByPlanId(vo.getZqid());
             if (keypointsMap == null) {
                 vo.setKeypointsMap(new KeypointsVO());
             } else {

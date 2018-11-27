@@ -2,6 +2,7 @@ package com.syfri.digitalplan.service.impl.firefacilities;
 
 import com.syfri.baseapi.model.ValueObject;
 import com.syfri.digitalplan.model.firefacilities.*;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -532,7 +533,7 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         int count = 0;
         count = firefacilitiesDAO.doInsertByVO(firefacilitiesVO);//主表新增
         if (count > 0) {
-            this.doInsertFirefacilitiesDetail(firefacilitiesVO);//从表新增
+            ((FirefacilitiesService) AopContext.currentProxy()).doInsertFirefacilitiesDetail(firefacilitiesVO);//从表新增
         }
         return firefacilitiesVO;
     }
@@ -859,8 +860,8 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         FirefacilitiesVO vo1 = firefacilitiesDAO.doFindById(xfssid);//原主表数据查询
         firefacilitiesDAO.doUpdateByVO(firefacilitiesVO);//新主表数据修改
         if (!vo1.getJbxx_xfsslx().equals(xfsslx)) {//消防设施类型改变
-            this.doDeleteFirefacilitiesDetails(vo1);//删除原类型从表数据
-            this.doInsertFirefacilitiesDetail(firefacilitiesVO);//增加新类型从表数据
+            ((FirefacilitiesService) AopContext.currentProxy()).doDeleteFirefacilitiesDetails(vo1);//删除原类型从表数据
+            ((FirefacilitiesService) AopContext.currentProxy()).doInsertFirefacilitiesDetail(firefacilitiesVO);//增加新类型从表数据
         } else {//消防设施类型未改变，做从表修改
             Map detailMap = firefacilitiesVO.getDetailMap();
             switch (xfsslx) {
@@ -1119,8 +1120,8 @@ public class FirefacilitiesServiceImpl extends BaseServiceImpl<FirefacilitiesVO>
         int count = 0;
         for (FirefacilitiesVO facilitiesVO : facilitiesList) {
             facilitiesVO.setJbxx_deleteFlag("Y");
-            this.doDeleteFirefacilitiesDetails(facilitiesVO);//删除从表信息
-            count = count + this.doUpdateByVO(facilitiesVO);//删除主表信息
+            ((FirefacilitiesService) AopContext.currentProxy()).doDeleteFirefacilitiesDetails(facilitiesVO);//删除从表信息
+            count = count + firefacilitiesDAO.doUpdateByVO(facilitiesVO);//删除主表信息
         }
         return count;
     }

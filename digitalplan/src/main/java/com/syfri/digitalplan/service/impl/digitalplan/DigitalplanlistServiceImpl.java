@@ -11,6 +11,7 @@ import com.syfri.digitalplan.model.digitalplan.DisastersetVO;
 import com.syfri.digitalplan.model.buildingzoning.BuildingVO;
 import com.syfri.digitalplan.model.digitalplan.ForcedevVO;
 import com.syfri.digitalplan.model.digitalplan.KeypointsVO;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +94,7 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
     @Override
     public DigitalplanlistVO doInsertDigitalplan(DigitalplanlistVO digitalplanlistVO) {
         //预案插入
-        String yabm = this.createPlanCode(digitalplanlistVO.getJgbm(),"01");//灾害类型暂定为火灾01
+        String yabm = ((DigitalplanlistService) AopContext.currentProxy()).createPlanCode(digitalplanlistVO.getJgbm(),"01");//灾害类型暂定为火灾01
         digitalplanlistVO.setYabm(yabm);
         digitalplanlistDAO.doInsertByVO(digitalplanlistVO);
         //灾情插入
@@ -187,9 +188,9 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
         //灾情（旧）
         List<DisastersetVO> dslist = disastersetDAO.doFindByPlanId(digitalplanlistVO.getUuid());
         for (DisastersetVO vo : dslist) {
-            List<ForcedevVO> forcedevList = this.forcedevDAO.doFindByPlanId(vo.getZqid());
+            List<ForcedevVO> forcedevList = forcedevDAO.doFindByPlanId(vo.getZqid());
             vo.setForcedevList(forcedevList);
-            KeypointsVO keypointsMap = this.keypointsDAO.doFindByPlanId(vo.getZqid());
+            KeypointsVO keypointsMap = keypointsDAO.doFindByPlanId(vo.getZqid());
             if (keypointsMap == null) {
                 vo.setKeypointsMap(new KeypointsVO());
             } else {
@@ -402,7 +403,7 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
      * @Date: 2018/5/23 10:20
      */
     public List<BuildingVO> doSearchJzListByZddwId(BuildingVO buildingVO) {
-        List<BuildingVO> resultList = this.buildingDAO.doSearchJzListByZddwId(buildingVO);
+        List<BuildingVO> resultList = buildingDAO.doSearchJzListByZddwId(buildingVO);
         return resultList;
     }
 
@@ -415,7 +416,7 @@ public class DigitalplanlistServiceImpl extends BaseServiceImpl<DigitalplanlistV
      * @Date: 2018/5/23 10:20
      */
     public List<DigitalplanlistVO> doFindListByZddwId(String zddwId) {
-        List<DigitalplanlistVO> resultList = this.digitalplanlistDAO.doFindListByZddwId(zddwId);
+        List<DigitalplanlistVO> resultList = digitalplanlistDAO.doFindListByZddwId(zddwId);
         return resultList;
     }
 

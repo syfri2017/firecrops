@@ -22,6 +22,7 @@ public interface DigitalplanlistService extends BaseService<DigitalplanlistVO> {
      * @Date: 2018/5/1 12:15
      */
     DigitalplanlistVO doInsertDigitalplan(DigitalplanlistVO digitalplanlistVO);
+    String createPlanCode(String jgid, String zhlx);
 
     /**
      * @Description: 修改：预案
