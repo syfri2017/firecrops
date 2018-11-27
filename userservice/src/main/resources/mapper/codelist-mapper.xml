@@ -211,8 +211,11 @@
 
 	<!--13.从表新增-->
 	<insert id="doInsertCodelistDetail"  parameterType="CodelistDetailVO">
+		<selectKey resultType="String" order="BEFORE" keyProperty="pkid">
+			SELECT SYS_GUID() AS pkid FROM DUAL
+		</selectKey>
 		INSERT INTO SYS_CODELIST_DETAIL(pkid,code_value,code_name,codeid,codetype,codetype_name,delete_flag,remark,create_id,create_name,create_time)
-		VALUES(sys_guid(),#{codeValue,jdbcType=VARCHAR},#{codeName,jdbcType=VARCHAR},#{codeid,jdbcType=VARCHAR},#{codetype,jdbcType=VARCHAR},#{codetypeName,jdbcType=VARCHAR},'N',#{remark,jdbcType=VARCHAR},#{createId,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},SYSDATE)
+		VALUES(#{pkid,jdbcType=VARCHAR},#{codeValue,jdbcType=VARCHAR},#{codeName,jdbcType=VARCHAR},#{codeid,jdbcType=VARCHAR},#{codetype,jdbcType=VARCHAR},#{codetypeName,jdbcType=VARCHAR},'N',#{remark,jdbcType=VARCHAR},#{createId,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},SYSDATE)
 	</insert>
 	<!--14.从表修改-->
 	<update  id="doUpdateCodelistDetail"  parameterType="CodelistdetailVO">
