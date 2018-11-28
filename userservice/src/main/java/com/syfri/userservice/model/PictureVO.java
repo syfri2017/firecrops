@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.syfri.baseapi.model.ValueObject;
 
-public class ImgUploadVO extends ValueObject implements Serializable{
+public class PictureVO extends ValueObject implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

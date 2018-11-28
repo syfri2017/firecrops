@@ -2,8 +2,8 @@ package com.syfri.userservice.controller;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
-import com.syfri.userservice.model.ImgUploadVO;
-import com.syfri.userservice.service.ImgUploadService;
+import com.syfri.userservice.model.PictureVO;
+import com.syfri.userservice.service.PictureService;
 import com.syfri.userservice.utils.Base64ImageUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ public class UtilController{
 	private static final Logger logger  = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private ImgUploadService imgUploadService;
+	private PictureService pictureService;
 
 	/**
 	 * 查询详情页图片
@@ -30,10 +30,10 @@ public class UtilController{
 	public @ResponseBody ResultVO doFindPhoto(@PathVariable String picType, @PathVariable String picValue){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			ImgUploadVO imgUploadVO = new ImgUploadVO();
-			imgUploadVO.setPicType(picType);
-			imgUploadVO.setPicValue(picValue);
-			ImgUploadVO vo = imgUploadService.doFindByVO(imgUploadVO);
+			PictureVO pictureVO = new PictureVO();
+			pictureVO.setPicType(picType);
+			pictureVO.setPicValue(picValue);
+			PictureVO vo = pictureService.doFindByVO(pictureVO);
 			if(vo!=null && !StringUtils.isEmpty(vo.getPicBlob())){
 				resultVO.setResult(Base64ImageUtil.byteArr2String(vo.getPicBlob()));
 			}

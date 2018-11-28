@@ -7,8 +7,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
-import com.syfri.userservice.dao.ImgUploadDAO;
+import com.syfri.userservice.dao.PictureDAO;
 import com.syfri.userservice.model.CodelistVO;
+import com.syfri.userservice.model.PictureVO;
 import com.syfri.userservice.service.CodelistService;
 import com.syfri.userservice.utils.Base64ImageUtil;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,8 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.syfri.userservice.model.ImgUploadVO;
-import com.syfri.userservice.service.ImgUploadService;
+import com.syfri.userservice.service.PictureService;
 import com.syfri.baseapi.controller.BaseController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -34,24 +34,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("imgupload")
-public class ImgUploadController extends BaseController<ImgUploadVO>{
+@RequestMapping("picture")
+public class PictureController extends BaseController<PictureVO>{
 
 	@Autowired
 	protected Environment environment;
 
 	@Autowired
-	private ImgUploadService imgUploadService;
+	private PictureService pictureService;
 
 	@Autowired
 	private CodelistService codelistService;
 
 	@Autowired
-	private ImgUploadDAO imgUploadDAO;
+	private PictureDAO pictureDAO;
 
 	@Override
-	public ImgUploadService getBaseService() {
-		return this.imgUploadService;
+	public PictureService getBaseService() {
+		return this.pictureService;
 	}
 
 
@@ -67,7 +67,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	@GetMapping("")
 	public String getImgUpload(Model model, @RequestParam(value="index") String index){
 		model.addAttribute("index", index);
-		return "system/imgUpload";
+		return "system/picture";
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	public @ResponseBody ResultVO findSaved(){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			resultVO.setResult(imgUploadService.doSearchSavedListByVO());
+			resultVO.setResult(pictureService.doSearchSavedListByVO());
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);
@@ -114,21 +114,21 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	}
 	/**
 	 * @Description: 根据条件获取图片信息
-	 * @Param: [imgUploadVO]
+	 * @Param: [pictureVO]
 	 * @Return: com.syfri.baseapi.model.ResultVO
 	 * @Author: dongbo
 	 * @Modified By:
 	 * @Date: 2018/5/21 9:29
 	 */
 	@ApiOperation(value="根据条件获取图片信息",notes="列表信息")
-	@ApiImplicitParam(name="imgUploadVO",value="图片对象")
+	@ApiImplicitParam(name="pictureVO",value="图片对象")
 	@PostMapping("/findByVO")
-	public @ResponseBody ResultVO findByVO(@RequestBody ImgUploadVO imgUploadVO){
+	public @ResponseBody ResultVO findByVO(@RequestBody PictureVO pictureVO){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			PageHelper.startPage(imgUploadVO.getPageNum(),imgUploadVO.getPageSize());
-			List<ImgUploadVO> list = imgUploadService.doSearchListByVO(imgUploadVO);
-			PageInfo<ImgUploadVO> pageInfo = new PageInfo<>(list);
+			PageHelper.startPage(pictureVO.getPageNum(),pictureVO.getPageSize());
+			List<PictureVO> list = pictureService.doSearchListByVO(pictureVO);
+			PageInfo<PictureVO> pageInfo = new PageInfo<>(list);
 			resultVO.setResult(pageInfo);
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
@@ -151,9 +151,9 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	public @ResponseBody ResultVO getNum(@PathVariable String picName){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			ImgUploadVO imgUploadVO = new ImgUploadVO();
-			imgUploadVO.setPicName(picName);
-			if(imgUploadService.doSearchListByPicName(imgUploadVO).size() == 0){
+			PictureVO pictureVO = new PictureVO();
+			pictureVO.setPicName(picName);
+			if(pictureService.doSearchListByPicName(pictureVO).size() == 0){
 				resultVO.setResult(0);
 			}else{
 				resultVO.setResult(1);
@@ -167,7 +167,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 
 	/**
 	 * @Description: 新增图片信息
-	 * @Param: [imgUploadVO]
+	 * @Param: [pictureVO]
 	 * @Return: com.syfri.baseapi.model.ResultVO
 	 * @Author: dongbo
 	 * @Modified By:
@@ -177,10 +177,10 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	@ApiImplicitParam(name="vo",value="图片对象")
 	@RequiresPermissions("system/imgupload:add")
 	@PostMapping("/detail/insertByVO")
-	public @ResponseBody ResultVO insertByVO(@RequestBody ImgUploadVO imgUploadVO){
+	public @ResponseBody ResultVO insertByVO(@RequestBody PictureVO pictureVO){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			resultVO.setResult(imgUploadService.doInsertImgByVO(imgUploadVO));
+			resultVO.setResult(pictureService.doInsertImgByVO(pictureVO));
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);
@@ -201,7 +201,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	@RequestMapping("/insertImage")
 	@ResponseBody
 	public
-	Map<String, Object> uploadAttachment(HttpServletRequest request, ImgUploadVO UploadVO,String picName,String picType)
+	Map<String, Object> uploadAttachment(HttpServletRequest request, PictureVO UploadVO, String picName, String picType)
 			throws UnsupportedEncodingException {
 
 		System.out.print(picName);
@@ -237,12 +237,12 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 				bos.close();
 				buffer = bos.toByteArray();
 
-				ImgUploadVO imgUploadVO=new ImgUploadVO();
-				imgUploadVO.setImgFile(buffer);
-				imgUploadVO.setPicName(UploadVO.getPicName());
-				imgUploadVO.setPicType(UploadVO.getPicType());
+				PictureVO pictureVO=new PictureVO();
+				pictureVO.setImgFile(buffer);
+				pictureVO.setPicName(UploadVO.getPicName());
+				pictureVO.setPicType(UploadVO.getPicType());
 
-				imgUploadDAO.doInsertImg(imgUploadVO);
+				pictureDAO.doInsertImg(pictureVO);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -269,7 +269,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 		try{
 			for(int i=0;i<ids.size();i++){
 				String pkid = (String)ids.get(i);
-				imgUploadService.doDeleteById(pkid);
+				pictureService.doDeleteById(pkid);
 			}
 			resultVO.setMsg("删除成功");
 		}catch(Exception e){
@@ -292,7 +292,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	public @ResponseBody ResultVO getDetail(@PathVariable String pkid){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			ImgUploadVO result = imgUploadService.doFindById(pkid);
+			PictureVO result = pictureService.doFindById(pkid);
 			//将二进制转为Base64格式字符串
 			String photo64 = Base64ImageUtil.byteArr2String(result.getPicBlob());
 			result.setPhoto64(photo64);
@@ -306,7 +306,7 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 
 	/**
 	 * @Description: 修改图片信息
-	 * @Param: [imgUploadVO]
+	 * @Param: [pictureVO]
 	 * @Return: com.syfri.baseapi.model.ResultVO
 	 * @Author: dongbo
 	 * @Modified By:
@@ -316,10 +316,10 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	@ApiImplicitParam(name="vo",value="图片对象")
 	@RequiresPermissions("system/imgupload:edit")
 	@PostMapping("/detail/updateByVO")
-	public @ResponseBody ResultVO updateByVO(@RequestBody ImgUploadVO imgUploadVO){
+	public @ResponseBody ResultVO updateByVO(@RequestBody PictureVO pictureVO){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			resultVO.setResult(imgUploadService.doUpdateImgByVO(imgUploadVO));
+			resultVO.setResult(pictureService.doUpdateImgByVO(pictureVO));
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);
@@ -341,9 +341,9 @@ public class ImgUploadController extends BaseController<ImgUploadVO>{
 	public @ResponseBody ResultVO getInputNum(@PathVariable String picType){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			ImgUploadVO imgUploadVO = new ImgUploadVO();
-			imgUploadVO.setPicType(picType);
-			List<ImgUploadVO> result = imgUploadService.doSearchListByInputPicType(imgUploadVO);
+			PictureVO pictureVO = new PictureVO();
+			pictureVO.setPicType(picType);
+			List<PictureVO> result = pictureService.doSearchListByInputPicType(pictureVO);
 			resultVO.setResult(result);
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());

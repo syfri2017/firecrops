@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.syfri.userservice.dao.ImgUploadDAO">
+<mapper namespace="com.syfri.userservice.dao.PictureDAO">
 	<!--1.查询条件-->
 	<sql id="SQL_CONDITION">
 		<if test="pkid != null and pkid != '' ">
@@ -66,13 +66,13 @@
 	</sql>
 
 	<!--3.查询记录数-->
-	<select id="doSearchCount" parameterType="ImguploadVO" resultType="java.lang.Integer">
+	<select id="doSearchCount" parameterType="PictureVO" resultType="java.lang.Integer">
 		SELECT COUNT(0) AS NUM FROM SYS_CODELIST_PICTURE t WHERE 1=1 AND DELETE_FLAG = 'N'
 		<include refid="SQL_CONDITION"/>
 	</select>
 
 	<!--4.按条件查询记录-->
-	<select id="doSearchListByVO" parameterType="ImguploadVO"  resultType="ImguploadVO"> 
+	<select id="doSearchListByVO" parameterType="PictureVO"  resultType="PictureVO"> 
 		SELECT
 			<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST_PICTURE t  WHERE t.DELETE_FLAG = 'N'
@@ -80,13 +80,13 @@
 			and t.pic_type = #{picType}
 		</if>
 		<if test="picName != null and picName != '' ">
-			and t.pic_name LIKE concat(concat('%',#{picName}),'%')
+			and t.pic_name LIKE concat(concat('%',#{picName}),'%') ESCAPE '\'
 		</if>
 		ORDER BY nvl(alter_time,create_time) DESC
 	</select>
 
 	<!--5.根据ID查询记录-->
-	<select id="doFindById" parameterType="ImguploadVO"  resultType="ImguploadVO">  
+	<select id="doFindById" parameterType="PictureVO"  resultType="PictureVO">  
 		SELECT 
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST_PICTURE t 
@@ -94,7 +94,7 @@
 	</select>
 
 	<!--6.按照VO插入-->
-	<insert  id="doInsertByVO"  parameterType="ImguploadVO"> 
+	<insert  id="doInsertByVO"  parameterType="PictureVO"> 
 		<selectKey resultType="String" order="BEFORE" keyProperty="pkid">
 			SELECT SYS_GUID() AS pkid FROM DUAL
 		</selectKey>
@@ -121,7 +121,7 @@
 	</update>
 
 	<!--9.按复合条件逻辑更新-->
-	<update  id="doUpdateByVO"  parameterType="ImguploadVO"> 
+	<update  id="doUpdateByVO"  parameterType="PictureVO"> 
 		UPDATE   SYS_CODELIST_PICTURE  
 		<set>
 			<if test="pkid != null">pkid=#{pkid},</if>
@@ -163,7 +163,7 @@
 	</update>
 
 	<!--11.根据对象查询记录-->
-	<select id="doFindByVO" parameterType="ImguploadVO"  resultType="ImguploadVO">  
+	<select id="doFindByVO" parameterType="PictureVO"  resultType="PictureVO">  
 		SELECT 
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST_PICTURE t 
@@ -172,7 +172,7 @@
 	</select>
 
 	<!--12.根据对象查询记录-->
-	<select id="doFindAll" parameterType="ImgUploadVO"  resultType="ImgUploadVO">
+	<select id="doFindAll" parameterType="PictureVO"  resultType="PictureVO">
 		SELECT
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST t
@@ -181,12 +181,12 @@
 	</select>
 
 	<!--13.上传图片-->
-	<update id="doInsertImg" parameterType="ImgUploadVO">
+	<update id="doInsertImg" parameterType="PictureVO">
 		UPDATE  SYS_CODELIST_PICTURE t SET t.pic_blob = #{imgFile,jdbcType=BLOB}   WHERE t.pic_name = #{picName} and t.pic_type = #{picType}
 	</update>
 
 	<!--14.按图片名称查询记录-->
-	<select id="doSearchListByPicName" parameterType="ImguploadVO"  resultType="ImguploadVO">
+	<select id="doSearchListByPicName" parameterType="PictureVO"  resultType="PictureVO">
 		SELECT
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST_PICTURE t  WHERE t.DELETE_FLAG = 'N'
@@ -200,7 +200,7 @@
 	</select>
 
 	<!--15.查询已有图片类型-->
-	<select id="doSearchSavedListByVO" resultType="ImguploadVO">
+	<select id="doSearchSavedListByVO" resultType="PictureVO">
 		SELECT
 		DISTINCT t.pic_typename picTypename
 		,t.pic_type picType
@@ -208,7 +208,7 @@
 	</select>
 
 	<!--16.按手动输入的图片类型查询记录-->
-	<select id="doSearchListByInputPicType" parameterType="ImguploadVO"  resultType="ImguploadVO">
+	<select id="doSearchListByInputPicType" parameterType="PictureVO"  resultType="PictureVO">
 		SELECT
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST_PICTURE t  WHERE t.DELETE_FLAG = 'N'
