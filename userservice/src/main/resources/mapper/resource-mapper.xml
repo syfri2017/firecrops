@@ -284,6 +284,9 @@
 		<if test="parentid!=null">
 			AND parentid = #{parentid}
 		</if>
+		<if test="type!=null">
+			AND type= #{type}
+		</if>
 		ORDER BY seqno
 	</select>
 
