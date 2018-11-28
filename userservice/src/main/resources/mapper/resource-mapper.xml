@@ -7,10 +7,10 @@
 		 and t.resourceid = #{resourceid}
 		</if>
 		<if test="resourcename != null and resourcename != '' ">
-		 and t.resourcename = #{resourcename}
+		 and t.resourcename LIKE concat(concat('%',#{resourcename}),'%') ESCAPE '\'
 		</if>
 		<if test="resourceinfo != null and resourceinfo != '' ">
-		 and t.resourceinfo LIKE concat(concat('%',#{resourceinfo}),'%')
+		 and t.resourceinfo LIKE concat(concat('%',#{resourceinfo}),'%') ESCAPE '\'
 		</if>
 		<if test="parentid != null and parentid != '' ">
 		 and t.parentid = #{parentid}
@@ -37,7 +37,7 @@
 			and t.create_time &gt;= to_date(#{createTimeBegin},'yyyy-MM-dd')
 		</if>
 		<if test="createTimeEnd != null and createTimeEnd != '' ">
-			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd')
+			and t.create_time &lt;= to_date(#{createTimeEnd},'yyyy-MM-dd') + 1
 		</if>
 		<if test="alterId != null and alterId != '' ">
 		 and t.alter_id = #{alterId}
