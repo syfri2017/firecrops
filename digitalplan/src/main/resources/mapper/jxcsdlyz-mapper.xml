@@ -176,4 +176,17 @@
 	<select id="doFindCountByUnscid" parameterType="String" resultType="java.lang.Integer">
 		SELECT COUNT(1) num FROM YAGL_JXCS_DLYZ t WHERE t.DELETE_FLAG = 'N' AND t.unscid = #{value}
 	</select>
+
+	<!--根据单位id删除信息-->
+	<update id="doDeleteDlyzByDwid"  parameterType="String">
+		UPDATE YAGL_JXCS_DLYZ t
+		SET t.DELETE_FLAG = 'Y'
+		WHERE t.DWID = #{value}
+	</update>
+	<!--根据单位id逻辑删除基本信息-建筑信息中间表中数据-->
+	<update id="doDeleteJbxxJzxxByDwid"  parameterType="String">
+		UPDATE YAGL_JXCS_JBXX_JZXX t
+		SET t.DELETE_FLAG = 'Y'
+		WHERE t.DWID = #{value}
+	</update>
 </mapper>

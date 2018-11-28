@@ -25,4 +25,10 @@ public class JxcsdlyzServiceImpl extends BaseServiceImpl<JxcsdlyzVO> implements 
 	public int doFindCountByUnscid(String unscid) {
 		return jxcsdlyzDAO.doFindCountByUnscid(unscid);
 	}
+
+	//根据单位id删除登录验证表中信息 add by yushch 20181127
+	@Override
+	public int doDeleteByDwid(String dwid){
+		return jxcsdlyzDAO.doDeleteDlyzByDwid(dwid);
+	}
 }
