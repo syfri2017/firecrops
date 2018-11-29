@@ -50,7 +50,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 		AccountVO accountVO = new AccountVO();
 		accountVO.setUsername(username);
 		List<AccountVO> accounts = accountService.doSearchListByVO(accountVO);
-		if(accounts == null){
+		if(accounts == null || accounts.size() == 0){
 			return null;
 		}
 		AccountVO account = accounts.get(0);
