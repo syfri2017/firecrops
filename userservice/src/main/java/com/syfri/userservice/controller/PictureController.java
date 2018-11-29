@@ -129,6 +129,10 @@ public class PictureController extends BaseController<PictureVO>{
 			PageHelper.startPage(pictureVO.getPageNum(),pictureVO.getPageSize());
 			List<PictureVO> list = pictureService.doSearchListByVO(pictureVO);
 			PageInfo<PictureVO> pageInfo = new PageInfo<>(list);
+			//imgstr里面附上图片地址信息的值
+			for(PictureVO vo :pageInfo.getList()){
+				vo.setImgStr("data:image/png;base64,"+Base64ImageUtil.byteArr2String(vo.getPicBlob()));
+			}
 			resultVO.setResult(pageInfo);
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
@@ -294,7 +298,7 @@ public class PictureController extends BaseController<PictureVO>{
 		try{
 			PictureVO result = pictureService.doFindById(pkid);
 			//将二进制转为Base64格式字符串
-			String photo64 = Base64ImageUtil.byteArr2String(result.getPicBlob());
+			String photo64 = "data:image/png;base64,"+Base64ImageUtil.byteArr2String(result.getPicBlob());
 			result.setPhoto64(photo64);
 			resultVO.setResult(result);
 		}catch(Exception e){
