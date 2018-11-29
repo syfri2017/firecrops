@@ -24,6 +24,15 @@ public class PictureVO extends ValueObject implements Serializable{
 	private String alterId;	//修改人ID
 	private String alterName;	//修改人
 	private String alterTime;	//修改时间
+	private String imgStr;	//列表图片
+
+	public String getImgStr() {
+		return imgStr;
+	}
+
+	public void setImgStr(String imgStr) {
+		this.imgStr = imgStr;
+	}
 
 	public byte[] getImgFile() {
 		return imgFile;
