@@ -124,6 +124,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<ResourceVO> implements 
 		Map map = new HashMap<>();
 		map.put("roleList", roleList);
 		map.put("parentid", "-1");
+		map.put("type", "1");
 		List<ResourceVO> resources = resourceDAO.doFindResourceByParentId(map);
 
 		//根据父资源获取子资源

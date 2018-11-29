@@ -38,4 +38,19 @@ public class JxcsdlyzController  extends BaseController<JxcsdlyzVO>{
 		}
 		return resultVO;
 	}
+
+	//删除登录验证表中存在但基本信息表里不存在的数据 add  by yushch 20181127
+	@ApiOperation(value="根据统一社会信用代码删除",notes="删除")
+	@ApiImplicitParam(name="vo",value="九小场所")
+	@GetMapping("/doDeleteByUnscid/{dwid}")
+	public @ResponseBody ResultVO doDeleteByDwid(@PathVariable String dwid){
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(jxcsdlyzService.doDeleteByDwid(dwid));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
 }

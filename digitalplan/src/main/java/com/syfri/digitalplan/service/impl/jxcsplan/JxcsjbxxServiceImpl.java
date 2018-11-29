@@ -43,6 +43,11 @@ public class JxcsjbxxServiceImpl extends BaseServiceImpl<JxcsjbxxVO> implements 
     public int doDeleteByVOList(List<JxcsjbxxVO> jxcsjbxxVOList) {
         int count = 0;
         for (JxcsjbxxVO vo : jxcsjbxxVOList) {
+            //删除基本信息同时删除登录验证中间表中数据
+            jxcsdlyzDAO.doDeleteDlyzByDwid(vo.getUuid());
+            //删除基本信息同时逻辑删除基本信息-建筑信息中间表中数据
+            jxcsdlyzDAO.doDeleteJbxxJzxxByDwid(vo.getUuid());
+            //更新
             count = count + jxcsjbxxDAO.doUpdateByVO(vo);
         }
         return count;
