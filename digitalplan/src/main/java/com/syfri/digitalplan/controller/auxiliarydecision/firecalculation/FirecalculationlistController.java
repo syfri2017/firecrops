@@ -137,7 +137,7 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 				resultVO.setResult(result);
 			}
 			else{
-				resultVO.setMsg("算式内参数与输入参数个数不符!请重新输入。");
+				resultVO.setMsg("计算公式中参数与参数信息中参数个数不符!请重新输入。");
 			}
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
@@ -154,7 +154,7 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	* @Modified By:
 	* @Date: 2018/4/27 9:52
 	*/
-	@ApiOperation(value="根据公式新增公式及其参数信息",notes="新增")
+	@ApiOperation(value="新增公式及其参数信息",notes="新增")
 	@ApiImplicitParam(name="vo",value="公式对象")
 	@RequiresPermissions("auxiliarydecision/firecalculation:add")
 	@PostMapping("/insertByVO")
@@ -172,7 +172,7 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 				resultVO.setResult(firecalculationlistService.doInsertJsgsCs(firecalculationlistVO));
 			}
 			else{
-				resultVO.setMsg("算式内参数与输入参数个数不符!请重新输入。");
+				resultVO.setMsg("计算公式中参数与参数信息中参数个数不符!请重新输入。");
 			}
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
