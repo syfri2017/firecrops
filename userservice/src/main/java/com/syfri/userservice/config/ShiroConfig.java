@@ -174,7 +174,11 @@ public class ShiroConfig implements EnvironmentAware {
 		filterMap.put("/imageCode", "anon");
 
 		//anon:所有URL均可以匿名访问，authc：需要认证才能访问，user：配置记住我或认证通过可以访问
-		filterMap.put("/login", "authc");
+
+		/**采用Shiro自带的登陆方式登陆，Shiro验证登陆  by li.xue 2018/11/29 14:08*/
+//		filterMap.put("/login", "authc");
+
+		filterMap.put("/login", "anon");
 		filterMap.put("/logout", "logout");
 		filterMap.put("/**", "user");
 

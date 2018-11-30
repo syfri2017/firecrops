@@ -1,6 +1,8 @@
 package com.syfri.userservice.controller;
 
 import com.syfri.baseapi.model.ResultVO;
+import com.syfri.userservice.config.InfoCollectToken;
+import com.syfri.userservice.config.LoginType;
 import com.syfri.userservice.model.*;
 import com.syfri.userservice.utils.CurrentUserUtil;
 import com.syfri.userservice.utils.ImageCodeUtil;
@@ -23,10 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Api(value = "登录",tags = "登录API",description = "登录")
 @Controller
@@ -70,34 +69,57 @@ public class LoginController {
 	}
 
 	/**
-	@PostMapping("/login2")
-	public @ResponseBody String login(HttpServletRequest request, @RequestBody AccountVO vo){
-		logger.info("-----POST请求方式登录-----");
-		Subject currentUser = SecurityUtils.getSubject();
+	 * 采用Controller登陆验证方式
+	 * by li.xue 2018/11/29 11:14
+	 */
+	@PostMapping("/login")
+	public @ResponseBody String login(HttpServletRequest request, Map<String,Object> map, @RequestBody AccountVO vo){
+		logger.info("-----POST请求方式登录222-----");
+		Subject subject = SecurityUtils.getSubject();
 		//测试当前用户是否被验证
-		if(!currentUser.isAuthenticated()){
-			UsernamePasswordToken token = new UsernamePasswordToken(vo.getUsername(), vo.getPassword());
+		String msg;
+		String messages;
+		if (!subject.isAuthenticated()) {
 			String code = (String)request.getSession().getAttribute("code");
-			if(code != null && code.equals(vo.getValidateCode())){
-				try{
-					currentUser.login(token);
-				}catch(AuthenticationException e){
-					System.out.println("登录失败--->" + e.getMessage());
-					return "falseDLZH";
+			if (LoginType.MYSHIRO.toString().equals(vo.getLoginType()) && code != null && !code.equals(vo.getValidateCode())){
+				msg = "kaptchaValidateFailed --> 验证码错误";
+				messages = "kaptcha";
+			}else {
+				InfoCollectToken token;
+				if (LoginType.INFOCOLLECT.toString().equals(vo.getLoginType())) {
+					token = new InfoCollectToken(vo.getUnscid(), vo.getLoginType());
+				} else {
+					token = new InfoCollectToken(vo.getUsername(), vo.getPassword(), vo.getLoginType());
 				}
-			}else{
-				return "falseYZM";
+				try {
+					subject.login(token);
+					map.put("token", subject.getSession().getId());
+					msg = "登陆成功";
+					messages = "success";
+				} catch (UnknownAccountException e) {
+					msg = "UnknownAccountException --> 账号不存在";
+					messages = "unknown";
+				} catch (IncorrectCredentialsException e) {
+					msg = "IncorrectCredentialsException --> 密码不正确";
+					messages = "incorrect";
+				} catch (ExcessiveAttemptsException e) {
+					msg = "ExcessiveAttemptsException --> 密码输入错误次数超过5次";
+					messages = "excessive";
+				}
 			}
+		}else{
+			msg = "Session有效";
+			messages = "session";
 		}
-		return "success";
+		map.put("msg", msg);
+		return messages;
 	}
-	*/
-
 
 	/**
 	 * 此方法不处理登录成功的情况，由shiro进行处理
+	 * 采用Shiro自带的登陆方式登陆，Shiro验证登陆  by li.xue 2018/11/29 14:08
 	 */
-	@PostMapping("/login")
+	@PostMapping("/login2")
 	public String login(HttpServletRequest request, Map<String,Object> map) throws Exception{
 		logger.info("-----POST请求方式登录-----");
 		ShiroUser user = CurrentUserUtil.getCurrentUser();
