@@ -281,6 +281,10 @@
 	<update id="doDeleteCgById"  parameterType="String">
 		UPDATE YAGL_JZBW_CGL_CG t SET t.DELETE_FLAG = 'Y' WHERE 1 = 1 AND t.UUID = #{uuid}
 	</update>
+	<!-- 删除重点单位建筑中间表-->
+	<update id="doDeleteZjbByJzid"  parameterType="String">
+		UPDATE  YAGL_DX_ZDDW_JZFQ t SET t.DELETE_FLAG = 'Y'  WHERE 1=1   AND t.JZID = #{value}
+	</update>
 
 	<!--9.按复合条件逻辑更新-->
 	<update  id="doUpdateByVO"  parameterType="BuildingVO"> 
