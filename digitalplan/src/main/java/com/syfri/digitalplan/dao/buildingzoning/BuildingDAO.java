@@ -42,6 +42,8 @@ public interface BuildingDAO extends BaseDAO<BuildingVO>{
     int doDeleteChuguanById(String jzid);
     //cg
     int doDeleteCgById(String jzid);
+    //删除重点单位建筑中间表
+    int doDeleteZjbByJzid(String jzid);
 
 
 
