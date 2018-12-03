@@ -1,5 +1,7 @@
 package com.syfri.digitalplan.utils;
 
+import com.alibaba.druid.sql.visitor.functions.Char;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -129,7 +131,9 @@ public class Calculator {
 			for (int i = 0; i < charArray.length; i++) {
 				chinese = charArray[i];
 				flag2 = isChinese(chinese);
-				if (!flag2) {// 不是中日韩文字及标点符号
+				boolean flag3 = isEnglish(chinese+"");
+				boolean flag4 = isNumeric(chinese+"");
+				if (!(flag2||flag3||flag4)) {// 不是中日韩文字及标点符号
 					sb.append(chinese);
 				}
 			}
@@ -156,6 +160,25 @@ public class Calculator {
 			return true;
 		}
 		return false;
+	}
+	//判断是否为数字
+	public static boolean isNumeric(String str){
+		for (int i = str.length();--i>=0;){
+			if (!Character.isDigit(str.charAt(i))){
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * 是否是英文
+	 * @param charaString
+	 * @return
+	 */
+	public static boolean isEnglish(String charaString){
+
+		return charaString.matches("^[a-zA-Z]*");
+
 	}
 
 	/**
