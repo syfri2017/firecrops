@@ -2,6 +2,7 @@ package com.syfri.digitalplan.service.impl.buildingzoning;
 
 import com.syfri.digitalplan.model.buildingzoning.ChuguanVO;
 import com.syfri.digitalplan.model.buildingzoning.WeixianjiezhiVO;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,8 +55,8 @@ public class BuildingServiceImpl extends BaseServiceImpl<BuildingVO> implements 
         return vo;
     }
 
-    //delete
-    public int doDeleteBuildingzoning(BuildingVO buildingVO) {
+    //delete删除从表功能
+    public int doDeleteBuildingzoningDetail(BuildingVO buildingVO) {
         int count = 0;
         String jzlx = buildingVO.getJzlx();
         String jzid = buildingVO.getJzid();
@@ -78,7 +79,7 @@ public class BuildingServiceImpl extends BaseServiceImpl<BuildingVO> implements 
         return count;
     }
 
-    //add
+    //新增
     public BuildingVO doInsertDetailByVO(BuildingVO buildingVO) {
         String jzid = buildingVO.getJzid();
         String jzlx = buildingVO.getJzlx();
@@ -112,15 +113,31 @@ public class BuildingServiceImpl extends BaseServiceImpl<BuildingVO> implements 
         }
         return buildingVO;
     }
+    //删除建筑
+    public int doDeleteBuildingzoning(List<BuildingVO> buildingList){
+        int count = 0;
+        if (buildingList.size() > 0) {
+            for (BuildingVO buildingVO : buildingList) {
+                buildingVO.setDeleteFlag("Y");
+                //删除主表
+                count = count + this.doUpdateByVO(buildingVO);
+                //删除从表
+                ((BuildingService) AopContext.currentProxy()).doDeleteBuildingzoningDetail(buildingVO);
+                //删除重点单位建筑中间表
+                buildingDAO.doDeleteZjbByJzid(buildingVO.getJzid());
+            }
+        }
+        return count;
+    }
 
-    //update
+    //update修改
     public BuildingVO doUpdateBuildingzoning(BuildingVO buildingVO) {
         String jzid = buildingVO.getJzid();
         String jzlx = buildingVO.getJzlx();
         BuildingVO oldVO = buildingDAO.doFindById(jzid);
         buildingDAO.doUpdateByVO(buildingVO);
         if (!oldVO.getJzlx().equals(jzlx)) {
-            this.doDeleteBuildingzoning(oldVO);
+            this.doDeleteBuildingzoningDetail(oldVO);
             this.doInsertDetailByVO(buildingVO);
         } else {
             switch (jzlx) {
