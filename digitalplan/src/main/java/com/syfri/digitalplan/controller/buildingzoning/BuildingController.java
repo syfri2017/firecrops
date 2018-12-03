@@ -64,15 +64,15 @@ public class BuildingController extends BaseController<BuildingVO> {
     ResultVO doDeleteBuildingzoning(@RequestBody List<BuildingVO> buildingList) {
         ResultVO resultVO = ResultVO.build();
         try {
-            int count = 0;
-            if (buildingList.size() > 0) {
-                for (BuildingVO buildingVO : buildingList) {
-                    buildingVO.setDeleteFlag("Y");
-                    count = count + buildingService.doUpdateByVO(buildingVO);
-                    buildingService.doDeleteBuildingzoning(buildingVO);
-                }
-            }
-            resultVO.setResult(count);
+//            int count = 0;
+//            if (buildingList.size() > 0) {
+//                for (BuildingVO buildingVO : buildingList) {
+//                    buildingVO.setDeleteFlag("Y");
+//                    count = count + buildingService.doUpdateByVO(buildingVO);
+//                    buildingService.doDeleteBuildingzoning(buildingList);
+//                }
+//            }
+            resultVO.setResult(buildingService.doDeleteBuildingzoning(buildingList));
         } catch (Exception e) {
             logger.error("{}", e.getMessage());
             resultVO.setCode(EConstants.CODE.FAILURE);
