@@ -109,4 +109,18 @@ public class OrganizationController  extends BaseController<OrganizationVO>{
 		return resultVO;
 	}
 
+	@ApiOperation(value="组织机构更新",notes="更新一条信息")
+	@ApiImplicitParam(name="vo",value="组织机构")
+	@PostMapping("/doUpdateByVO")
+	public @ResponseBody ResultVO doUpdateByVO(@RequestBody OrganizationVO organizationVO) {
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(organizationService.doUpdateByVO(organizationVO));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
+
 }

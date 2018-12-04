@@ -238,7 +238,7 @@
 	<update  id="doUpdateByVO"  parameterType="OrganizationVO">
 		UPDATE   SYS_ORGANIZATION
 		<set>
-			<if test="uuid != null">uuid=#{uuid},</if>
+			<!--<if test="uuid != null">uuid=#{uuid},</if>-->
 			<if test="jgid != null">jgid=#{jgid},</if>
 			<if test="sjjgid != null">sjjgid=#{sjjgid},</if>
 			<if test="jgmc != null">jgmc=#{jgmc},</if>
@@ -252,7 +252,7 @@
 			<if test="czhm != null">czhm=#{czhm},</if>
 			<if test="lxr != null">lxr=#{lxr},</if>
 			<if test="ssym != null">ssym=#{ssym},</if>
-			-- 			<if test="zp != null">zp=#{zp},</if>
+			<!--<if test="zp != null">zp=#{zp},</if>-->
 			<if test="zqdwbz != null">zqdwbz=#{zqdwbz},</if>
 			<if test="bdLon != null">bd_lon=#{bdLon},</if>
 			<if test="bdLat != null">bd_lat=#{bdLat},</if>
@@ -267,12 +267,12 @@
 			<if test="xqfw != null">xqfw=#{xqfw},</if>
 			<if test="jgcxzt != null">jgcxzt=#{jgcxzt},</if>
 			<if test="jgcxsj != null">jgcxsj=TO_DATE(#{jgcxsj},'yyyy-MM-dd HH24:mi:ss'),</if>
-			<if test="cjrid != null">cjrid=#{cjrid},</if>
-			<if test="cjrmc != null">cjrmc=#{cjrmc},</if>
-			<if test="cjsj != null">cjsj=TO_DATE(#{cjsj},'yyyy-MM-dd HH24:mi:ss'),</if>
+			<!--<if test="cjrid != null">cjrid=#{cjrid},</if>-->
+			<!--<if test="cjrmc != null">cjrmc=#{cjrmc},</if>-->
+			<!--<if test="cjsj != null">cjsj=TO_DATE(#{cjsj},'yyyy-MM-dd HH24:mi:ss'),</if>-->
 			<if test="xgrid != null">xgrid=#{xgrid},</if>
 			<if test="xgrmc != null">xgrmc=#{xgrmc},</if>
-			<if test="xgsj != null">xgsj=TO_DATE(#{xgsj},'yyyy-MM-dd HH24:mi:ss'),</if>
+			xgsj=sysdate,
 			<if test="deleteFlag != null">delete_flag='N',</if>
 			<if test="datasource != null">datasource=#{datasource},</if>
 			<if test="bz != null">bz=#{bz},</if>

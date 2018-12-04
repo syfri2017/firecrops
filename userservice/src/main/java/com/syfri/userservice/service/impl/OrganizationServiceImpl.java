@@ -185,4 +185,14 @@ public class OrganizationServiceImpl extends BaseServiceImpl<OrganizationVO> imp
         }
         return count;
     }
+
+    @Override
+    public int doUpdateByVO(OrganizationVO organizationVO) {
+        int count = 0;
+        count = organizationDAO.doUpdateByVO(organizationVO);
+        if (count > 0) {
+            redisService.remove("organization");
+        }
+        return count;
+    }
 }
