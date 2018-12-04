@@ -39,6 +39,14 @@ public class OrganizationTree extends ValueObject implements Serializable{
 		this.jgjc = jgjc;
 	}
 
+	public String getJgid() {
+		return jgid;
+	}
+
+	public void setJgid(String jgid) {
+		this.jgid = jgid;
+	}
+
 	public List<OrganizationTree> getChildren() {
 		return children;
 	}
