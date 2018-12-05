@@ -23,7 +23,8 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
 #      filters: stat,wall,slf4j
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-
+  session:
+    timeout: 1800000
 
   mybatis:
 #    mapperLocations: classpath*:com/syfri/userservice/mapper/*-mapper.xml
@@ -41,7 +42,7 @@ spring:
   redis:
       host: 10.119.119.233
       port: 6379
-      expire: 1800
+      expire: 1800000
       timeout: 0
 #------------------------------------------------------------
 #pagehelper分页插件设置
