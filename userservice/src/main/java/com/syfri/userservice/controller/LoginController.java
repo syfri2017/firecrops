@@ -9,7 +9,9 @@ import com.syfri.userservice.utils.ImageCodeUtil;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class LoginController {
 
 	@Autowired
 	protected Environment environment;
+
+	@Autowired
+	private RedisSessionDAO redisSessionDAO;
 
 //	@ModelAttribute
 //	public void Model(Model model){
@@ -72,7 +77,7 @@ public class LoginController {
 	 * 采用Controller登陆验证方式
 	 * by li.xue 2018/11/29 11:14
 	 */
-	@PostMapping("/login")
+	@PostMapping("/login2")
 	public @ResponseBody String login(HttpServletRequest request, Map<String,Object> map, @RequestBody AccountVO vo){
 		logger.info("-----POST请求方式登录222-----");
 		Subject subject = SecurityUtils.getSubject();
@@ -119,7 +124,7 @@ public class LoginController {
 	 * 此方法不处理登录成功的情况，由shiro进行处理
 	 * 采用Shiro自带的登陆方式登陆，Shiro验证登陆  by li.xue 2018/11/29 14:08
 	 */
-	@PostMapping("/login2")
+	@PostMapping("/login")
 	public String login(HttpServletRequest request, Map<String,Object> map) throws Exception{
 		logger.info("-----POST请求方式登录-----");
 		ShiroUser user = CurrentUserUtil.getCurrentUser();
@@ -203,5 +208,25 @@ public class LoginController {
 		ResultVO resultVO = ResultVO.build();
 		resultVO.setResult(menus);
 		return resultVO;
+	}
+
+	/**
+	 * 查看Session是否有效
+	 * by li.xue 2018/12/4 9:38
+	 */
+	@GetMapping("/getSession")
+	public @ResponseBody String getSession(HttpServletRequest request){
+		String sessionId = request.getSession().getId();
+		Session session;
+		try{
+			session = redisSessionDAO.readSession(sessionId);
+			Collection collection = session.getAttributeKeys();
+			if(collection.size() == 0){
+				return "0";
+			}
+		}catch(Exception e){
+			return "0";
+		}
+		return "1";
 	}
 }

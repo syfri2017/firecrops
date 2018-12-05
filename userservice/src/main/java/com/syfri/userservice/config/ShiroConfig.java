@@ -55,10 +55,12 @@ public class ShiroConfig implements EnvironmentAware {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 		sessionManager.setSessionValidationSchedulerEnabled(false);
 		sessionManager.setSessionIdUrlRewritingEnabled(false);
-		//设置session失效时间30min
-		sessionManager.setGlobalSessionTimeout(30*60*1000);
 		//Redis会话管理
-//		sessionManager.setSessionDAO(redisSessionDAO());
+		sessionManager.setSessionDAO(redisSessionDAO());
+		//设置Session失效时间30min
+		sessionManager.setGlobalSessionTimeout(Integer.parseInt(environment.getProperty("spring.session.timeout")));
+		//删除失效的Session
+		sessionManager.setDeleteInvalidSessions(true);
 		return sessionManager;
 	}
 
@@ -120,8 +122,10 @@ public class ShiroConfig implements EnvironmentAware {
 		securityManager.setRealms(list);
 
 		securityManager.setSessionManager(sessionManager);
-//		securityManager.setCacheManager(redisCacheManager());
-		securityManager.setCacheManager(ehCacheManager());
+		/**redis by li.xue 2018/12/3*/
+		securityManager.setCacheManager(redisCacheManager());
+		/**ehcache by li.xue 2018/12/3*/
+//		securityManager.setCacheManager(ehCacheManager());
 		securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;
 	}
@@ -169,6 +173,7 @@ public class ShiroConfig implements EnvironmentAware {
 		filterMap.put("/swagger-ui.html", "anon");
 
 		filterMap.put("/shiro", "anon");
+		filterMap.put("/getSession", "anon");
 
 		//验证码可以不经授权访问
 		filterMap.put("/imageCode", "anon");
@@ -176,9 +181,9 @@ public class ShiroConfig implements EnvironmentAware {
 		//anon:所有URL均可以匿名访问，authc：需要认证才能访问，user：配置记住我或认证通过可以访问
 
 		/**采用Shiro自带的登陆方式登陆，Shiro验证登陆  by li.xue 2018/11/29 14:08*/
-//		filterMap.put("/login", "authc");
+		filterMap.put("/login", "authc");
 
-		filterMap.put("/login", "anon");
+//		filterMap.put("/login", "anon");
 		filterMap.put("/logout", "logout");
 		filterMap.put("/**", "user");
 
