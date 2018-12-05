@@ -102,4 +102,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserVO> implements UserServ
 		return num;
 	}
 
+	/*--查询：获取未绑定组织机构的用户信息.--*/
+	@Override
+	public List<UserVO> findUsersNoOrg(UserVO userVO) {
+		return userDAO.findUsersNoOrg(userVO);
+	}
+
 }

@@ -22,4 +22,7 @@ public interface UserService  extends BaseService<UserVO>{
 
 	/*--删除：删除用户.--*/
 	int doDeleteUserRoles(List<UserVO> list);
+
+	/*--查询：获取未绑定组织机构的用户信息--*/
+	List<UserVO> findUsersNoOrg(UserVO userVO);
 }

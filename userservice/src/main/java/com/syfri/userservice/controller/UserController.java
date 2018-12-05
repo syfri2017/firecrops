@@ -1,5 +1,7 @@
 package com.syfri.userservice.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
 import io.swagger.annotations.Api;
@@ -150,6 +152,46 @@ public class UserController  extends BaseController<UserVO>{
 			UserVO userVO = new UserVO();
 			userVO.setOrganizationId(jgid);
 			resultVO.setResult(userService.doSearchListByVO(userVO));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
+
+	/**
+	 * 获取未绑定组织机构的用户信息
+	 */
+	@ApiOperation(value="获取未绑定组织机构的用户信息",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="用户对象")
+//	@RequiresPermissions("system/user:list")
+	@PostMapping("/findUsersNoOrg")
+	public @ResponseBody ResultVO findUsersNoOrg(@RequestBody UserVO userVO){
+		ResultVO resultVO = ResultVO.build();
+		try{
+			PageHelper.startPage(userVO.getPageNum(),userVO.getPageSize());
+			List<UserVO> list = userService.findUsersNoOrg(userVO);
+			PageInfo<UserVO> pageInfo = new PageInfo<>(list);
+			resultVO.setResult(pageInfo);
+//			resultVO.setResult(userService.findUsersNoOrg(userVO));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
+
+	/**
+	 * 修改用户基本信息表，绑定组织机构
+	 */
+	@ApiOperation(value="修改用户基本信息表，绑定组织机构",notes="修改")
+	@ApiImplicitParam(name="vo",value="用户对象")
+//	@RequiresPermissions("system/user:edit")
+	@PostMapping("/updateJbxxByVO")
+	public @ResponseBody ResultVO updateJbxxByVO(@RequestBody UserVO userVO){
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(userService.doUpdateByVO(userVO));
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);

@@ -265,4 +265,21 @@
 		</if>
 		ORDER BY NVL(t.alter_time,t.create_time) DESC
 	</select>
+
+	<!--获取未绑定组织机构的用户信息-->
+	<select id="findUsersNoOrg" parameterType="UserVO"  resultType="UserVO">
+		SELECT
+		<include refid="SQL_CONTENT"/>
+		,t1.username
+		FROM SYS_USER t
+		LEFT JOIN (SELECT userid,username FROM SYS_ACCOUNT WHERE delete_flag = 'N') t1
+		ON t.userid = t1.userid
+		WHERE t.DELETE_FLAG = 'N' and t.organization_id is null
+		<if test="realname != null and realname != '' ">
+			and t.realname LIKE concat(concat('%',#{realname}),'%') ESCAPE '\'
+		</if>
+		<if test="username != null and username != '' ">
+			and t1.username LIKE concat(concat('%',#{username}),'%') ESCAPE '\'
+		</if>
+	</select>
 </mapper>
