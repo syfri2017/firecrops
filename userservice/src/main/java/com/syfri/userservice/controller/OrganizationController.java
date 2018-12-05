@@ -123,4 +123,18 @@ public class OrganizationController  extends BaseController<OrganizationVO>{
 		return resultVO;
 	}
 
+	@ApiOperation(value="组织机构删除",notes="删除一条信息")
+	@ApiImplicitParam(name="vo",value="组织机构")
+	@PostMapping("/doDeleteByVO")
+	public @ResponseBody ResultVO doDeleteByVO(@RequestBody OrganizationVO organizationVO) {
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(organizationService.doDeleteByVO(organizationVO));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
+
 }

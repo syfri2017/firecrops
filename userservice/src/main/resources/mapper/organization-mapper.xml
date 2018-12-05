@@ -273,7 +273,7 @@
 			<if test="xgrid != null">xgrid=#{xgrid},</if>
 			<if test="xgrmc != null">xgrmc=#{xgrmc},</if>
 			xgsj=sysdate,
-			<if test="deleteFlag != null">delete_flag='N',</if>
+			<if test="deleteFlag != null">delete_flag=#{deleteFlag},</if>
 			<if test="datasource != null">datasource=#{datasource},</if>
 			<if test="bz != null">bz=#{bz},</if>
 			<if test="jdh != null">jdh=#{jdh},</if>
@@ -412,9 +412,9 @@
 		SELECT
 		<include refid="SQL_CONTENT"/>
 		FROM SYS_ORGANIZATION t
-		WHERE t.DELETE_FLAG = 'N'
-		AND t.JGID ='01000000'
+		WHERE t.JGID ='01000000'
 		OR (SUBSTR(t.JGID,0,1) != '0' AND (t.JGJC LIKE '%总队' OR t.JGJC LIKE '%支队' OR t.JGJC LIKE '%大队' OR t.JGJC LIKE '%中队'))
+		AND t.DELETE_FLAG = 'N'
 		ORDER BY JGID
 	</select>
 

@@ -1,6 +1,8 @@
 package com.syfri.userservice.service.impl;
 
+import com.syfri.userservice.dao.UserDAO;
 import com.syfri.userservice.model.OrganizationTree;
+import com.syfri.userservice.model.UserVO;
 import com.syfri.userservice.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class OrganizationServiceImpl extends BaseServiceImpl<OrganizationVO> imp
 
     @Autowired
     private OrganizationDAO organizationDAO;
+
+    @Autowired
+    private UserDAO userDAO;
 
     @Autowired
     private RedisService redisService;
@@ -191,6 +196,24 @@ public class OrganizationServiceImpl extends BaseServiceImpl<OrganizationVO> imp
         int count = 0;
         count = organizationDAO.doUpdateByVO(organizationVO);
         if (count > 0) {
+            redisService.remove("organization");
+        }
+        return count;
+    }
+
+    @Override
+    public int doDeleteByVO(OrganizationVO organizationVO) {
+        //组织机构表删除
+        int count = 0;
+        count = organizationDAO.doUpdateByVO(organizationVO);
+        if (count > 0) {
+            //组织机构下用户解绑
+            UserVO vo = new UserVO();
+            vo.setAlterId(organizationVO.getXgrid());
+            vo.setAlterName(organizationVO.getXgrmc());
+            vo.setOrganizationId(organizationVO.getUuid());
+            userDAO.doUpdateByJgid(vo);
+            //清缓存
             redisService.remove("organization");
         }
         return count;

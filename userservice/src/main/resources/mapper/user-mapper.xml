@@ -282,4 +282,16 @@
 			and t1.username LIKE concat(concat('%',#{username}),'%') ESCAPE '\'
 		</if>
 	</select>
+
+	<!--根据组织机构id解绑用户-->
+	<update  id="doUpdateByJgid"  parameterType="UserVO">
+		UPDATE   SYS_USER
+		<set>
+			<if test="alterId != null">alter_id=#{alterId},</if>
+			<if test="alterName != null">alter_name=#{alterName},</if>
+			alter_time=TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss'),
+			organization_id=''
+		</set>
+		WHERE  organization_id = #{organizationId}
+	</update>
 </mapper>

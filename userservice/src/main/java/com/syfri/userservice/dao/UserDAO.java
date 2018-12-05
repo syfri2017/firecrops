@@ -13,4 +13,7 @@ public interface UserDAO extends BaseDAO<UserVO> {
 
     /*获取未绑定组织机构的用户信息.*/
     List<UserVO> findUsersNoOrg(UserVO userVO);
+
+    /*根据组织机构id解绑用户.*/
+    int doUpdateByJgid(UserVO userVO);
 }
