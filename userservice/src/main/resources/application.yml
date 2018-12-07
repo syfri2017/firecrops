@@ -72,6 +72,9 @@ spring:
       url: jdbc:oracle:thin:@10.119.119.232:1521/SZHYAGLDB
       username: SZHYAGL
       password: SZHYAGL
+#      url: jdbc:oracle:thin:@localhost:1521/orcl
+#      username: SZHYAGL
+#      password: SZHYAGL
   ##########################################################
   ###################  正式环境的profile  ###################
   ##########################################################
@@ -86,6 +89,9 @@ spring:
       url: jdbc:oracle:thin:@10.119.119.232:1521/SZHYAGLDB
       username: SZHYAGL
       password: SZHYAGL
+#      url: jdbc:oracle:thin:@localhost:1521/orcl
+#      username: SZHYAGL
+#      password: SZHYAGL
 
 
 #------------------------------------------------------------

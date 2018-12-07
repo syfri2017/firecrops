@@ -64,5 +64,5 @@ public interface PictureService extends BaseService<PictureVO>{
      * @Modified By:
      * @Date: 2018/6/7 11:12
      */
-    int doUpdateImgByVO(PictureVO vo);
+    int doDeleteByVOList(List<PictureVO> pictureVOList);
 }

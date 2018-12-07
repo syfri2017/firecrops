@@ -179,8 +179,8 @@ public class PictureController extends BaseController<PictureVO>{
 	 */
 	@ApiOperation(value="新增图片信息",notes="新增")
 	@ApiImplicitParam(name="vo",value="图片对象")
-	@RequiresPermissions("system/imgupload:add")
-	@PostMapping("/detail/insertByVO")
+	//@RequiresPermissions("system/imgupload:add")
+	@PostMapping("/insertByVO")
 	public @ResponseBody ResultVO insertByVO(@RequestBody PictureVO pictureVO){
 		ResultVO resultVO = ResultVO.build();
 		try{
@@ -205,10 +205,10 @@ public class PictureController extends BaseController<PictureVO>{
 	@RequestMapping("/insertImage")
 	@ResponseBody
 	public
-	Map<String, Object> uploadAttachment(HttpServletRequest request, PictureVO UploadVO, String picName, String picType)
+	Map<String, Object> uploadAttachment(HttpServletRequest request, PictureVO UploadVO, String picValue, String picType)
 			throws UnsupportedEncodingException {
 
-		System.out.print(picName);
+		System.out.print(picValue);
 		System.out.print(picType);
 		Map<String, Object> result = new HashMap<String, Object>();
 		int res = 0;
@@ -243,7 +243,7 @@ public class PictureController extends BaseController<PictureVO>{
 
 				PictureVO pictureVO=new PictureVO();
 				pictureVO.setImgFile(buffer);
-				pictureVO.setPicName(UploadVO.getPicName());
+				pictureVO.setPicValue(UploadVO.getPicValue());
 				pictureVO.setPicType(UploadVO.getPicType());
 
 				pictureDAO.doInsertImg(pictureVO);
@@ -262,20 +262,14 @@ public class PictureController extends BaseController<PictureVO>{
 	 * @Modified By:
 	 * @Date: 2018/5/21 9:35
 	 */
-	@ApiOperation(value="根据主键删除图片",notes="删除")
+	@ApiOperation(value="删除图片",notes="删除")
 	@ApiImplicitParam(name="id",value="图片主键")
-	@RequiresPermissions("system/imgupload:delete")
-	@PostMapping("/detail/deleteByIds")
-	public @ResponseBody ResultVO deleteDetailByIds(@RequestBody String id){
-		JSONObject jsonObject = JSON.parseObject(id);
-		JSONArray ids = jsonObject.getJSONArray("ids");
+//	@RequiresPermissions("system/imgupload:delete")
+	@PostMapping("/doDeleteByVOList")
+	public @ResponseBody ResultVO doDeleteByVOList(@RequestBody List<PictureVO> pictureVOList) {
 		ResultVO resultVO = ResultVO.build();
 		try{
-			for(int i=0;i<ids.size();i++){
-				String pkid = (String)ids.get(i);
-				pictureService.doDeleteById(pkid);
-			}
-			resultVO.setMsg("删除成功");
+			resultVO.setResult(pictureService.doDeleteByVOList(pictureVOList));
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);
@@ -323,7 +317,7 @@ public class PictureController extends BaseController<PictureVO>{
 	public @ResponseBody ResultVO updateByVO(@RequestBody PictureVO pictureVO){
 		ResultVO resultVO = ResultVO.build();
 		try{
-			resultVO.setResult(pictureService.doUpdateImgByVO(pictureVO));
+			resultVO.setResult(pictureService.doUpdateByVO(pictureVO));
 		}catch(Exception e){
 			logger.error("{}",e.getMessage());
 			resultVO.setCode(EConstants.CODE.FAILURE);

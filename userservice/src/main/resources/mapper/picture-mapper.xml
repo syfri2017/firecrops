@@ -16,7 +16,7 @@
 		 and t.pic_value = #{picValue}
 		</if>
 		<if test="picName != null and picName != '' ">
-		 and t.pic_name = #{picName}
+			and t.pic_name LIKE concat(concat('%',#{picName}),'%') ESCAPE '\'
 		</if>
 		<if test="picBlob != null and picBlob != '' ">
 		 and t.pic_blob = #{picBlob}
@@ -76,12 +76,7 @@
 		SELECT
 			<include refid="SQL_CONTENT"/>
 		FROM SYS_CODELIST_PICTURE t  WHERE t.DELETE_FLAG = 'N'
-		<if test="picType != null and picType != '' ">
-			and t.pic_type = #{picType}
-		</if>
-		<if test="picName != null and picName != '' ">
-			and t.pic_name LIKE concat(concat('%',#{picName}),'%') ESCAPE '\'
-		</if>
+		<include refid="SQL_CONDITION"/>
 		ORDER BY nvl(alter_time,create_time) DESC
 	</select>
 
@@ -129,10 +124,10 @@
 			<if test="picTypename != null">pic_typename=#{picTypename},</if>
 			<if test="picValue != null">pic_value=#{picValue},</if>
 			<if test="picName != null">pic_name=#{picName},</if>
-			<if test="deleteFlag != null">delete_flag='N',</if>
+			<if test="deleteFlag != null">delete_flag=#{deleteFlag},</if>
 			<if test="remark != null">remark=#{remark},</if>
-			alter_id=#{alterId},
-			alter_name=#{alterName},
+			<if test="alterId != null">alter_id=#{alterId},</if>
+			<if test="alterName != null">alter_name=#{alterName},</if>
 			alter_time=SYSDATE
 		</set>
 		WHERE  PKID = #{pkid}
@@ -182,7 +177,7 @@
 
 	<!--13.上传图片-->
 	<update id="doInsertImg" parameterType="PictureVO">
-		UPDATE  SYS_CODELIST_PICTURE t SET t.pic_blob = #{imgFile,jdbcType=BLOB}   WHERE t.pic_name = #{picName} and t.pic_type = #{picType}
+		UPDATE  SYS_CODELIST_PICTURE t SET t.pic_blob = #{imgFile,jdbcType=BLOB}   WHERE t.pic_name = #{picName} and t.pic_value = #{picValue}
 	</update>
 
 	<!--14.按图片名称查询记录-->
