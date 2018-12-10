@@ -3,6 +3,7 @@ package com.syfri.digitalplan.utils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.File;
 
 import sun.misc.BASE64Encoder;
 
@@ -16,6 +17,10 @@ public class Pic {
     public static String getImageStr(String path) {
         String imgFile = path;
         InputStream in = null;
+        File t=new File(path);
+        if(!t.exists()){
+            return null;
+        }
         byte[] data = null;
         try {
         in = new FileInputStream(imgFile);
