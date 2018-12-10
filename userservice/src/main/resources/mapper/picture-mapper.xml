@@ -93,8 +93,8 @@
 		<selectKey resultType="String" order="BEFORE" keyProperty="pkid">
 			SELECT SYS_GUID() AS pkid FROM DUAL
 		</selectKey>
-		INSERT INTO SYS_CODELIST_PICTURE(pkid,pic_type,pic_typename,pic_value,pic_name,pic_blob,delete_flag,remark,create_id,create_name,create_time)
-		VALUES(#{pkid,jdbcType=VARCHAR},#{picType,jdbcType=VARCHAR},#{picTypename,jdbcType=VARCHAR},#{picValue,jdbcType=VARCHAR},#{picName,jdbcType=VARCHAR},#{picBlob,jdbcType=VARCHAR},'N',#{remark,jdbcType=VARCHAR},#{createId,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},SYSDATE)
+		INSERT INTO SYS_CODELIST_PICTURE(pkid,pic_type,pic_typename,pic_value,pic_name,pic_blob,delete_flag,remark,create_id,create_name,create_time,reserve1,reserve2,reserve3,reserve4)
+		VALUES(#{pkid,jdbcType=VARCHAR},#{picType,jdbcType=VARCHAR},#{picTypename,jdbcType=VARCHAR},#{picValue,jdbcType=VARCHAR},#{picName,jdbcType=VARCHAR},#{picBlob,jdbcType=VARCHAR},'N',#{remark,jdbcType=VARCHAR},#{createId,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},SYSDATE,#{reserve1,jdbcType=VARCHAR},#{reserve2,jdbcType=VARCHAR},#{reserve3,jdbcType=VARCHAR},#{reserve4,jdbcType=DATE})
 	 </insert>
 
 	<!--7.批量插入-->
