@@ -233,7 +233,7 @@ public class CompZddwShareController {
 
     @GetMapping("/exportData/{uuid}")
     public void exportData(HttpServletRequest request, HttpServletResponse response, @PathVariable("uuid") String uuid) {
-        String basePath = yafjxzProperties.getSavePath() + "pic\\%s.png";
+        String basePath = yafjxzProperties.getSavePath() + "pic/%s.png";
         try {
             Map<String,Object> vc = new HashMap<String,Object>();
 
