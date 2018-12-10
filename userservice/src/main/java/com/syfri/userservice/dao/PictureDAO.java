@@ -25,7 +25,7 @@ public interface PictureDAO extends BaseDAO<PictureVO>{
      * @Modified By:
      * @Date: 2018/4/20 16:45
      */
-    void doInsertImg(PictureVO pictureVO);
+    int doInsertImg(PictureVO pictureVO);
 
     /**
      * @Description: 查询图片名称是否已存在
