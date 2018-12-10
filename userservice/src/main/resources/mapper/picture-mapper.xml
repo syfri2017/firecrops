@@ -62,7 +62,11 @@
 		TO_CHAR(t.create_time,'yyyy-MM-dd HH24:mi:ss') createTime,
 		t.alter_id alterId,
 		t.alter_name alterName,
-		TO_CHAR(t.alter_time,'yyyy-MM-dd HH24:mi:ss') alterTime
+		TO_CHAR(t.alter_time,'yyyy-MM-dd HH24:mi:ss') alterTime,
+		t.reserve1 reserve1,
+		t.reserve2 reserve2,
+		t.reserve3 reserve3,
+		TO_CHAR(t.reserve4,'yyyy-MM-dd HH24:mi:ss') reserve4
 	</sql>
 
 	<!--3.查询记录数-->
@@ -128,6 +132,7 @@
 			<if test="remark != null">remark=#{remark},</if>
 			<if test="alterId != null">alter_id=#{alterId},</if>
 			<if test="alterName != null">alter_name=#{alterName},</if>
+			<if test="reserve1 != null">reserve1=#{reserve1},</if>
 			alter_time=SYSDATE
 		</set>
 		WHERE  PKID = #{pkid}

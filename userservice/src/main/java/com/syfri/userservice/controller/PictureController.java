@@ -321,8 +321,8 @@ public class PictureController extends BaseController<PictureVO> {
      */
     @ApiOperation(value = "修改图片信息", notes = "修改")
     @ApiImplicitParam(name = "vo", value = "图片对象")
-    @RequiresPermissions("system/imgupload:edit")
-    @PostMapping("/detail/updateByVO")
+//    @RequiresPermissions("system/imgupload:edit")
+    @PostMapping("/updateByVO")
     public @ResponseBody
     ResultVO updateByVO(@RequestBody PictureVO pictureVO) {
         ResultVO resultVO = ResultVO.build();
