@@ -132,7 +132,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
                 fos.close();
                 is.close();
 
-                if (suffixName.equals("zip")) {
+                if (suffixName.equals(".zip")) {
                     //解压
                     File zipfile = new File(allPath.toString());
                     ZipCompressUtil.unZipFiles(zipfile, folderName);
