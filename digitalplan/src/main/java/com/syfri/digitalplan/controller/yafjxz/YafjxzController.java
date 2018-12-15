@@ -106,8 +106,6 @@ public class YafjxzController extends BaseController<YafjxzVO> {
 
             //数据库要存的数据
             String dbPath = new_folder.append(fileName).toString();
-            System.out.println(dbPath);
-
             //文件全路径
             StringBuffer allPath = new StringBuffer(folderName).append(fileName);
 

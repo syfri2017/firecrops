@@ -106,10 +106,9 @@ public class ZipCompressUtil {
      *            指定目录
      */
     public static void unZipFiles(File zipFile, String descDir) throws IOException {
-
         @SuppressWarnings("resource")
         ZipFile zip = new ZipFile(zipFile, Charset.forName("GBK"));// 解决中文文件夹乱码
-        String name = zip.getName().substring(zip.getName().lastIndexOf('\\') + 1, zip.getName().lastIndexOf('.'));
+        String name = zip.getName().substring(zip.getName().lastIndexOf('/') + 1, zip.getName().lastIndexOf('.'));
 
         File pathFile = new File(descDir + name);
         if (!pathFile.exists()) {
@@ -121,7 +120,6 @@ public class ZipCompressUtil {
             String zipEntryName = entry.getName();
             InputStream in = zip.getInputStream(entry);
             String outPath = (descDir + name + "/" + zipEntryName).replaceAll("\\*", "/");
-
             // 判断路径是否存在,不存在则创建文件路径
             File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));
             if (!file.exists()) {
