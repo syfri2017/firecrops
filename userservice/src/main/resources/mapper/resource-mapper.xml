@@ -292,7 +292,7 @@
 
 	<!--18.根据父节点ID查询最大序号-->
 	<select id="getMaxSegno" parameterType="String" resultType="String">
-		SELECT MAX(seqno) seqno FROM sys_resource WHERE delete_flag = 'N' AND parentid = #{VALUE}
+		SELECT MAX(seqno) seqno FROM sys_resource WHERE delete_flag = 'N' AND seqno &lt; 99 AND parentid = #{VALUE}
 	</select>
 
 </mapper>
