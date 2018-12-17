@@ -18,6 +18,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import com.syfri.userservice.service.PictureService;
 import com.syfri.baseapi.controller.BaseController;
@@ -300,9 +301,11 @@ public class PictureController extends BaseController<PictureVO> {
         ResultVO resultVO = ResultVO.build();
         try {
             PictureVO result = pictureService.doFindById(pkid);
-            //将二进制转为Base64格式字符串
-            String photo64 = "data:image/png;base64," + Base64ImageUtil.byteArr2String(result.getPicBlob());
-            result.setPhoto64(photo64);
+            if(!StringUtils.isEmpty(result.getPicBlob())){
+                //将二进制转为Base64格式字符串
+                String photo64 = "data:image/png;base64," + Base64ImageUtil.byteArr2String(result.getPicBlob());
+                result.setPhoto64(photo64);
+            }
             resultVO.setResult(result);
         } catch (Exception e) {
             logger.error("{}", e.getMessage());
