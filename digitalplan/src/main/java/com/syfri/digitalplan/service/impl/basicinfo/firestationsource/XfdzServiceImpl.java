@@ -340,8 +340,12 @@ public class XfdzServiceImpl extends BaseServiceImpl<XfdzVO> implements XfdzServ
         String temp = dzid;
         for(int i=0; i<num; i++){
            XfdzVO tempVO = xfdzDAO.doFindById(temp);
-           temp = tempVO.getSjdzid();
-           jgid = tempVO.getDzid();
+            if(dlrjglx.equals(tempVO.getDzlx())){
+                break;
+            }else{
+                temp = tempVO.getSjdzid();
+                jgid = tempVO.getDzid();
+            }
         }
         return jgid;
     }
