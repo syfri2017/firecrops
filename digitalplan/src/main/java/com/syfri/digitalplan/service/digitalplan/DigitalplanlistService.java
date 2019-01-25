@@ -3,6 +3,7 @@ package com.syfri.digitalplan.service.digitalplan;
 import com.syfri.baseapi.service.BaseService;
 import com.syfri.digitalplan.model.buildingzoning.BuildingVO;
 import com.syfri.digitalplan.model.digitalplan.DigitalplanlistVO;
+import com.syfri.digitalplan.model.yafjxz.YaxxzlVO;
 
 import java.util.List;
 
@@ -66,4 +67,16 @@ public interface DigitalplanlistService extends BaseService<DigitalplanlistVO> {
     //审核初始化时加载List
     //by yushch 20180604
     List<DigitalplanlistVO> doSearchApproveListByVO(DigitalplanlistVO vo);
+
+    /**
+     * 通过yaid查询历史附件信息列表
+     * author huangrui
+     */
+    List<YaxxzlVO> doFindHisPlanListByVo(DigitalplanlistVO vo);
+
+    /**
+     * 通过vo查询预案信息和附件信息
+     * author huangrui
+     */
+    List<DigitalplanlistVO> doFindListWithFJListByVo(DigitalplanlistVO vo);
 }

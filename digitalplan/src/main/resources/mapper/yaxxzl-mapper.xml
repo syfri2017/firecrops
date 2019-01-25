@@ -80,11 +80,17 @@
 	</select>
 
 	<!--4.按条件查询记录-->
-	<select id="doSearchListByVO" parameterType="YaxxzlVO"  resultType="YaxxzlVO"> 
-		SELECT 
-			<include refid="SQL_CONTENT"/>
-		FROM YAGL_YAXXZL t  WHERE t.JLZT = '1'
-			<include refid="SQL_CONDITION"/>
+	<select id="doSearchListByVO" parameterType="YaxxzlVO"  resultType="YaxxzlVO">
+		SELECT
+		<include refid="SQL_CONTENT"/>,
+		c2.code_name fjlxmc,
+		substr(t.xgxx, instr(t.xgxx,'.',-1,1)) kzm
+		FROM YAGL_YAXXZL t
+		<!--附件类型-->
+		Left Join SYS_CODELIST c1 on c1.CODETYPE = 'FJLX' And c1.DELETE_FLAG = 'N'
+		Left Join SYS_CODELIST_DETAIL c2 On c1.CODEID = c2.CODEID And c2.DELETE_FLAG = 'N' and t.FJLXDM = c2.CODE_VALUE
+		WHERE t.JLZT = '1'
+		<include refid="SQL_CONDITION"/>
 	</select>
 
 	<!--5.根据ID查询记录-->

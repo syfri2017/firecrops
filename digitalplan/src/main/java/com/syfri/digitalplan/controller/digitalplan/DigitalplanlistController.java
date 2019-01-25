@@ -196,4 +196,41 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 		}
 		return resultVO;
 	}
+
+	/**
+	 * 通过yaid查询历史附件信息列表
+	 * by huangrui 2019/1/17
+	 */
+	@ApiOperation(value="通过yaid查询历史附件信息列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="重点单位")
+	@PostMapping("/doFindHisPlanListByVo")
+	public @ResponseBody ResultVO doFindHisPlanListByVo(@RequestBody DigitalplanlistVO vo) {
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(digitalplanlistService.doFindHisPlanListByVo(vo));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
+
+
+	/**
+	 * 通过vo查询预案信息和附件信息
+	 * by huangrui 2019/1/20
+	 */
+	@ApiOperation(value="通过vo查询预案信息和附件信息",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="重点单位")
+	@PostMapping("/doFindListWithFJListByVo")
+	public @ResponseBody ResultVO doFindListWithFJListByVo(@RequestBody DigitalplanlistVO vo) {
+		ResultVO resultVO = ResultVO.build();
+		try{
+			resultVO.setResult(digitalplanlistService.doFindListWithFJListByVo(vo));
+		}catch(Exception e){
+			logger.error("{}",e.getMessage());
+			resultVO.setCode(EConstants.CODE.FAILURE);
+		}
+		return resultVO;
+	}
 }

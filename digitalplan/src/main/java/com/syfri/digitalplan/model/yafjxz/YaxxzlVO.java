@@ -25,6 +25,11 @@ public class YaxxzlVO extends ValueObject implements Serializable{
 	private String ywxtbsid;	//undefined
 	private String sltfjdz;	//undefined
 
+	private String fjlxmc;	//附件类型名称
+	private String yamc;	//预案名称
+	private String yajdh;	//预案节点号
+	private String kzm;	//扩展名
+
 	public String getId(){
 		return id;
 	}
@@ -120,5 +125,37 @@ public class YaxxzlVO extends ValueObject implements Serializable{
 	}
 	public void setSltfjdz(String sltfjdz){
 		this.sltfjdz = sltfjdz;
+	}
+
+	public String getFjlxmc() {
+		return fjlxmc;
+	}
+
+	public void setFjlxmc(String fjlxmc) {
+		this.fjlxmc = fjlxmc;
+	}
+
+	public String getYamc() {
+		return yamc;
+	}
+
+	public void setYamc(String yamc) {
+		this.yamc = yamc;
+	}
+
+	public String getYajdh() {
+		return yajdh;
+	}
+
+	public void setYajdh(String yajdh) {
+		this.yajdh = yajdh;
+	}
+
+	public String getKzm() {
+		return kzm;
+	}
+
+	public void setKzm(String kzm) {
+		this.kzm = kzm;
 	}
 }

@@ -307,4 +307,12 @@ public class DigitalplanlistVO extends ValueObject implements Serializable{
 	public void setYashztButtonType(String yashztButtonType) {
 		this.yashztButtonType = yashztButtonType;
 	}
+
+	private List yafjxzList;//预案附件列表
+	public List getYafjxzList() {
+		return yafjxzList;
+	}
+	public void setYafjxzList(List yafjxzList) {
+		this.yafjxzList = yafjxzList;
+	}
 }
