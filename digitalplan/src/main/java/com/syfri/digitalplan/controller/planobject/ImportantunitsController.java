@@ -5,6 +5,7 @@ import com.syfri.baseapi.utils.EConstants;
 import com.syfri.digitalplan.dao.planobject.ImportantunitsDAO;
 import com.syfri.digitalplan.model.buildingzoning.BuildingVO;
 import com.syfri.digitalplan.model.planobject.XiaofangliliangVO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -16,6 +17,7 @@ import com.syfri.digitalplan.service.planobject.ImportantunitsService;
 import com.syfri.baseapi.controller.BaseController;
 import java.util.List;
 
+@Api(value = "重点单位对象管理" ,tags = "重点单位对象管理API" ,description = "importantunits")
 @RestController
 @RequestMapping("importantunits")
 public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
@@ -121,6 +123,8 @@ public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
 	 * @param vo
 	 * @return
 	 */
+	@ApiOperation(value="通过重点单位对象查询列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="重点单位对象")
 	@PostMapping("/doSearchZddwListByVO")
 	public @ResponseBody ResultVO doSearchZddwListByVO(@RequestBody ImportantunitsVO vo) {
 		ResultVO resultVO = ResultVO.build();
@@ -155,7 +159,7 @@ public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
 	 * 新增重点单位
 	 * by li.xue 2018/8/13
 	 */
-	@ApiOperation(value="新增重点单位",notes="列表信息")
+	@ApiOperation(value="新增重点单位",notes="新增")
 	@ApiImplicitParam(name="vo",value="重点单位对象")
 	@RequiresPermissions("planobject/importantunits:add")
 	@PostMapping("/doInsertByVO")
@@ -174,7 +178,7 @@ public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
 	 * 修改重点单位
 	 * by li.xue 2018/8/13
 	 */
-	@ApiOperation(value="修改重点单位",notes="列表信息")
+	@ApiOperation(value="修改重点单位",notes="修改")
 	@ApiImplicitParam(name="vo",value="重点单位对象")
 	@RequiresPermissions("planobject/importantunits:edit")
 	@PostMapping("/doUpdateByVO")
@@ -193,7 +197,7 @@ public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
 	 * 删除重点单位
 	 * by li.xue 2018/8/13
 	 */
-	@ApiOperation(value="删除重点单位",notes="列表信息")
+	@ApiOperation(value="删除重点单位",notes="删除")
 	@RequiresPermissions("planobject/importantunits:delete")
 	@ApiImplicitParam(name="vo",value="重点单位对象")
 	@PostMapping("/doDeleteBatch")
@@ -213,7 +217,7 @@ public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
 	 * by liurui 2018/9/20
 	 */
 	@ApiOperation(value="通过重点单位Gis坐标 查询周围1公里水源信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="水源")
+	@ApiImplicitParam(name="vo",value="重点单位对象")
 	@PostMapping("/doFindXfsyListByZddwGis")
 	public @ResponseBody ResultVO doFindXfsyListByZddwGis(@RequestBody ImportantunitsVO vo) {
 		ResultVO resultVO = ResultVO.build();
@@ -230,7 +234,7 @@ public class ImportantunitsController  extends BaseController<ImportantunitsVO>{
 	 * by liurui 2018/9/20
 	 */
 	@ApiOperation(value="通过重点单位Gis坐标 查询周围1公里车辆信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="车辆")
+	@ApiImplicitParam(name="vo",value="重点单位对象")
 	@PostMapping("/doFindXfclListByZddwGis")
 	public @ResponseBody ResultVO doFindXfclListByZddwGis(@RequestBody ImportantunitsVO vo) {
 		ResultVO resultVO = ResultVO.build();

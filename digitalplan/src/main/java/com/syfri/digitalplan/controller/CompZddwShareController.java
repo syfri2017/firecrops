@@ -52,9 +52,10 @@ import net.sf.json.JSONObject;
  * @Modified By:
  * @Date: 2018/5/8 10:24
  */
+
 @Controller
 @RequestMapping("/planShare")
-@Api("重点单位共享")
+@Api(value = "重点单位共享" ,tags = "重点单位共享API" ,description = "planShare")
 public class CompZddwShareController {
     private static final Logger logger = LoggerFactory.getLogger(CompZddwShareController.class);
 

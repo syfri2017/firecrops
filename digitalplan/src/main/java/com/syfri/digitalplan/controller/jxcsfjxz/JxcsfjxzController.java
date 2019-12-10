@@ -3,13 +3,12 @@ package com.syfri.digitalplan.controller.jxcsfjxz;
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
 import com.syfri.digitalplan.config.properties.JxcsfjxzProperties;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.syfri.digitalplan.model.jxcsfjxz.JxcsfjxzVO;
 import com.syfri.digitalplan.service.jxcsfjxz.JxcsfjxzService;
@@ -30,7 +29,7 @@ import java.text.SimpleDateFormat;
  @date   20180930
  @Title 九小场所附件
 ******************/
-
+@Api(value = "九小场所附件下载管理" ,tags = "九小场所附件下载管理API" ,description = "jxcsfjxz")
 @RestController
 @RequestMapping("jxcsfjxz")
 public class JxcsfjxzController  extends BaseController<JxcsfjxzVO>{
@@ -46,7 +45,8 @@ public class JxcsfjxzController  extends BaseController<JxcsfjxzVO>{
 	private JxcsfjxzProperties jxcsfjxzProperties;
 
 	//附件上传 by yushch 20180930
-	@RequestMapping(value = "/upload")
+	@ApiOperation(value="九小场所附件下载",notes="下载")
+	@GetMapping(value = "/upload")
 	@ResponseBody
 	public boolean upload(HttpServletRequest request, JxcsfjxzVO jxcsfjxzVO) {
 		System.out.println("id:" + jxcsfjxzVO.getDwid());
@@ -142,6 +142,7 @@ public class JxcsfjxzController  extends BaseController<JxcsfjxzVO>{
 	 * 根据dwid查询附件信息
 	 */
 	@ApiOperation(value = "根据单位id获取信息", notes = "列表信息")
+	@ApiImplicitParam(name="vo",value="九小场所附件VO")
 	@RequestMapping("/doFindByDwid")
 	public @ResponseBody
 	ResultVO getDetail(@RequestBody JxcsfjxzVO jxcsfjxzVO) {
@@ -156,6 +157,7 @@ public class JxcsfjxzController  extends BaseController<JxcsfjxzVO>{
 	}
 
 	@ApiOperation(value = "根据单位id更新附件信息", notes = "修改")
+	@ApiImplicitParam(name="list",value="九小场所附件list")
 	@RequestMapping("/doUpdateByVO")
 	public @ResponseBody ResultVO doUpdateByVO(@RequestBody List<JxcsfjxzVO> list) {
 		ResultVO resultVO = ResultVO.build();

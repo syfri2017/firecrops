@@ -2,6 +2,7 @@ package com.syfri.digitalplan.controller;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.syfri.digitalplan.model.UtilXfdzVO;
 import com.syfri.digitalplan.service.UtilService;
 import com.syfri.baseapi.controller.BaseController;
 
+@Api(value = "公共类" ,tags = "公共类API" ,description = "util")
 @RestController
 @RequestMapping("util")
 public class UtilController  extends BaseController<UtilXfdzVO>{

@@ -175,7 +175,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      */
     @ApiOperation(value="通过id逻辑删除预案附件",notes="删除")
     @ApiImplicitParam(name="vo",value="预案附件下载VO")
-    @RequestMapping(value = "/deleteById")
+    @PostMapping(value = "/deleteById")
     public @ResponseBody
     ResultVO deleteById(@RequestBody YafjxzVO yafjxz) {
         ResultVO resultVO = ResultVO.build();
@@ -226,7 +226,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      */
     @ApiOperation(value="下载预案",notes="下载")
     @ApiImplicitParam(name="vo",value="预案附件下载VO")
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    @GetMapping(value = "/download")
     public void download(HttpServletRequest request, HttpServletResponse response, YafjxzVO yafjxzVO) {
         //判断预案id是否为空
         if (null == yafjxzVO || StringUtils.isBlank(yafjxzVO.getYaid())) {
@@ -288,7 +288,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      */
     @ApiOperation(value="查询预案附件信息列表",notes="列表信息")
     @ApiImplicitParam(name="vo",value="预案附件下载VO")
-    @RequestMapping(value = "/list")
+    @PostMapping(value = "/list")
     @ResponseBody
     public ResultVO list(@RequestBody com.syfri.digitalplan.model.yafjxz.YafjxzVO yafjxzVO) {
         ResultVO resultVO = ResultVO.build();
@@ -302,7 +302,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      */
     @ApiOperation(value = "根据预案id获取信息", notes = "列表信息")
     @ApiImplicitParam(name="vo",value="预案附件下载VO")
-    @RequestMapping("/doFindByPlanId")
+    @PostMapping("/doFindByPlanId")
     public @ResponseBody
     ResultVO getDetail(@RequestBody YafjxzVO yafjxzVO) {
         ResultVO resultVO = ResultVO.build();
@@ -317,7 +317,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
 
     @ApiOperation(value = "根据预案id更新附件信息", notes = "修改")
     @ApiImplicitParam(name="vo",value="预案附件下载VO")
-    @RequestMapping("/doUpdateByVO")
+    @PostMapping("/doUpdateByVO")
     public @ResponseBody
     ResultVO doUpdateByVO(@RequestBody List<YafjxzVO> yafjxzVOList) {
         ResultVO resultVO = ResultVO.build();
@@ -331,7 +331,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
     }
 
     @ApiOperation(value = "下载重点单位预案", notes = "下载")
-    @RequestMapping(value = "/downTemplet", method = RequestMethod.GET)
+    @GetMapping(value = "/downTemplet")
     public void down(HttpServletRequest request, HttpServletResponse response) {
         String zipfilename = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "attachment/重点单位预案-大中队级.docx";
         BufferedInputStream bis = null;
@@ -360,7 +360,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * @param yawjmc   预案文件名称
      */
     @ApiOperation(value = "下载临时预案简版", notes = "下载")
-    @RequestMapping(value = "/downTempYa", method = RequestMethod.GET)
+    @GetMapping(value = "/downTempYa")
     public void down(HttpServletRequest request, HttpServletResponse response, String yawjmc) {
         String zipfilename = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "attachment/" + yawjmc;
         BufferedInputStream bis = null;
