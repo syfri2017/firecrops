@@ -77,6 +77,7 @@ public class OtherobjectsplanController extends BaseController<OtherobjectsplanV
 	/**
 	 * 根据id获取预案信息
 	 */
+	@ApiOperation(value="根据ID获取其他对象预案详细信息",notes="详情")
 	@ApiImplicitParam(name="ID",value="其他对象预案ID")
 	@GetMapping("/doFindById/{uuid}")
 	public @ResponseBody ResultVO getDetail(@PathVariable String uuid){
