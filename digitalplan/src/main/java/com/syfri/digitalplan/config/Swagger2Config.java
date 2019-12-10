@@ -24,7 +24,7 @@ public class Swagger2Config {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.syfri.userservice.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.syfri.digitalplan.controller"))
 				.paths(PathSelectors.any())
 				.build();
 	}

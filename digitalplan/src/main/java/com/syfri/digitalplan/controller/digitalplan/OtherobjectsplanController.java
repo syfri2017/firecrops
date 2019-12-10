@@ -21,7 +21,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
-@Api(value = "其他对象预案管理",tags = "其他对象预案管理API",description = "其他对象预案管理")
+@Api(value = "其他对象预案管理",tags = "其他对象预案管理API",description = "OtherobjectsplanController")
 @RestController
 @RequestMapping("otherobjectsplan")
 public class OtherobjectsplanController extends BaseController<OtherobjectsplanVO>{
