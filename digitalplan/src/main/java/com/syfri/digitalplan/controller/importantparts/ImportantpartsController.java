@@ -13,7 +13,7 @@ import com.syfri.digitalplan.model.importantparts.ImportantpartsVO;
 import com.syfri.digitalplan.service.importantparts.ImportantpartsService;
 import com.syfri.baseapi.controller.BaseController;
 
-@Api(value = "重点部位管理" ,tags = "重点部位管理API" ,description = "importantparts")
+@Api(value = "重点部位管理" ,tags = "重点部位管理API" ,description = "ImportantpartsController")
 @RestController
 @RequestMapping("importantparts")
 public class ImportantpartsController  extends BaseController<ImportantpartsVO>{

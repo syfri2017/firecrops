@@ -13,7 +13,7 @@ import com.syfri.digitalplan.model.yafjxz.YaxxzlVO;
 import com.syfri.digitalplan.service.yafjxz.YaxxzlService;
 import com.syfri.baseapi.controller.BaseController;
 
-@Api(value = "历史预案下载" ,tags = "历史预案下载API" ,description = "yaxxzl")
+@Api(value = "历史预案下载" ,tags = "历史预案下载API" ,description = "YaxxzlController")
 @RestController
 @RequestMapping("yaxxzl")
 public class YaxxzlController  extends BaseController<YaxxzlVO>{

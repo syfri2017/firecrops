@@ -20,7 +20,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
-@Api(value = "保卫警卫管理" ,tags = "保卫警卫管理API" ,description = "bwjwplan")
+@Api(value = "保卫警卫管理" ,tags = "保卫警卫管理API" ,description = "GuardobjectsController")
 @RestController
 @RequestMapping("bwjwplan")
 public class GuardobjectsController extends BaseController<GuardobjectsVO>{

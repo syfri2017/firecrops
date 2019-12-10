@@ -16,7 +16,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
-@Api(value = "安全设施管理" ,tags = "安全设施管理API" ,description = "firefacilities")
+@Api(value = "安全设施管理" ,tags = "安全设施管理API" ,description = "FirefacilitiesController")
 @RestController
 @RequestMapping("firefacilities")
 public class FirefacilitiesController extends BaseController<FirefacilitiesVO> {

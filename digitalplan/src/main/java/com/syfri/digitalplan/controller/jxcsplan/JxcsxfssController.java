@@ -13,7 +13,7 @@ import com.syfri.digitalplan.model.jxcsplan.JxcsxfssVO;
 import com.syfri.digitalplan.service.jxcsplan.JxcsxfssService;
 import com.syfri.baseapi.controller.BaseController;
 
-@Api(value = "九小场所消防设施管理" ,tags = "九小场所消防设施管理API" ,description = "jxcsxfss")
+@Api(value = "九小场所消防设施管理" ,tags = "九小场所消防设施管理API" ,description = "JxcsxfssController")
 @RestController
 @RequestMapping("jxcsxfss")
 public class JxcsxfssController  extends BaseController<JxcsxfssVO>{

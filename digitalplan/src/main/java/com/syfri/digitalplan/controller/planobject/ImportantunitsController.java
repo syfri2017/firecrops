@@ -17,7 +17,7 @@ import com.syfri.digitalplan.service.planobject.ImportantunitsService;
 import com.syfri.baseapi.controller.BaseController;
 import java.util.List;
 
-@Api(value = "重点单位对象管理" ,tags = "重点单位对象管理API" ,description = "importantunits")
+@Api(value = "重点单位对象管理" ,tags = "重点单位对象管理API" ,description = "ImportantunitsController")
 @RestController
 @RequestMapping("importantunits")
 public class ImportantunitsController  extends BaseController<ImportantunitsVO>{

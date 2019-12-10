@@ -55,7 +55,7 @@ import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/planShare")
-@Api(value = "重点单位共享" ,tags = "重点单位共享API" ,description = "planShare")
+@Api(value = "重点单位共享" ,tags = "重点单位共享API" ,description = "CompZddwShareController")
 public class CompZddwShareController {
     private static final Logger logger = LoggerFactory.getLogger(CompZddwShareController.class);
 

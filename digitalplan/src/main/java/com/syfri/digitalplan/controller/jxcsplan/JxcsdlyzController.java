@@ -13,7 +13,7 @@ import com.syfri.digitalplan.model.jxcsplan.JxcsdlyzVO;
 import com.syfri.digitalplan.service.jxcsplan.JxcsdlyzService;
 import com.syfri.baseapi.controller.BaseController;
 
-@Api(value = "九小场所登录验证" ,tags = "九小场所登录验证API" ,description = "jxcsdlyz")
+@Api(value = "九小场所登录验证" ,tags = "九小场所登录验证API" ,description = "JxcsdlyzController")
 @RestController
 @RequestMapping("jxcsdlyz")
 public class JxcsdlyzController  extends BaseController<JxcsdlyzVO>{

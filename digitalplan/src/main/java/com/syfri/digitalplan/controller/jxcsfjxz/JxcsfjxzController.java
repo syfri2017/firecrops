@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
  @date   20180930
  @Title 九小场所附件
 ******************/
-@Api(value = "九小场所附件下载管理" ,tags = "九小场所附件下载管理API" ,description = "jxcsfjxz")
+@Api(value = "九小场所附件下载管理" ,tags = "九小场所附件下载管理API" ,description = "JxcsfjxzController")
 @RestController
 @RequestMapping("jxcsfjxz")
 public class JxcsfjxzController  extends BaseController<JxcsfjxzVO>{

@@ -35,7 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  * @Title: 预案附件下载
  * @date 2018/4/2 09:30
  */
-@Api(value = "预案附件下载管理" ,tags = "预案附件下载管理API" ,description = "yafjxz")
+@Api(value = "预案附件下载管理" ,tags = "预案附件下载管理API" ,description = "YafjxzController")
 @Controller
 @RequestMapping("yafjxz")
 public class YafjxzController extends BaseController<YafjxzVO> {

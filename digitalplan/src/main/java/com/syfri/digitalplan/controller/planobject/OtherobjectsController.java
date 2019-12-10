@@ -14,7 +14,7 @@ import com.syfri.digitalplan.model.planobject.OtherobjectsVO;
 import com.syfri.digitalplan.service.planobject.OtherobjectsService;
 import com.syfri.baseapi.controller.BaseController;
 
-@Api(value = "其他预案对象管理" ,tags = "其他预案对象管理API" ,description = "otherobjects")
+@Api(value = "其他预案对象管理" ,tags = "其他预案对象管理API" ,description = "OtherobjectsController")
 @RestController
 @RequestMapping("otherobjects")
 public class OtherobjectsController  extends BaseController<OtherobjectsVO>{

@@ -17,7 +17,7 @@ import com.syfri.baseapi.controller.BaseController;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@Api(value = "二维标绘" ,tags = "二维标绘API" ,description = "ewbh")
+@Api(value = "二维标绘" ,tags = "二维标绘API" ,description = "EwbhController")
 @RestController
 @RequestMapping("ewbh")
 public class EwbhController  extends BaseController<EwbhVO>{

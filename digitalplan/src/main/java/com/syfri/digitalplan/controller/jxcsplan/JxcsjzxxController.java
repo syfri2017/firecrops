@@ -14,7 +14,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
-@Api(value = "九小场所建筑信息管理" ,tags = "九小场所建筑信息管理API" ,description = "jxcsjzxx")
+@Api(value = "九小场所建筑信息管理" ,tags = "九小场所建筑信息管理API" ,description = "JxcsjzxxController")
 @RestController
 @RequestMapping("jxcsjzxx")
 public class JxcsjzxxController  extends BaseController<JxcsjzxxVO>{
