@@ -20,6 +20,8 @@ import com.syfri.digitalplan.service.yafjxz.YafjxzService;
 import com.syfri.digitalplan.utils.DownloadUtil;
 import com.syfri.digitalplan.utils.StringUtils;
 import com.syfri.digitalplan.utils.ZipCompressUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  * @Title: 预案附件下载
  * @date 2018/4/2 09:30
  */
+@Api(value = "预案附件下载管理" ,tags = "预案附件下载管理API" ,description = "yafjxz")
 @Controller
 @RequestMapping("yafjxz")
 public class YafjxzController extends BaseController<YafjxzVO> {
@@ -59,6 +62,8 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * @Modified By:
      * @Date: 2018/4/20 15:49
      */
+    @ApiOperation(value="上传文件",notes="上传")
+    @ApiImplicitParam(name="vo",value="预案附件下载VO")
     @RequestMapping(value = "/upload")
     @ResponseBody
     public boolean upload(HttpServletRequest request, YafjxzVO yafjxzVO) {
@@ -168,6 +173,8 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * @Modified By:
      * @Date: 2018/4/20 15:48
      */
+    @ApiOperation(value="通过id逻辑删除预案附件",notes="删除")
+    @ApiImplicitParam(name="vo",value="预案附件下载VO")
     @RequestMapping(value = "/deleteById")
     public @ResponseBody
     ResultVO deleteById(@RequestBody YafjxzVO yafjxz) {
@@ -217,6 +224,8 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * @Modified By:
      * @Date: 2018/4/20 13:47
      */
+    @ApiOperation(value="下载预案",notes="下载")
+    @ApiImplicitParam(name="vo",value="预案附件下载VO")
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void download(HttpServletRequest request, HttpServletResponse response, YafjxzVO yafjxzVO) {
         //判断预案id是否为空
@@ -277,6 +286,8 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * @Modified By:
      * @Date: 2018/4/20 15:47
      */
+    @ApiOperation(value="查询预案附件信息列表",notes="列表信息")
+    @ApiImplicitParam(name="vo",value="预案附件下载VO")
     @RequestMapping(value = "/list")
     @ResponseBody
     public ResultVO list(@RequestBody com.syfri.digitalplan.model.yafjxz.YafjxzVO yafjxzVO) {
@@ -290,6 +301,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * 根据预案id查询
      */
     @ApiOperation(value = "根据预案id获取信息", notes = "列表信息")
+    @ApiImplicitParam(name="vo",value="预案附件下载VO")
     @RequestMapping("/doFindByPlanId")
     public @ResponseBody
     ResultVO getDetail(@RequestBody YafjxzVO yafjxzVO) {
@@ -304,6 +316,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
     }
 
     @ApiOperation(value = "根据预案id更新附件信息", notes = "修改")
+    @ApiImplicitParam(name="vo",value="预案附件下载VO")
     @RequestMapping("/doUpdateByVO")
     public @ResponseBody
     ResultVO doUpdateByVO(@RequestBody List<YafjxzVO> yafjxzVOList) {
@@ -317,6 +330,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
         return resultVO;
     }
 
+    @ApiOperation(value = "下载重点单位预案", notes = "下载")
     @RequestMapping(value = "/downTemplet", method = RequestMethod.GET)
     public void down(HttpServletRequest request, HttpServletResponse response) {
         String zipfilename = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "attachment/重点单位预案-大中队级.docx";
@@ -345,6 +359,7 @@ public class YafjxzController extends BaseController<YafjxzVO> {
      * @param response
      * @param yawjmc   预案文件名称
      */
+    @ApiOperation(value = "下载临时预案简版", notes = "下载")
     @RequestMapping(value = "/downTempYa", method = RequestMethod.GET)
     public void down(HttpServletRequest request, HttpServletResponse response, String yawjmc) {
         String zipfilename = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "attachment/" + yawjmc;

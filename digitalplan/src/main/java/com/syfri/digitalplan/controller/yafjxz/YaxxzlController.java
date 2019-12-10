@@ -2,6 +2,7 @@ package com.syfri.digitalplan.controller.yafjxz;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.syfri.digitalplan.model.yafjxz.YaxxzlVO;
 import com.syfri.digitalplan.service.yafjxz.YaxxzlService;
 import com.syfri.baseapi.controller.BaseController;
 
+@Api(value = "历史预案下载" ,tags = "历史预案下载API" ,description = "yaxxzl")
 @RestController
 @RequestMapping("yaxxzl")
 public class YaxxzlController  extends BaseController<YaxxzlVO>{

@@ -2,6 +2,7 @@ package com.syfri.digitalplan.controller.jxcsplan;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.syfri.digitalplan.model.jxcsplan.JxcsxfssVO;
 import com.syfri.digitalplan.service.jxcsplan.JxcsxfssService;
 import com.syfri.baseapi.controller.BaseController;
 
+@Api(value = "九小场所消防设施管理" ,tags = "九小场所消防设施管理API" ,description = "jxcsxfss")
 @RestController
 @RequestMapping("jxcsxfss")
 public class JxcsxfssController  extends BaseController<JxcsxfssVO>{
