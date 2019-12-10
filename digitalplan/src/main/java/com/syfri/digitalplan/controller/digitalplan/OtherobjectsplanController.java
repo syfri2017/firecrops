@@ -57,8 +57,8 @@ public class OtherobjectsplanController extends BaseController<OtherobjectsplanV
 	/**
 	 * 根据条件获取预案信息
 	 */
-	@ApiOperation(value="根据条件获取预案信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="预案信息对象")
+	@ApiOperation(value="根据VO获取其他对象预案列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="其他对象预案VO")
 	@PostMapping("/findByVO")
 	public @ResponseBody ResultVO findByVO(@RequestBody OtherobjectsplanVO otherobjectsplanVO){
 		ResultVO resultVO = ResultVO.build();
@@ -77,7 +77,7 @@ public class OtherobjectsplanController extends BaseController<OtherobjectsplanV
 	/**
 	 * 根据id获取预案信息
 	 */
-	@ApiOperation(value="根据id获取预案信息",notes="列表信息")
+	@ApiImplicitParam(name="ID",value="其他对象预案ID")
 	@GetMapping("/doFindById/{uuid}")
 	public @ResponseBody ResultVO getDetail(@PathVariable String uuid){
 		ResultVO resultVO = ResultVO.build();

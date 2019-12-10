@@ -2,6 +2,7 @@ package com.syfri.digitalplan.controller.basicinfo.fireenginesource;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -15,6 +16,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
+@Api(value = "消防车辆管理",tags = "消防车辆管理API",description = "FireengineController")
 @RestController
 @RequestMapping("fireengine")
 public class FireengineController  extends BaseController<FireengineVO>{
@@ -34,8 +36,8 @@ public class FireengineController  extends BaseController<FireengineVO>{
 	 * @Modified By:
 	 * @Date: 2018/7/23 15:52
 	 */
-	@ApiOperation(value="删除车辆信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="车辆")
+	@ApiOperation(value="根据VO删除消防车辆",notes="删除")
+	@ApiImplicitParam(name="vo",value="消防车辆VO")
 	@RequiresPermissions("basicinfo/fireengine:delete")
 	@PostMapping("/doDeleteFireengine")
 	public @ResponseBody ResultVO doDeleteFireengine(@RequestBody List<FireengineVO> fireengineList) {
@@ -57,8 +59,8 @@ public class FireengineController  extends BaseController<FireengineVO>{
 	 * @Modified By:
 	 * @Date: 2018/7/25 10:13
 	 */
-	@ApiOperation(value="车辆新增",notes="新增")
-	@ApiImplicitParam(name="vo",value="车辆")
+	@ApiOperation(value="根据VO新增消防车辆",notes="新增")
+	@ApiImplicitParam(name="vo",value="消防车辆VO")
 	@RequiresPermissions("basicinfo/fireengine:add")
 	@PostMapping("/insertByVO")
 	public @ResponseBody ResultVO insertByVO(@RequestBody FireengineVO fireengineVO){
@@ -80,8 +82,8 @@ public class FireengineController  extends BaseController<FireengineVO>{
 	 * @Modified By:
 	 * @Date: 2018/7/25 10:13
 	 */
-	@ApiOperation(value="修改车辆",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="车辆")
+	@ApiOperation(value="根据VO修改消防车辆",notes="修改")
+	@ApiImplicitParam(name="vo",value="消防车辆VO")
 	@RequiresPermissions("basicinfo/fireengine:edit")
 	@PostMapping("/doUpdateFireengine")
 	public @ResponseBody ResultVO doUpdateFireengine(@RequestBody FireengineVO fireengineVO) {

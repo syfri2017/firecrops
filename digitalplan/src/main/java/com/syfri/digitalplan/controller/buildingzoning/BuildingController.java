@@ -4,6 +4,7 @@ import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
 import com.syfri.digitalplan.model.buildingzoning.ChuguanVO;
 import com.syfri.digitalplan.utils.Base64ImageUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +18,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
+@Api(value = "单位建筑信息",tags = "单位建筑信息API",description = "BuildingController")
 @RestController
 @RequestMapping("building")
 public class BuildingController extends BaseController<BuildingVO> {
@@ -33,8 +35,8 @@ public class BuildingController extends BaseController<BuildingVO> {
      * 通过id获取建筑分区信息及分类信息
      * by yushch 20180501
      */
-    @ApiOperation(value = "通过id获取建筑分区信息及分类信息", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "建筑分区对象")
+    @ApiOperation(value = "通过id获取建筑分区信息及分类信息", notes = "详情")
+    @ApiImplicitParam(name = "vo", value = "建筑分区VO")
     @PostMapping("/findFqDetailByVo")
     public @ResponseBody
     ResultVO findById(@RequestBody BuildingVO buildingVO) {
@@ -56,8 +58,8 @@ public class BuildingController extends BaseController<BuildingVO> {
      * @Modified By:
      * @Date: 2018/7/31 15:52
      */
-    @ApiOperation(value = "删除单体建筑信息", notes = "列表信息")
-    @ApiImplicitParam(name = "vo", value = "单体建筑")
+    @ApiOperation(value = "根据VO删除建筑信息", notes = "删除")
+    @ApiImplicitParam(name = "vo", value = "建筑信息VO")
     @RequiresPermissions("buildingzoning/buildingzoning:delete")
     @PostMapping("/doDeleteBuildingzoning")
     public @ResponseBody
@@ -88,8 +90,8 @@ public class BuildingController extends BaseController<BuildingVO> {
      * @Modified By:
      * @Date: 2018/7/31 15:44
      */
-    @ApiOperation(value = "单体建筑新增", notes = "新增")
-    @ApiImplicitParam(name = "vo", value = "单体建筑")
+    @ApiOperation(value = "根据VO新增建筑信息", notes = "新增")
+    @ApiImplicitParam(name = "vo", value = "建筑信息VO")
     @RequiresPermissions("buildingzoning/buildingzoning:add")
     @PostMapping("/insertByVO")
     public @ResponseBody
@@ -114,8 +116,8 @@ public class BuildingController extends BaseController<BuildingVO> {
      * @Modified By:
      * @Date: 2018/7/31 16:13
      */
-    @ApiOperation(value = "修改单体建筑", notes = "列表信息")
-    @ApiImplicitParam(name = "vo", value = "单体建筑")
+    @ApiOperation(value = "根据VO修改建筑信息", notes = "修改")
+    @ApiImplicitParam(name = "vo", value = "建筑信息VO")
     @RequiresPermissions("buildingzoning/buildingzoning:edit")
     @PostMapping("/doUpdateBuildingzoning")
     public @ResponseBody

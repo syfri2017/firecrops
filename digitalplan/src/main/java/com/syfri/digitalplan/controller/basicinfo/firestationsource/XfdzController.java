@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import oracle.jdbc.proxy.annotation.Post;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +19,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
+@Api(value = "消防队站管理",tags = "消防队站管理API",description = "XfdzController")
 @RestController
 @RequestMapping("xfdz")
 public class XfdzController extends BaseController<XfdzVO> {
@@ -33,8 +36,8 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 通过队站vo获取队站详细信息
      * by yushch 20180531
      */
-    @ApiOperation(value = "通过队站vo获取队站详细信息", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
+    @ApiOperation(value = "通过VO获取队站详细信息", notes = "详情信息")
+    @ApiImplicitParam(name = "vo", value = "消防队站VO")
     @PostMapping("/findDzDetailByVo")
     public @ResponseBody ResultVO findById(@RequestBody XfdzVO xfdzVO) {
         ResultVO resultVO = ResultVO.build();
@@ -55,11 +58,10 @@ public class XfdzController extends BaseController<XfdzVO> {
      * @Modified By:
      * @Date: 2018/6/7 16:23
      */
-    @ApiOperation(value = "查询行政区划所在省的所有队站", notes = "查询list")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
-    @RequestMapping("/doSearchProvinceList")
-    public @ResponseBody
-    ResultVO doSearchProvinceList(@RequestBody XfdzVO xfdzVO) {
+    @ApiOperation(value = "查询行政区划所在省的所有队站", notes = "列表信息")
+    @ApiImplicitParam(name = "vo", value = "消防队站VO")
+    @PostMapping("/doSearchProvinceList")
+    public @ResponseBody ResultVO doSearchProvinceList(@RequestBody XfdzVO xfdzVO) {
         ResultVO resultVO = ResultVO.build();
         try {
             PageHelper.startPage(xfdzVO.getPageNum(),xfdzVO.getPageSize());
@@ -77,8 +79,8 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 通过登录用户获取队站树
      * by li.xue 20180725
      */
-    @ApiOperation(value = "通过队站vo获取队站详细信息", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
+    @ApiOperation(value = "通过VO获取消防队站树（下级，不带本级）", notes = "消防队站树")
+    @ApiImplicitParam(name = "vo", value = "队站对象VO")
     @PostMapping("/findSjdzByUser")
     public @ResponseBody ResultVO findSjdzByUser(@RequestBody XfdzVO xfdzVO) {
         ResultVO resultVO = ResultVO.build();
@@ -94,8 +96,8 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 通过登录用户获取队站树（带本级）
      * by li.xue 20180725
      */
-    @ApiOperation(value = "通过队站vo获取队站详细信息（带本级）", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
+    @ApiOperation(value = "通过VO获取消防队长树（带本级）", notes = "消防队站树")
+    @ApiImplicitParam(name = "vo", value = "队站对象VO")
     @PostMapping("/findSjdzByUserAll")
     public @ResponseBody ResultVO findSjdzByUserAll(@RequestBody XfdzVO xfdzVO) {
         ResultVO resultVO = ResultVO.build();
@@ -109,7 +111,7 @@ public class XfdzController extends BaseController<XfdzVO> {
     }
 
     @ApiOperation(value="判断队站名称是否已存在",notes="列表信息")
-    @ApiImplicitParam(name="vo",value="消防队站")
+    @ApiImplicitParam(name="vo",value="消防队站名称")
     @GetMapping("/doCheckName/{dzmc}")
     public @ResponseBody ResultVO doCheckName(@PathVariable String dzmc) {
         ResultVO resultVO = ResultVO.build();
@@ -126,8 +128,8 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 新增队站
      * by li.xue 20180725
      */
-    @ApiOperation(value = "通过队站vo获取队站详细信息", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
+    @ApiOperation(value = "通过VO新增消防队站", notes = "新增")
+    @ApiImplicitParam(name = "vo", value = "消防队站VO")
     @RequiresPermissions("basicinfo/firestation:add")
     @PostMapping("/insertByXfdzVO")
     public @ResponseBody ResultVO insertByXfdzVO(@RequestBody XfdzVO xfdzVO) {
@@ -145,8 +147,8 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 修改队站
      * by li.xue 20180725
      */
-    @ApiOperation(value = "通过队站vo获取队站详细信息", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
+    @ApiOperation(value = "通过VO修改消防队站", notes = "修改")
+    @ApiImplicitParam(name = "vo", value = "消防队站VO")
     @RequiresPermissions("basicinfo/firestation:edit")
     @PostMapping("/updateByXfdzVO")
     public @ResponseBody ResultVO updateByXfdzVO(@RequestBody XfdzVO xfdzVO) {
@@ -164,8 +166,8 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 批量删除队站
      * by li.xue 20180725
      */
-    @ApiOperation(value = "通过队站vo获取队站详细信息", notes = "查询一条信息")
-    @ApiImplicitParam(name = "vo", value = "队站对象")
+    @ApiOperation(value = "通过VO删除消防队站", notes = "删除")
+    @ApiImplicitParam(name = "vo", value = "消防队站VO")
     @RequiresPermissions("basicinfo/firestation:delete")
     @PostMapping("/doDeleteBatch")
     public @ResponseBody ResultVO doDeleteBatch(@RequestBody List<XfdzVO> list) {
@@ -183,7 +185,7 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 根据登陆人组织机构ID获取其队站类型
      * by li.xue 20180725
      */
-    @ApiOperation(value = "根据登陆人组织机构ID获取其队站类型", notes = "查询一条信息")
+    @ApiOperation(value = "根据登陆人组织机构ID获取其队站类型", notes = "列表信息")
     @ApiImplicitParam(name = "orgId", value = "组织机构ID")
     @GetMapping("/doFindDzlxByOrgId/{orgId}")
     public @ResponseBody ResultVO doFindDzlxByOrgId(@PathVariable String orgId) {
@@ -201,7 +203,7 @@ public class XfdzController extends BaseController<XfdzVO> {
      * 根据登陆人组织机构ID获取其队站类型
      * by li.xue 20180725
      */
-    @ApiOperation(value = "根据登陆人组织机构ID获取其子一级队站", notes = "查询一条信息")
+    @ApiOperation(value = "根据登陆人组织机构ID获取其子一级队站", notes = "列表信息")
     @ApiImplicitParam(name = "orgId", value = "组织机构ID")
     @GetMapping("/doFindDzYjByOrgId/{orgId}")
     public @ResponseBody ResultVO doFindDzYjByOrgId(@PathVariable String orgId) {
@@ -217,7 +219,7 @@ public class XfdzController extends BaseController<XfdzVO> {
 
 
     @ApiOperation(value="查询分发获取其相应机构ID",notes="列表信息")
-    @ApiImplicitParam(name="vo",value = "业务实体")
+    @ApiImplicitParam(name="vo",value = "消防队站ID")
     @PostMapping("doFindCorresJgid")
     public @ResponseBody ResultVO doFindCorresJgid(@RequestBody XfdzVO xfdzVO) {
         ResultVO resultVO = ResultVO.build();

@@ -2,6 +2,7 @@ package com.syfri.digitalplan.controller.basicinfo.firedrugsource;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -15,7 +16,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
-
+@Api(value = "消防药剂管理",tags = "消防药剂管理API",description = "FiredrugController")
 @RestController
 @RequestMapping("firedrug")
 public class FiredrugController  extends BaseController<FiredrugVO>{
@@ -28,8 +29,8 @@ public class FiredrugController  extends BaseController<FiredrugVO>{
 		return this.firedrugService;
 	}
 
-	@ApiOperation(value="消防药剂新增",notes="新增")
-	@ApiImplicitParam(name="vo",value="消防药剂")
+	@ApiOperation(value="根据VO新增消防药剂",notes="新增")
+	@ApiImplicitParam(name="vo",value="消防药剂VO")
 	@RequiresPermissions("basicinfo/firedrug:add")
 	@PostMapping("/insertByVO")
 	public @ResponseBody ResultVO insertByVO(@RequestBody FiredrugVO firedrugVO){
@@ -43,8 +44,8 @@ public class FiredrugController  extends BaseController<FiredrugVO>{
 		return resultVO;
 	}
 
-	@ApiOperation(value="删除消防药剂",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="消防药剂")
+	@ApiOperation(value="根据VO删除消防药剂",notes="删除")
+	@ApiImplicitParam(name="vo",value="消防药剂VO")
 	@RequiresPermissions("basicinfo/firedrug:delete")
 	@PostMapping("/doDeleteDrug")
 	public @ResponseBody ResultVO doDeleteDrug(@RequestBody List<FiredrugVO> firedrugList) {
@@ -58,8 +59,8 @@ public class FiredrugController  extends BaseController<FiredrugVO>{
 		return resultVO;
 	}
 
-	@ApiOperation(value="修改消防药剂",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="消防药剂")
+	@ApiOperation(value="根据VO修改消防药剂",notes="修改")
+	@ApiImplicitParam(name="vo",value="消防药剂VO")
 	@RequiresPermissions("basicinfo/firedrug:edit")
 	@PostMapping("/doUpdateDrug")
 	public @ResponseBody ResultVO doUpdateDrug(@RequestBody FiredrugVO firedrugVO) {

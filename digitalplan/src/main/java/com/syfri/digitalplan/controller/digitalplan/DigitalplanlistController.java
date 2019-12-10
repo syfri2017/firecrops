@@ -26,7 +26,7 @@ import java.util.List;
  * 获取路径Controller
  * by dongbo 2018/03/26
  */
-@Api(value = "预案管理",tags = "预案管理API",description = "预案管理")
+@Api(value = "重点单位预案管理",tags = "重点单位预案管理API",description = "DigitalplanlistController")
 @RestController
 @RequestMapping("digitalplanlist")
 public class DigitalplanlistController  extends BaseController<DigitalplanlistVO>{
@@ -48,8 +48,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	* 预案审批
 	* by yuahch 20180426
 	*/
-	@ApiOperation(value="预案审批",notes="修改")
-	@ApiImplicitParam(name="vo",value="预案")
+	@ApiOperation(value="根据VO进行重点单位预案审批",notes="审批")
+	@ApiImplicitParam(name="vo",value="预案VO")
 	@RequiresPermissions("digitalplan/digitalplan_approve:approve")
 	@PostMapping("/approveByVO")
 	public @ResponseBody ResultVO updateByVO(@RequestBody DigitalplanlistVO digitalplanlistVO){
@@ -71,8 +71,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * @Modified By:
 	 * @Date: 2018/5/2 15:51
 	 */
-	@ApiOperation(value="根据预案新增预案",notes="新增")
-	@ApiImplicitParam(name="vo",value="预案对象")
+	@ApiOperation(value="根据VO新增重点单位预案",notes="新增")
+	@ApiImplicitParam(name="vo",value="重点单位预案VO")
 	@RequiresPermissions("digitalplan/digitalplan:add")
 	@PostMapping("/insertByVO")
 	public @ResponseBody ResultVO insertByVO(@RequestBody DigitalplanlistVO digitalplanlistVO){
@@ -94,8 +94,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * @Modified By:
 	 * @Date: 2018/5/2 15:52
 	 */
-	@ApiOperation(value="根据预案修改预案",notes="修改")
-	@ApiImplicitParam(name="vo",value="预案对象")
+	@ApiOperation(value="根据VO修改重点单位预案",notes="修改")
+	@ApiImplicitParam(name="vo",value="重点单位预案VO")
 	@RequiresPermissions("digitalplan/digitalplan:edit")
 	@PostMapping("/doUpdateByVO")
 	public @ResponseBody ResultVO doUpdateByVO(@RequestBody DigitalplanlistVO digitalplanlistVO){
@@ -117,8 +117,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * @Modified By:
 	 * @Date: 2018/5/2 15:52
 	 */
-	@ApiOperation(value="删除预案",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="预案")
+	@ApiOperation(value="根据List删除重点单位预案",notes="删除")
+	@ApiImplicitParam(name="vo",value="重点单位预案List")
 	@RequiresPermissions("digitalplan/digitalplan:delete")
 	@PostMapping("/doDeleteDigitalplan")
 	public @ResponseBody ResultVO doDeleteDigitalplan(@RequestBody List<DigitalplanlistVO> digitalplanList,DigitalplanlistVO digitalplanVo) {
@@ -141,8 +141,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * @Modified By:
 	 * @Date: 2018/5/23 10:26
 	 */
-	@ApiOperation(value="通过重点单位id查询建筑分区list",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="建筑分区对象")
+	@ApiOperation(value="通过重点单位ID查询建筑分区list",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="建筑分区VO")
 	@PostMapping("/doSearchJzListByZddwId")
 	public @ResponseBody ResultVO doSearchJzListByZddwId(@RequestBody BuildingVO vo) {
 		ResultVO resultVO = ResultVO.build();
@@ -166,8 +166,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * @Modified By:
 	 * @Date: 2018/5/23 10:26
 	 */
-	@ApiOperation(value="通过重点单位id查询预案list",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="预案对象")
+	@ApiOperation(value="通过重点单位ID查询预案List",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="重点单位ID")
 	@RequestMapping("/doFindListByZddwId/{zddwid}")
 	public @ResponseBody ResultVO doFindListByZddwId(@PathVariable String zddwid) {
 		ResultVO resultVO = ResultVO.build();
@@ -181,8 +181,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 		return resultVO;
 	}
 
-	@ApiOperation(value="查询审核列表",notes="列表信息")
-	@ApiImplicitParam(name="vo",value = "业务实体")
+	@ApiOperation(value="查询重点单位预案审核列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value = "重点单位预案VO")
 	@PostMapping("listForApprove")
 	public @ResponseBody ResultVO listForApprove(@RequestBody DigitalplanlistVO vo ) {
 		ResultVO resultVO = ResultVO.build();
@@ -201,8 +201,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * 通过yaid查询历史附件信息列表
 	 * by huangrui 2019/1/17
 	 */
-	@ApiOperation(value="通过yaid查询历史附件信息列表",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="重点单位")
+	@ApiOperation(value="根据Yaid查询历史附件信息列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="重点单位预案VO")
 	@PostMapping("/doFindHisPlanListByVo")
 	public @ResponseBody ResultVO doFindHisPlanListByVo(@RequestBody DigitalplanlistVO vo) {
 		ResultVO resultVO = ResultVO.build();
@@ -220,8 +220,8 @@ public class DigitalplanlistController  extends BaseController<DigitalplanlistVO
 	 * 通过vo查询预案信息和附件信息
 	 * by huangrui 2019/1/20
 	 */
-	@ApiOperation(value="通过vo查询预案信息和附件信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="重点单位")
+	@ApiOperation(value="根据VO查询预案信息和附件信息",notes="详情信息")
+	@ApiImplicitParam(name="vo",value="重点单位预案VO")
 	@PostMapping("/doFindListWithFJListByVo")
 	public @ResponseBody ResultVO doFindListWithFJListByVo(@RequestBody DigitalplanlistVO vo) {
 		ResultVO resultVO = ResultVO.build();

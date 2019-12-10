@@ -2,6 +2,7 @@ package com.syfri.digitalplan.controller.bigscreen.overview;
 
 import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.syfri.digitalplan.model.bigscreen.overview.DpVO;
 import com.syfri.digitalplan.service.bigscreen.overview.DpService;
 import com.syfri.baseapi.controller.BaseController;
 
+@Api(value = "大屏管理",tags = "大屏管理API",description = "DpController")
 @RestController
 @RequestMapping("dp")
 public class DpController  extends BaseController<DpVO>{
@@ -24,8 +26,8 @@ public class DpController  extends BaseController<DpVO>{
 		return this.dpService;
 	}
 
-	@ApiOperation(value="通过DpVO获取列表",notes="查询")
-	@ApiImplicitParam(name="vo",value="Dp对象")
+	@ApiOperation(value="根据VO查询大屏key，value信息",notes="查询列表")
+	@ApiImplicitParam(name="vo",value="大屏对象VO")
 	@PostMapping("/getListByType")
 	public @ResponseBody ResultVO getListByType(@RequestBody DpVO vo){
 		ResultVO resultVO = ResultVO.build();

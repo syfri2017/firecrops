@@ -4,6 +4,7 @@ import com.syfri.baseapi.model.ResultVO;
 import com.syfri.baseapi.utils.EConstants;
 import com.syfri.digitalplan.dao.auxiliarydecision.danger.DangerDAO;
 import com.syfri.digitalplan.utils.Base64ImageUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,10 +26,11 @@ import java.util.Map;
  * by dongbo 2018/03/26
  */
 
+@Api(value = "化学危险品",tags = "化学危险品API",description = "DangerController")
 @RestController
 @RequestMapping("danger")
 public class DangerController  extends BaseController<DangerVO>{
-	
+
 	@Autowired
 	protected Environment environment;
 
@@ -52,9 +54,9 @@ public class DangerController  extends BaseController<DangerVO>{
 	 * @Modified By:
 	 * @Date: 2018/4/20 16:44
 	 */
-	@ApiOperation(value="根据条件获取化学危险品信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="化学危险品对象")
-	@RequestMapping("/insertImage")
+	@ApiOperation(value="上传化学危险品照片",notes="上传")
+	@ApiImplicitParam(name="vo",value="Request")
+	@PostMapping("/insertImage")
 	public @ResponseBody Map<String, Object> uploadAttachment(HttpServletRequest request)
 			throws UnsupportedEncodingException {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -91,8 +93,8 @@ public class DangerController  extends BaseController<DangerVO>{
 	 * @Modified By:
 	 * @Date: 2018/6/22 14:13
 	 */
-	@ApiOperation(value="化危品新增",notes="新增")
-	@ApiImplicitParam(name="vo",value="化危品")
+	@ApiOperation(value="根据VO新增化学危险品",notes="新增")
+	@ApiImplicitParam(name="vo",value="化学危险品VO")
 	@RequiresPermissions("auxiliarydecision/danger:add")
 	@PostMapping("/insertByVO")
 	public @ResponseBody ResultVO insertByVO(@RequestBody DangerVO dangerVO){
@@ -106,8 +108,8 @@ public class DangerController  extends BaseController<DangerVO>{
 		return resultVO;
 	}
 
-	@ApiOperation(value="删除化危品",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="化危品")
+	@ApiOperation(value="根据VO删除化学危险品",notes="删除")
+	@ApiImplicitParam(name="vo",value="化学危险品VO")
 	@RequiresPermissions("auxiliarydecision/danger:delete")
 	@PostMapping("/doDeleteDanger")
 	public @ResponseBody ResultVO doDeleteDanger(@RequestBody List<DangerVO> dangerList) {
@@ -121,8 +123,8 @@ public class DangerController  extends BaseController<DangerVO>{
 		return resultVO;
 	}
 
-	@ApiOperation(value="修改化危品",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="化危品")
+	@ApiOperation(value="根据VO修改化学危险品",notes="修改")
+	@ApiImplicitParam(name="vo",value="化学危险品VO")
 	@RequiresPermissions("auxiliarydecision/danger:edit")
 	@PostMapping("/doUpdateDanger")
 	public @ResponseBody ResultVO doUpdateDanger(@RequestBody DangerVO dangerVO) {
@@ -137,7 +139,7 @@ public class DangerController  extends BaseController<DangerVO>{
 	}
 
 	@ApiOperation(value="判断化危品名称是否已存在",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="化危品")
+	@ApiImplicitParam(name="vo",value="化危品VO")
 	@PostMapping("/doCheckName")
 	public @ResponseBody ResultVO doCheckName(@RequestBody DangerVO dangerVO) {
 		ResultVO resultVO = ResultVO.build();

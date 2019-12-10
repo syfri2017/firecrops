@@ -10,6 +10,7 @@ import com.syfri.baseapi.utils.EConstants;
 import com.syfri.digitalplan.dao.auxiliarydecision.firecalculation.FirecalculationlistDAO;
 import com.syfri.digitalplan.model.auxiliarydecision.firecalculation.FirecalculationparamVO;
 import com.syfri.digitalplan.utils.Calculator;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,6 +26,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.List;
 
+@Api(value = "火场计算",tags = "火场计算API",description = "FirecalculationlistController")
 @RestController
 @RequestMapping("firecalculationlist")
 public class FirecalculationlistController  extends BaseController<FirecalculationlistVO>{
@@ -66,8 +68,8 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	 * @Modified By:
 	 * @Date: 2018/4/24 16:26
 	 */
-	@ApiOperation(value="根据条件获取计算信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="计算信息对象")
+	@ApiOperation(value="根据获取火场计算VO获取列表",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="火场计算VO")
 	@PostMapping("/findByVO")
 	public @ResponseBody
 	ResultVO findByVO(@RequestBody FirecalculationlistVO firecalculationlistVO){
@@ -85,8 +87,8 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	}
 
 	static ScriptEngine jse = new ScriptEngineManager().getEngineByName("JavaScript");
-	@ApiOperation(value="根据输入进行计算",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="计算信息对象")
+	@ApiOperation(value="根据火场计算VO进行计算",notes="结果")
+	@ApiImplicitParam(name="vo",value="火场计算VO")
 	@PostMapping("/doCalculate")
 	public @ResponseBody
 	Object fireCalculation(@RequestBody FirecalculationlistVO firecalculationlistVO){
@@ -117,8 +119,8 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	 * @Modified By:
 	 * @Date: 2018/4/27 9:52
 	 */
-	@ApiOperation(value="根据条件更新计算信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="计算信息对象")
+	@ApiOperation(value="根据VO修改火场计算公式",notes="修改")
+	@ApiImplicitParam(name="vo",value="火场计算VO")
 	@RequiresPermissions("auxiliarydecision/firecalculation:edit")
 	@PostMapping("/updateByVO")
 	public @ResponseBody
@@ -154,8 +156,8 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	* @Modified By:
 	* @Date: 2018/4/27 9:52
 	*/
-	@ApiOperation(value="新增公式及其参数信息",notes="新增")
-	@ApiImplicitParam(name="vo",value="公式对象")
+	@ApiOperation(value="根据VO新增火场计算公式",notes="新增")
+	@ApiImplicitParam(name="vo",value="火场计算VO")
 	@RequiresPermissions("auxiliarydecision/firecalculation:add")
 	@PostMapping("/insertByVO")
 	public @ResponseBody ResultVO insertByVO(@RequestBody FirecalculationlistVO firecalculationlistVO){
@@ -217,7 +219,7 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	 * @Modified By:
 	 * @Date: 2018/4/24 16:28
 	 */
-	@ApiOperation(value="根据id获取计算信息",notes="列表信息")
+	@ApiOperation(value="根据id获取火场计算信息",notes="详情")
 	@GetMapping("/doFindById/{uuid}")
 	public @ResponseBody ResultVO getDetail(@PathVariable String uuid){
 		ResultVO resultVO = ResultVO.build();
@@ -240,7 +242,7 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	 * @Date: 2018/4/27 9:53
 	 */
 	@ApiOperation(value="根据主键删除公式及其参数信息",notes="删除")
-	@ApiImplicitParam(name="id",value="公式主键")
+	@ApiImplicitParam(name="id",value="火场计算公式主键")
 	@RequiresPermissions("auxiliarydecision/firecalculation:delete")
 	@PostMapping("/deleteByIds")
 	public @ResponseBody ResultVO deleteByIds(@RequestBody String id){
@@ -269,7 +271,7 @@ public class FirecalculationlistController  extends BaseController<Firecalculati
 	 * @Date: 2018/4/27 9:52
 	 */
 	@ApiOperation(value="根据条件更新是否启用状态",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="计算信息对象")
+	@ApiImplicitParam(name="vo",value="火场计算VO")
 	@PostMapping("/updateBySfqy")
 	public @ResponseBody
 	ResultVO updateBySfqy(@RequestBody FirecalculationlistVO firecalculationlistVO){

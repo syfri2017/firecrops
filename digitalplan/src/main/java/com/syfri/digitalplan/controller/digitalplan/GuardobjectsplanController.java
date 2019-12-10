@@ -22,7 +22,7 @@ import com.syfri.baseapi.controller.BaseController;
 
 import java.util.List;
 
-@Api(value = "保卫警卫",tags = "保卫警卫",description = "保卫警卫")
+@Api(value = "消防保卫警卫预案",tags = "消防保卫警卫预案API",description = "GuardobjectsplanController")
 @RestController
 @RequestMapping("xfbwjw")
 public class GuardobjectsplanController extends BaseController<GuardobjectsplanVO>{
@@ -67,8 +67,8 @@ public class GuardobjectsplanController extends BaseController<GuardobjectsplanV
 	/**
 	 * 根据条件获取防消保卫警卫预案信息
 	 */
-	@ApiOperation(value="根据条件获取消防保卫警卫预案信息",notes="列表信息")
-	@ApiImplicitParam(name="vo",value="消防保卫警卫对象")
+	@ApiOperation(value="根据VO获取消防保卫警卫预案信息",notes="列表信息")
+	@ApiImplicitParam(name="vo",value="消防保卫警卫预案VO")
 	@PostMapping("/findBwjwplanList")
 	public @ResponseBody ResultVO findBwjwplanList(@RequestBody GuardobjectsplanVO guardobjectsplanVO){
 		ResultVO resultVO = ResultVO.build();
@@ -88,7 +88,7 @@ public class GuardobjectsplanController extends BaseController<GuardobjectsplanV
 	/**
 	 * 根据id获取消防保卫警卫预案信息
 	 */
-	@ApiOperation(value="根据id获取消防保卫警卫预案信息",notes="列表信息")
+	@ApiOperation(value="根据id获取消防保卫警卫预案信息",notes="详情")
 	@GetMapping("/doFindById/{pkid}")
 	public @ResponseBody ResultVO getDetail(@PathVariable String pkid){
 		ResultVO resultVO = ResultVO.build();
