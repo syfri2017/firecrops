@@ -1,5 +1,6 @@
 package com.syfri.digitalplan.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * by li.xue 2018-03-22
  */
 
+@Api(value = "后台Path" ,tags = "后台Path API" ,description = "PathController")
 @RestController
 public class PathController {
 
