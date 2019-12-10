@@ -31,11 +31,11 @@ public class Swagger2Config {
 
 	private ApiInfo apiInfo(){
 		return new ApiInfoBuilder()
-				.title("framework [API SERVER] 接口")
+				.title("数字化预案总队平台 [API SERVER] 接口")
 				.termsOfServiceUrl("FRAMEWORK ")
 				.description("更多问题 请关注 ")
 				.license("FRAMEWORK 1.0.RELEASE")
-				.contact(new Contact("FRAMEWORK小分队","", "xxx@syfri.com"))
+				.contact(new Contact("沈阳消防研究所","", "xxx@syfri.com"))
 				.version("FRAMEWORK 1.0.RELEASE")
 				.build();
 	}
